@@ -19,9 +19,10 @@ route.get("/", async (req, res) => {
   const formattedEntries = entries.map((entry) => {
     return {
       id: entry._id,
-      date: entry.date.toLocaleDateString(),
-      habit: entry.habit,
-      content: entry.content.slice(0, 20) + "...",
+      first_name: entry._first_name,
+      last_name: entry._last_name,
+      access_code: entry._access_code,
+      num_tickets: entry._num_tickets
     };
   });
 
