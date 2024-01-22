@@ -8,7 +8,7 @@ for (let i = 0; i < 6; i++)
   accessCode += characters.charAt(randomIndex);
 }
 
-return AccessCode;
+return accessCode;
 }
 
 const generatedCode = generateAccessCode(); 
