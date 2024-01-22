@@ -11,5 +11,4 @@ for (let i = 0; i < 6; i++)
 return accessCode;
 }
 
-const generatedCode = generateAccessCode(); 
-console.log(generatedCode);
+module.exports = generateAccessCode
