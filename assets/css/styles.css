@@ -21,7 +21,19 @@
   justify-content: space-between;
   align-items: center;
 }
+.buton {
+  background: #53A2FF;
+  border: 2px solid transparent;
+  color: #eee;
+  padding: 9px 15px;
+  max-width:30em;
+}
 
+.buton:hover {
+  border: 2px solid #000;
+  background: #2e74bb;
+  color: #eee;
+} 
 .indexTopBar img {
   flex-shrink: 0;
   width: 100px;
