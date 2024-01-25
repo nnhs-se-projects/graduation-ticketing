@@ -13,7 +13,7 @@ const csvOptions = {
 csvtojson(csvOptions).fromFile(csvFilePath).then((obj) => {
   obj.forEach((entry) => {
       entry.access_code = generateAccessCode();
-      entry.numTickets = 2;
+      entry.num_tickets = 2;
     });
   const jsonString = JSON.stringify(obj, null, 2);
   fs.writeFileSync(jsonFilePath, jsonString);
