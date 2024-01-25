@@ -15,6 +15,16 @@
     <input type="text" id="Access Code" name="Access Code" autocomplete = "current-password"/> <!-- Allowed autocomplete by browser-->
   </div>
   <button class="buton">Submit</button>
+  <!-- <button class="darkmode">Dark Mode</button> -->
+  <div>
+        <button class="darkmode" onclick="darkMode()">Dark Mode 😊</button>
+    </div>
+    <script>
+        function darkMode() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    </script>
   
 
     <!-- from https://developers.google.com/identity/gsi/web/guides/migration#popup-mode_1 -->
