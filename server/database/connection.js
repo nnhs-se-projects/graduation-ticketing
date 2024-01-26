@@ -13,7 +13,11 @@ const connectDB = async () => {
   try {
     const con = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB connected : ${con.connection.host}`);
-    entry.create(students[0])
+    
+    students.forEach(student => {
+      console.log(student.first_name)
+      entry.create(student)
+    })
   } catch (err) {
     console.log(err);
     process.exit(1);
