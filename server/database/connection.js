@@ -15,7 +15,6 @@ const connectDB = async () => {
     console.log(`MongoDB connected : ${con.connection.host}`);
     
     students.forEach(student => {
-      console.log(student.first_name)
       entry.create(student)
     })
   } catch (err) {
