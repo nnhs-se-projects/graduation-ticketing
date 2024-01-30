@@ -9,6 +9,8 @@ const entry = require("../model/entry");
 const dotenv = require("dotenv");
 dotenv.config({ path: "../../.env" });
 
+
+
 const connectDB = async () => {
   try {
     const con = await mongoose.connect(process.env.MONGO_URI);

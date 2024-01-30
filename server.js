@@ -54,6 +54,14 @@ app.use(async (req, res, next) => {
 //  the exported router object is an example of middleware
 app.use("/", require("./server/routes/router"));
 
+
+app.post("/studentTicket", async (req, res) => {
+
+  const code = req.body
+  console.log(code)
+
+})
+
 // start the server on port 8080
 app.listen(8080, () => {
   console.log("server is listening on http://localhost:8080");

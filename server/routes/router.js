@@ -31,18 +31,24 @@ route.get("/", async (req, res) => {
 });
 
 
-route.post("/", async (req, res) => {
-  const entry = new Entry({
-    id: entry._id,
-    first_name: entry._first_name,
-    last_name: entry._last_name,
-    access_code: entry._access_code,
-    num_tickets: entry._num_tickets 
-  });
-  await entry.save();
+// route.post("/studentTicket", async (req, res) => {
+  
+//     const code = req.body
+//     console.log(req)
+  
+  
+  
+//   // const entry = new Entry({
+//   //   id: entry._id,
+//   //   first_name: entry._first_name,
+//   //   last_name: entry._last_name,
+//   //   access_code: entry._access_code,
+//   //   num_tickets: entry._num_tickets 
+//   // });
+//   // await entry.save();
 
-  res.status(201).end();
-});
+//   res.status(201).end();
+// });
 
 // route.get("/editEntry/:id", async (req, res) => {
 //   const entry = await Entry.findById(req.params.id);

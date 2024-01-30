@@ -25,9 +25,14 @@
             element.classList.toggle("dark-mode");
         }
 
-        function submitAccessCode() {
+        async function submitAccessCode() {
           var input = document.getElementById("Access Code").value
           console.log(input)
+          const response = await fetch("/studentTicket", {
+            method: "POST",
+            body: input
+          })
+          console.log(response)
         }
 
     </script>
