@@ -28,9 +28,13 @@
         async function submitAccessCode() {
           var input = document.getElementById("Access Code").value
           console.log(input)
+          var content = {accessCode : input}
           const response = await fetch("/studentTicket", {
             method: "POST",
-            body: input
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(content)
           })
           console.log(response)
         }

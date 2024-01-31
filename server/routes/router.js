@@ -13,21 +13,21 @@ route.get("/", async (req, res) => {
   //  of properties
   console.log("path requested: " + req.path);
 
-  const entries = await Entry.find();
+  // const entries = await Entry.find();
 
-  // convert MongoDB objects to objects formatted for the EJS template
-  const formattedEntries = entries.map((entry) => {
-    return {
-      id: entry._id,
-      first_name: entry._first_name,
-      last_name: entry._last_name,
-      access_code: entry._access_code,
-      num_tickets: entry._num_tickets
-    };
-  });
+  // // convert MongoDB objects to objects formatted for the EJS template
+  // const formattedEntries = entries.map((entry) => {
+  //   return {
+  //     id: entry._id,
+  //     first_name: entry._first_name,
+  //     last_name: entry._last_name,
+  //     access_code: entry._access_code,
+  //     num_tickets: entry._num_tickets
+  //   };
+  // });
 
   // the res parameter references the HTTP response object
-  res.render("index", { entries: formattedEntries });
+  res.render("index");
 });
 
 
