@@ -48,7 +48,6 @@ app.post("/studentTicket", async (req, res) => {
 
   const code = req.body.accessCode
   const studentData = await entry.find();
-  st = ""
   match = false
   studentData.forEach(s => {
     if (s.access_code == code && match != true)
@@ -58,6 +57,10 @@ app.post("/studentTicket", async (req, res) => {
       console.log(st)
     }
   })
+  if (!match)
+  {
+    console.error("student with access code '" + code + "' not found")
+  }
 })
 
 // start the server on port 8080
