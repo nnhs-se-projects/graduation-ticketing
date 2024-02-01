@@ -63,6 +63,13 @@ app.post("/studentTicket", async (req, res) => {
   }
 })
 
+app.get("/ticketDisplay/:id", async (req, res) => {
+  const student = await entry.findById(req.params.id);
+  console.log(entry);
+  res.send(entry);
+});
+
+
 // start the server on port 8080
 app.listen(8080, () => {
   console.log("server is listening on http://localhost:8080");
