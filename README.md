@@ -1,1 +1,2 @@
 # Graduation Ticketing App
+OVERVIEW: Generate unique barcodes (two per student unless otherwise specified) which will be one-time usage. The barcodes should read red or green based on usage, and the scanner should receive the name of the student and the time that the barcode was scanned. The student should be able to insert their access codes, and then see their name followed by their two tickets.
