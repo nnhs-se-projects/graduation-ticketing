@@ -10,8 +10,8 @@
 }
 
 .authForm img {
-  width: 100px;
-  height: 100px;
+  width: 500px;
+  height: 500px;
 }
 
 .indexTopBar {
@@ -21,7 +21,31 @@
   justify-content: space-between;
   align-items: center;
 }
+.darkmode {
+  background:#000;
+  position:absolute;
+  top: 5px;
+  right: 10px;
+  max-width: 8em;
+}
+.dark-mode {
+  background: #000;
+  padding: 5em;
+}
 
+.buton {
+  background: #53A2FF;
+  border: 2px solid transparent;
+  color: #eee;
+  padding: 9px 15px;
+  max-width:30em;
+}
+
+.buton:hover {
+  border: 2px solid #000;
+  background: #2e74bb;
+  color: #eee;
+} 
 .indexTopBar img {
   flex-shrink: 0;
   width: 100px;

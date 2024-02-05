@@ -5,19 +5,23 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: true,
-  },
-  email: {
+  id: {
     type: String,
     required: true,
   },
-  habit: {
+  last_name: {
     type: String,
     required: true,
   },
-  content: {
+  first_name: {
+    type: String,
+    required: true,
+  },
+  access_code: {
+    type: String,
+    required: true,
+  },
+  num_tickets: {
     type: String,
     required: true,
   },
