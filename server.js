@@ -55,18 +55,20 @@ app.post("/studentTicket", async (req, res) => {
       st = s.first_name + " " + s.last_name
       match = true
       console.log(st)
+      res.redirect(`/ticketDisplay/${s._id}`)
     }
   })
   if (!match)
   {
     console.error("student with access code '" + code + "' not found")
   }
+
 })
 
 app.get("/ticketDisplay/:id", async (req, res) => {
   const student = await entry.findById(req.params.id);
-  console.log(entry);
-  res.send(entry);
+  console.log("here");
+  res.render('ticket', {student});
 });
 
 
