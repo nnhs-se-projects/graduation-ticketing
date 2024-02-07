@@ -1,6 +1,6 @@
 const express = require("express");
 const route = express.Router();
-const Entry = require("../model/entry");
+const entry = require("../model/entry");
 
 // easy way to assign static data (e.g., array of strings) to a variable
 const students = require("../model/students.json");
@@ -12,6 +12,7 @@ route.get("/", async (req, res) => {
   // the req parameter references the HTTP request object, which has a number
   //  of properties
   console.log("path requested: " + req.path);
+  const studentData = await entry.find();
 
   // const entries = await Entry.find();
 
@@ -26,8 +27,9 @@ route.get("/", async (req, res) => {
   //   };
   // });
 
+  const sdata = JSON.stringify(studentData)
   // the res parameter references the HTTP response object
-  res.render("index");
+  res.render("index", {sdata});
 });
 
 
