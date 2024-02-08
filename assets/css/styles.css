@@ -23,14 +23,20 @@
 }
 .darkmode {
   background:#000;
-  position:absolute;
-  top: 5px;
+  position: absolute;
+  top: 7px;
   right: 10px;
   max-width: 8em;
 }
 .dark-mode {
   background: #000;
   padding: 5em;
+  color: #eee;
+}
+
+.dark-mode-access-code-submit-field {
+  background-color: #3CBC8D;
+  color: white;
 }
 
 .buton {

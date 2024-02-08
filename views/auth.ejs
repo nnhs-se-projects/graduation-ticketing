@@ -14,7 +14,7 @@
     <label for="Access Code">Access Code:</label>
     <input type="text" id="Access Code" name="Access Code" autocomplete = "current-password"/> <!-- Allowed autocomplete by browser-->
   </div>
-  <button class="buton">Submit</button>
+  <button class="buton" onclick="submitAccessCode()">Submit</button>
   <!-- <button class="darkmode">Dark Mode</button> -->
   <div>
         <button class="darkmode" onclick="darkMode()">Dark Mode 😊</button>
@@ -23,7 +23,25 @@
         function darkMode() {
             var element = document.body;
             element.classList.toggle("dark-mode");
+            var element1 = document.getElementById("Access Code");
+            element1.toggle("dark-mode-access-code-submit-field");
         }
+
+        async function submitAccessCode() {
+          var input = document.getElementById("Access Code").value
+          console.log(input)
+          var content = {accessCode : input}
+          const response = await fetch("/studentTicket", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(content)
+          })
+          
+          console.log(response)
+        }
+
     </script>
   
 
