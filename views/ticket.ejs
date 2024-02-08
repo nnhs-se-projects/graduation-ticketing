@@ -13,11 +13,17 @@
   <h1>Display ticket</h1>
   <div>
     <pre><%- JSON.stringify(student, null, 2) %></pre>
-    
+    <canvas id = "tbarcode"></canvas>
   </div>
 </main>
 <!-- /Main Site -->
+<script >
+var JsBarcode =  require("jsbarcode")
 
+JsBarcode("#tbarcode", "here");
+
+
+</script>
 
 <!-- include footer -->
 <%- include('include/_footer') %>
