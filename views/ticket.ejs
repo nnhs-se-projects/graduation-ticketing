@@ -4,13 +4,16 @@
 
 <!-- Main Site -->
 <main>
-  <img
-    src="/img/Graduation-Ticket.png"
-    alt="Graduation ticket"
-  />
-  <h1>Display ticket</h1>
+  <div class="container">
+    <img src="/img/Graduation-Ticket.png" alt="Graduation ticket"/>
+    <!-- <div class="bottom-name"><%- student.first_name %><div> -->
+    <div class="bottom-name"><b><%- student.first_name %> <%- student.last_name %><br><%- student.id %></b><div>
+    <!-- <div class="bottom-id"><b><%- student.id %></b></div> -->
+
+  </div>
+  <!-- <h1>Display ticket</h1> -->
   <div>
-    <pre><%- JSON.stringify(student, null, 2) %></pre>
+    <!-- <pre><%- JSON.stringify(student, null, 2) %></pre> -->
     
   </div>
 </main>

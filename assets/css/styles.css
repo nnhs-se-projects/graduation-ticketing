@@ -39,6 +39,20 @@
   color: white;
 }
 
+.container {
+  position: relative;
+}
+
+.bottom-name {
+  position: absolute;
+  bottom: 8px;
+  left: 400px;
+}
+.bottom-id {
+  position: absolute;
+  bottom: 8px;
+  left: 400px;
+}
 .buton {
   background: #53A2FF;
   border: 2px solid transparent;
