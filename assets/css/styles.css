@@ -43,6 +43,16 @@
   position: relative;
 }
 
+.barcode-container {
+  position: absolute;
+}
+
+.tbarcode {
+  position: absolute;
+  bottom: 800px;
+  left: 400000px;
+}
+
 .bottom-name {
   position: absolute;
   bottom: 8px;
