@@ -22,36 +22,7 @@
 
 JsBarcode("#tbarcode", "<%- student.id %>");
 
-
 </script>
-
-<script>
-document.addEventListener("keydown", function(event) {
-    // Check if the key pressed is Enter (key code 13)
-    if (event.keyCode === 13) {
-        // Barcode termination character detected, handle barcode data
-        var barcodeData = document.getElementById("barcodeInput").value;
-        console.log("Barcode scanned:", barcodeData);
-
-        // Clear the input for the next scan
-        document.getElementById("barcodeInput").value = "";
-    } else {
-        // Append the pressed key to the barcode input
-        var key = event.key;
-        document.getElementById("barcodeInput").value += key;
-    }
-});
-</script>
-
-<!-- Input field to capture barcode data -->
-<input type="text" id="barcodeInput" style="display: none;">
-
-<!-- Focus the input field initially -->
-<script>
-    document.getElementById("barcodeInput").focus();
-</script>
-
-
 <!-- include footer -->
 <%- include('include/_footer') %>
 <!-- /include footer -->
