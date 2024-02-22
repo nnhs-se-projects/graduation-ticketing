@@ -2,30 +2,61 @@
 <%- include('include/_header') %>
 <!-- /include header -->
 
+<script src="js/auth2.js"></script>
+
 <!-- Main Site -->
 <main>
-  <div class="indexTopBar">
-    <img src="img/SE-GitHub-image.png" alt="Huskie code logo" />
+  <div class="authForm">
+    <img src="/img/SE-GitHub-image.png" alt="Huskie code logo" />
+  <div>
+    <label for="Access Code">Access Code:</label>
+    <input type="text" id="Access Code" name="Access Code" autocomplete = "current-password"/> <!-- Allowed autocomplete by browser-->
   </div>
-
-  <!-- <div class="entries">
-    <% for(let entry of entries) { %>
-    <div class="entry">
-      <div><%= entry.date %></div>
-      <div class="entryHabit"><%= entry.habit %></div>
-      <div class="entryContent"><%= entry.content %></div>
-      <div>
-        <a href="/editEntry/<%= entry.id %>" role="button" class="secondary">
-          Edit
-        </a>
-      </div>
+  <button class="buton" onclick="submitAccessCode(<%= sdata %>)">Submit</button>
+  <!-- <button class="darkmode">Dark Mode</button> -->
+  <div>
+        <button class="darkmode" onclick="darkMode()">Dark Mode 😊</button>
     </div>
-    <% } %>
-  </div> -->
-</main>
-<!-- /Main Site -->
+    <script>
+        function darkMode() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+        
+        async function submitAccessCode(students) {
+          var input = document.getElementById("Access Code").value
+          console.log(input)
+          var content = {accessCode : input}
+          const response = await fetch("/studentTicket", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(content)
+          })
+          sid = ""
+          match = false
+          students.forEach(s => {
+            if (s.access_code == input && match != true)
+            {
+              sid = s._id
+              match = true
+            }
+          })
+          if (!match)
+          {
+            console.error("student with access code '" + code + "' not found")
+          }
+          console.log(response)
+          window.location.href = '/ticketDisplay/' + sid;
+        }
 
-<script src="/js/index.js"></script>
+    </script>
+</main>
+
+
+
+
 
 <!-- include footer -->
 <%- include('include/_footer') %>
