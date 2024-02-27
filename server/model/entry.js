@@ -12,10 +12,8 @@ const ticketSchema = new mongoose.Schema({
   time_scanned: {
     type: Date,
     default: null,
-    required: true,
   }
 })
-
 
 const schema = new mongoose.Schema({
   id: {
