@@ -11,16 +11,28 @@
     height="100"
   />
   <h1>Display ticket</h1>
-  <div>
+  <div id = "barcodeContainer">
     <pre><%- JSON.stringify(student, null, 2) %></pre>
     <svg id = "tbarcode"></svg>
   </div>
 </main>
 <!-- /Main Site -->
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
-<script >
 
-JsBarcode("#tbarcode", "<%- student.id %>");
+
+
+<script >
+const data = JSON.parse('<%- unescape(JSON.stringify(student.tickets)) %>');
+const bcholder = document.getElementById("barcodeContainer")
+data.forEach(item => {
+            // Create a new SVG element for each barcode
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("id", "barcode_" + item._id); // Set a unique ID for each barcode
+            container.appendChild(svg); // Append the SVG element to the container
+
+            // Generate barcode using JsBarcode
+            JsBarcode("#barcode_" + item._id, item.barcode);
+        });
 
 </script>
 <!-- include footer -->
