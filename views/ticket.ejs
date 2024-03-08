@@ -11,7 +11,7 @@
     height="100"
   />
   <h1>Display ticket</h1>
-  <div>
+  <div id = "barcodeContainer">
     <pre><%- JSON.stringify(student, null, 2) %></pre>
     <pre><%- JSON.stringify(ticket, null, 2) %></pre>
     <svg id = "tbarcode"></svg>
@@ -19,6 +19,9 @@
 </main>
 <!-- /Main Site -->
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+
+
+
 <script >
 
 
