@@ -12,6 +12,10 @@ const ticketSchema = new mongoose.Schema({
   time_scanned: {
     type: Date,
     default: null,
+  },
+  access_code: {
+    type: String,
+    required: true,
   }
 })
 
@@ -25,10 +29,6 @@ const schema = new mongoose.Schema({
     required: true,
   },
   first_name: {
-    type: String,
-    required: true,
-  },
-  access_code: {
     type: String,
     required: true,
   },

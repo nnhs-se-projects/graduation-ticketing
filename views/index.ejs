@@ -34,21 +34,24 @@
             },
             body: JSON.stringify(content)
           })
-          sid = ""
+          tid = ""
           match = false
           students.forEach(s => {
-            if (s.access_code == input && match != true)
-            {
-              sid = s._id
-              match = true
-            }
+
+            s.tickets.forEach(t => {
+              if (t.access_code == input && match != true)
+              {
+                tid = t._id
+                match = true
+              }
+            })
           })
           if (!match)
           {
             console.error("student with access code '" + code + "' not found")
           }
           console.log(response)
-          window.location.href = '/ticketDisplay/' + sid;
+          window.location.href = '/ticketDisplay/' + tid;
         }
 
     </script>

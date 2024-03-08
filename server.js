@@ -50,13 +50,16 @@ app.post("/studentTicket", async (req, res) => {
   const studentData = await entry.find();
   match = false
   studentData.forEach(s => {
-    if (s.access_code == code && match != true)
-    {
-      st = s.first_name + " " + s.last_name
-      match = true
-      console.log(st)
-      res.redirect(`/ticketDisplay/${s._id}`)
-    }
+
+    s.tickets.forEach(t => {
+      if (t.access_code == code && match != true)
+          {
+            st = s.first_name + " " + s.last_name
+            match = true
+            console.log(st)
+            res.redirect(`/ticketDisplay/${t._id}`)
+          }
+    })
   })
   if (!match)
   {
@@ -65,10 +68,14 @@ app.post("/studentTicket", async (req, res) => {
 
 })
 
-app.get("/ticketDisplay/:id", async (req, res) => {
-  const student = await entry.findById(req.params.id);
-  console.log("here");
-  res.render('ticket', {student});
+app.get("/ticketDisplay/:ticketId", async (req, res) => {
+  const { ticketId } = req.params;
+  const student = await entry.findOne({ "tickets._id": ticketId });
+  const ticket = student.tickets.find(ticket => ticket._id.toString() === ticketId);
+
+
+  console.log(ticketId);
+  res.render('ticket', {ticket, student});
 });
 
 

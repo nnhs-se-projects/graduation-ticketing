@@ -6,7 +6,7 @@ const fs = require("fs")
 const csvFilePath = "StudentData.csv"
 const jsonFilePath = "../../server/model/students.json"
 const csvOptions = {
-  headers: ['id', 'last_name', 'first_name', 'access_code', 'tickets'], // Replace with your desired field names
+  headers: ['id', 'last_name', 'first_name', 'tickets'], // Replace with your desired field names
 };
 
 function generateRandomBarcode() {
@@ -18,14 +18,15 @@ function generateRandomBarcode() {
 
 csvtojson(csvOptions).fromFile(csvFilePath).then((obj) => {
   obj.forEach((entry) => {
-      entry.access_code = generateAccessCode();
       entry.num_tickets = 2;
       entry.tickets = [];
       for (let i = 0; i < entry.num_tickets; i++)
       {
         var code = generateRandomBarcode()
+        var accesscode = generateAccessCode();
         entry.tickets.push({
           "barcode" : code,
+          "access_code" : accesscode,
           "time_scanned" : null
         })
 
