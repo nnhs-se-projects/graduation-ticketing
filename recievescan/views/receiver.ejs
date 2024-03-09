@@ -4,17 +4,20 @@
 
 <!-- Main Site -->
 <main>
-  <h1>Display ticket</h1>
+  <h1>Ticket Receiver</h1>
   <div id = "datafield">
   </div>
+
+  
 </main>
 <!-- /Main Site -->
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
 <script >
 
 </script>
 
 <script>
+
+
 document.addEventListener("keydown", function(event) {
     // Check if the key pressed is Enter (key code 13)
     if (event.keyCode === 13) {
@@ -25,11 +28,29 @@ document.addEventListener("keydown", function(event) {
 
         // Format the timestamp
         const formattedTimestamp = `${currentTimestamp.getFullYear()}-${(currentTimestamp.getMonth() + 1).toString().padStart(2, '0')}-${currentTimestamp.getDate().toString().padStart(2, '0')} ${currentTimestamp.getHours().toString().padStart(2, '0')}:${currentTimestamp.getMinutes().toString().padStart(2, '0')}:${currentTimestamp.getSeconds().toString().padStart(2, '0')}`;
-
-        console.log("Formatted Timestamp:", formattedTimestamp);
         
+        console.log("Formatted Timestamp:", formattedTimestamp);
         const scanData = document.getElementById("datafield");
-        scanData.innerHTML = "At " + formattedTimestamp + " Barcode scanned: " + barcodeData
+        scanData.innerHTML += "At " + formattedTimestamp + " Barcode scanned: " + barcodeData
+        fetch("/scanned", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({barcode : barcodeData, timestamp : formattedTimestamp})
+        }).then(response => {
+            if (!response.ok) {
+            throw new Error('Failed to fetch data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            scanData.innerHTML += JSON.stringify(data, null, 2)
+            console.log("response:", data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
 
 
         // Clear the input for the next scan
