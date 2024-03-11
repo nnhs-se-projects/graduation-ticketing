@@ -1,0 +1,77 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- /include header -->
+
+<!-- Main Site -->
+<main>
+  <h1>Ticket Receiver</h1>
+  <div id = "datafield">
+  </div>
+
+  
+</main>
+<!-- /Main Site -->
+<script >
+
+</script>
+
+<script>
+
+
+document.addEventListener("keydown", function(event) {
+    // Check if the key pressed is Enter (key code 13)
+    if (event.keyCode === 13) {
+        // Barcode termination character detected, handle barcode data
+        var barcodeData = document.getElementById("barcodeInput").value;
+        console.log("Barcode scanned:", barcodeData);
+        const currentTimestamp = new Date();
+
+        // Format the timestamp
+        const formattedTimestamp = `${currentTimestamp.getFullYear()}-${(currentTimestamp.getMonth() + 1).toString().padStart(2, '0')}-${currentTimestamp.getDate().toString().padStart(2, '0')} ${currentTimestamp.getHours().toString().padStart(2, '0')}:${currentTimestamp.getMinutes().toString().padStart(2, '0')}:${currentTimestamp.getSeconds().toString().padStart(2, '0')}`;
+        
+        console.log("Formatted Timestamp:", formattedTimestamp);
+        const scanData = document.getElementById("datafield");
+        scanData.innerHTML += "At " + formattedTimestamp + " Barcode scanned: " + barcodeData
+        fetch("/scanned", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({barcode : barcodeData, timestamp : formattedTimestamp})
+        }).then(response => {
+            if (!response.ok) {
+            throw new Error('Failed to fetch data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            scanData.innerHTML += JSON.stringify(data, null, 2)
+            console.log("response:", data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
+
+
+        // Clear the input for the next scan
+        document.getElementById("barcodeInput").value = "";
+    } else {
+        // Append the pressed key to the barcode input
+        var key = event.key;
+        document.getElementById("barcodeInput").value += key;
+    }
+});
+</script>
+
+<!-- Input field to capture barcode data -->
+<input type="text" id="barcodeInput" style="display: none;">
+
+<!-- Focus the input field initially -->
+<script>
+    document.getElementById("barcodeInput").focus();
+</script>
+
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->
