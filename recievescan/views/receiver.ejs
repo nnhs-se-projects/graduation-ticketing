@@ -37,7 +37,7 @@ document.addEventListener("keydown", function(event) {
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify({barcode : barcodeData, timestamp : formattedTimestamp})
+            body: JSON.stringify({barcode : barcodeData, timestamp : currentTimestamp})
         }).then(response => {
             if (!response.ok) {
             throw new Error('Failed to fetch data');
