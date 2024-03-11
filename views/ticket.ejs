@@ -16,7 +16,7 @@
 
   <!-- <h1>Display ticket</h1> -->
   <div>
-    <!-- <pre><%- JSON.stringify(student, null, 2) %></pre> -->
+    <!-- <pre><%- JSON.stringify(student, null, 2) %></pre> --> 
     
   </div>
 </main>
@@ -24,7 +24,7 @@
 <div style="width:400px; margin:0 auto;">
   <svg id = "tbarcode"></svg>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
-  <script> JsBarcode("#tbarcode", "<%- student.id %>"); </script>
+  <script> JsBarcode("#tbarcode", "<%- ticket.barcode %>"); </script>
 </div>
 
 
