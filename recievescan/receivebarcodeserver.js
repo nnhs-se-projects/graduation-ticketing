@@ -39,6 +39,12 @@ app.post("/scanned", (req, res) => {
         return res.status(404).json({ message: 'Student not found' });
       }
       
+      student.tickets.forEach(ticket => {
+        if (ticket.barcode == barcode && ticket.time_scanned == null)
+          ticket.time_scanned = req.body.time_scanned;
+    })
+
+      
       res.json(student)
     })
     .catch(error => {
