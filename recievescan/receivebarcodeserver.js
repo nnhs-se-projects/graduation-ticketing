@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 
 app.post("/scanned", (req, res) => {
   const barcode = req.body.barcode;
-  const time_scanned = req.body.timestamp;
+  const curr_time_scanned = req.body.timestamp;
   studentObj = {}
   entry.findOne({ 'tickets.barcode': barcode})
     .then(student => {
@@ -39,10 +39,23 @@ app.post("/scanned", (req, res) => {
         return res.status(404).json({ message: 'Student not found' });
       }
       
+      const ticket_id = ""; 
+
+      const updateTimestamp = {
+        $set : {
+          time_scanned : curr_time_scanned
+        }
+      }
+
       student.tickets.forEach(ticket => {
         if (ticket.barcode == barcode && ticket.time_scanned == null)
-          ticket.time_scanned = req.body.time_scanned;
+          ticket_id = ticket._id;
     })
+    console.log(ticket_id)
+    entry.updateOne({_id : ticket_id}, updateTimestamp, function(err, result) {
+      if (err) throw err; 
+      console.log('ticket updated successfully!');
+    });
 
       
       res.json(student)
