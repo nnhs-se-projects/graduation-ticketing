@@ -39,11 +39,11 @@ app.post("/scanned", (req, res) => {
         return res.status(404).json({ message: 'Student not found' });
       }
       
-      const ticket_id = ""; 
+      let ticket_id = ""; 
 
       const updateTimestamp = {
         $set : {
-          time_scanned : curr_time_scanned
+          'tickets.$.time_scanned' : curr_time_scanned
         }
       }
 
@@ -52,10 +52,11 @@ app.post("/scanned", (req, res) => {
           ticket_id = ticket._id;
     })
     console.log(ticket_id)
-    entry.updateOne({_id : ticket_id}, updateTimestamp, function(err, result) {
-      if (err) throw err; 
-      console.log('ticket updated successfully!');
-    });
+    entry.updateOne({'tickets._id' : ticket_id}, updateTimestamp).then(result => {
+      console.log("update successful", result)
+    }).catch(error => {
+      console.error('Error updating document:', error);
+    })
 
       
       res.json(student)
@@ -63,7 +64,7 @@ app.post("/scanned", (req, res) => {
     .catch(error => {
       console.error('Error searching for student:', error);
     })
-  console.log('Received data: ' + barcode + " at " + time_scanned);
+  console.log('Received data: ' + barcode + " at " + curr_time_scanned);
 
 })
 
