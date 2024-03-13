@@ -46,12 +46,23 @@ app.post("/scanned", (req, res) => {
           'tickets.$.time_scanned' : curr_time_scanned
         }
       }
+      let validScan = true
 
       student.tickets.forEach(ticket => {
-        if (ticket.barcode == barcode && ticket.time_scanned == null)
-          ticket_id = ticket._id;
+        if (ticket.barcode == barcode)
+        {
+          if (ticket.time_scanned == null)
+          {
+            ticket_id = ticket._id;
+          }
+          else
+          {
+            validScan = false;
+          }
+        }
     })
     console.log(ticket_id)
+    console.log(validScan)
     entry.updateOne({'tickets._id' : ticket_id}, updateTimestamp).then(result => {
       console.log("update successful", result)
     }).catch(error => {
@@ -59,7 +70,7 @@ app.post("/scanned", (req, res) => {
     })
 
       
-      res.json(student)
+      res.json({studObj: student, validity: validScan})
     })
     .catch(error => {
       console.error('Error searching for student:', error);

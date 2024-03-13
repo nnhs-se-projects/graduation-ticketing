@@ -45,8 +45,9 @@ document.addEventListener("keydown", function(event) {
             return response.json();
         })
         .then(data => {
-            scanData.innerHTML += JSON.stringify(data, null, 2)
+            scanData.innerHTML += JSON.stringify(data.studObj, null, 2)
             console.log("response:", data);
+            scanData.innerHTML += JSON.stringify(data.validity, null, 2)
         })
         .catch(error => {
             console.error('Error:', error);
