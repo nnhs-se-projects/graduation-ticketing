@@ -71,9 +71,16 @@
   gap: 10px;
   border: black 1px solid;
 }
+@font-face {
+  font-family: myFirstFont;
+  src: url(foundationsans.otf);
+}
 
 .bottom-name {
   text-align:center;
+  font-family: myfirstFont;
+  font-size: 3em;
+  color: rgb(0, 47, 85);
 }
 
 .barcode {
