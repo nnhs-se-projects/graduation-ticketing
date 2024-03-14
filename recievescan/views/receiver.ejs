@@ -7,6 +7,8 @@
   <h1>Ticket Receiver</h1>
   <div id = "datafield">
   </div>
+  <div id="scan-validity">
+  </div>
 
   
 </main>
@@ -47,7 +49,18 @@ document.addEventListener("keydown", function(event) {
         .then(data => {
             scanData.innerHTML += JSON.stringify(data.studObj, null, 2)
             console.log("response:", data);
-            scanData.innerHTML += JSON.stringify(data.validity, null, 2)
+            const scan_validity = document.getElementById("scan-validity")
+            
+            if (data.validity == false)
+            {
+                scan_validity.style.backgroundColor = 'red'
+                scan_validity.textContent = "invalid scan"
+            }
+            else
+            {
+                scan_validity.style.backgroundColor = 'green'
+                scan_validity.textContent = "valid scan"
+            }
         })
         .catch(error => {
             console.error('Error:', error);
