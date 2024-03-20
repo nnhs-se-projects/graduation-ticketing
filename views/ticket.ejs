@@ -4,33 +4,26 @@
 
 <!-- Main Site -->
 <main>
-  <img
-    src="/img/SE-GitHub-image.png"
-    alt="Huskie code logo"
-    width="100"
-    height="100"
-  />
-  <h1>Display ticket</h1>
-  <div id = "barcodeContainer">
-    <pre><%- JSON.stringify(student, null, 2) %></pre>
-    <pre><%- JSON.stringify(ticket, null, 2) %></pre>
-    <svg id = "tbarcode"></svg>
-  </div>
+  
 </main>
+
 <!-- /Main Site -->
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+  <div class="bottom-name"><b><%- student.first_name %> <%- student.last_name %><br><%- student.id %></b><div>
+
+    <div class="barcode">
+    <img src="/img/Graduation-Ticket.png" alt="Graduation ticket" class="center" />
+    <!-- <div class="bottom-name"><%- student.first_name %><div> -->
+    <!-- <div class="bottom-id"><b><%- student.id %></b></div> -->
 
 
+  </div>
+<div class="barcode" style="width:400px; margin:0 auto;">
+  <svg id = "tbarcode"></svg>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+  <script> JsBarcode("#tbarcode", "<%- ticket.barcode %>", {displayValue: false}); </script>
+</div>
 
-<script >
 
-
-
-
-JsBarcode("#tbarcode", "<%- ticket.barcode %>");
-
-
-</script>
 <!-- include footer -->
-<%- include('include/_footer') %>
+<!-- <%- include('include/_footer') %> -->
 <!-- /include footer -->
