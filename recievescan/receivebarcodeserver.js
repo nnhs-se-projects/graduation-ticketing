@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 
 app.post("/scanned", (req, res) => {
   const barcode = req.body.barcode;
-  const time_scanned = req.body.timestamp;
+  const curr_time_scanned = req.body.timestamp;
   studentObj = {}
   entry.findOne({ 'tickets.barcode': barcode})
     .then(student => {
@@ -39,12 +39,43 @@ app.post("/scanned", (req, res) => {
         return res.status(404).json({ message: 'Student not found' });
       }
       
-      res.json(student)
+      let ticket_id = ""; 
+
+      const updateTimestamp = {
+        $set : {
+          'tickets.$.time_scanned' : curr_time_scanned
+        }
+      }
+      let validScan = true
+
+      student.tickets.forEach(ticket => {
+        if (ticket.barcode == barcode)
+        {
+          if (ticket.time_scanned == null)
+          {
+            ticket_id = ticket._id;
+          }
+          else
+          {
+            validScan = false;
+          }
+        }
+    })
+    console.log(ticket_id)
+    console.log(validScan)
+    entry.updateOne({'tickets._id' : ticket_id}, updateTimestamp).then(result => {
+      console.log("update successful", result)
+    }).catch(error => {
+      console.error('Error updating document:', error);
+    })
+
+      
+      res.json({studObj: student, validity: validScan})
     })
     .catch(error => {
       console.error('Error searching for student:', error);
     })
-  console.log('Received data: ' + barcode + " at " + time_scanned);
+  console.log('Received data: ' + barcode + " at " + curr_time_scanned);
 
 })
 
