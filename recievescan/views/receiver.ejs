@@ -34,6 +34,8 @@ document.addEventListener("keydown", function(event) {
         console.log("Formatted Timestamp:", formattedTimestamp);
         const scanData = document.getElementById("datafield");
         scanData.innerHTML += "At " + formattedTimestamp + " Barcode scanned: " + barcodeData
+        scanData.innerHTML += JSON.stringify(data.studObj.first_name, null, 2) + " " + JSON.stringify(data.studObj.last_name, null, 2)
+        console.log("FDSJKFJSDKLFJSDLKFSLDK" + JSON.stringify(data.studObj.first_name, null, 2))
         fetch("/scanned", {
             method: "POST",
             headers: {
@@ -47,7 +49,9 @@ document.addEventListener("keydown", function(event) {
             return response.json();
         })
         .then(data => {
-            scanData.innerHTML += JSON.stringify(data.studObj, null, 2)
+            // scanData.innerHTML += JSON.stringify(data.studObj, null, 2)
+            scanData.innerHTML += JSON.stringify(data.studObj.last_name, null, 2)
+            // scanData.innerHTML += JSON.stringify(data.studObj.first_name, null, 2) + " " + JSON.stringify(data.studObj.last_name, null, 2)
             console.log("response:", data);
             const scan_validity = document.getElementById("scan-validity")
             
