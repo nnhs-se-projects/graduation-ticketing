@@ -20,9 +20,7 @@ app.use(express.json());
 
 app.set("view engine", "ejs");
 
-app.use("/css", express.static("assets/css"));
-app.use("/img", express.static("assets/img"));
-app.use("/js", express.static("assets/js"));
+app.use("/css", express.static("css"));
 
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);

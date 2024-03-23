@@ -7,8 +7,15 @@
   <h1>Ticket Receiver</h1>
   <div id = "datafield">
   </div>
-  <div id="scan-validity">
+  <div class="container">
+    <div id="scan-validity">
+        <div class="row" id = "name"></div>
+        <div class="row" id = "id_number"></div>
+        <div class="row" id = "is_valid"></div>
+        <div class="row" id = "time_scanned"></div>
+    </div>
   </div>
+  
 
   
 </main>
@@ -29,13 +36,12 @@ document.addEventListener("keydown", function(event) {
         const currentTimestamp = new Date();
 
         // Format the timestamp
+        currentTimestamp.toLocaleString('en-US', { timeZone: 'America/Chicago' });
         const formattedTimestamp = `${currentTimestamp.getFullYear()}-${(currentTimestamp.getMonth() + 1).toString().padStart(2, '0')}-${currentTimestamp.getDate().toString().padStart(2, '0')} ${currentTimestamp.getHours().toString().padStart(2, '0')}:${currentTimestamp.getMinutes().toString().padStart(2, '0')}:${currentTimestamp.getSeconds().toString().padStart(2, '0')}`;
         
         console.log("Formatted Timestamp:", formattedTimestamp);
         const scanData = document.getElementById("datafield");
-        scanData.innerHTML += "At " + formattedTimestamp
 
-        //console.log("FDSJKFJSDKLFJSDLKFSLDK" + JSON.stringify(data.studObj.first_name, null, 2))
         fetch("/scanned", {
             method: "POST",
             headers: {
@@ -49,25 +55,31 @@ document.addEventListener("keydown", function(event) {
             return response.json();
         })
         .then(data => {
-            // scanData.innerHTML += JSON.stringify(data.studObj, null, 2)
-            // scanData.innerHTML += JSON.stringify(data.studObj.last_name, null, 2)
             first_name = data.studObj.first_name
             last_name = data.studObj.last_name
-            scanData.innerHTML +=  " " + first_name + " " + last_name
-            // scanData.innerHTML += JSON.stringify(data.studObj.first_name, null, 2).replace('\\"','') + " " + JSON.stringify(data.studObj.last_name, null, 2).replace('\\"','')
-            // scanData.innerHTML += JSON.stringify(data.studObj.first_name, null, 2) + " " + JSON.stringify(data.studObj.last_name, null, 2)
+            id_num = data.studObj.id
             console.log("response:", data);
             const scan_validity = document.getElementById("scan-validity")
-            
+            const displayName = document.getElementById("name")
+            const displayNum = document.getElementById("id_number")
+            const displayValid = document.getElementById("is_valid")
+            const displayTimeStamp = document.getElementById("time_scanned")
+
+
+            displayName.textContent = first_name + " " + last_name
+            displayNum.textContent = id_num
+
             if (data.validity == false)
             {
                 scan_validity.style.backgroundColor = 'red'
-                scan_validity.textContent = "invalid scan"
+                displayValid.textContent = "INVALID SCAN"
+                displayTimeStamp.textContent = "Time Last Scanned: "
             }
             else
             {
                 scan_validity.style.backgroundColor = 'green'
-                scan_validity.textContent = "valid scan"
+                displayValid.textContent = "VALID SCAN"
+                displayTimeStamp.textContent = "Time Scanned: " + formattedTimestamp
             }
         })
         .catch(error => {

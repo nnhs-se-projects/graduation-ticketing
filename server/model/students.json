@@ -11122,5 +11122,24 @@
         "time_scanned": null
       }
     ]
+  },
+  {
+    "id": "00000",
+    "last_name": "Student",
+    "first_name": "Debug",
+    "num_tickets": 2,
+    "tickets": [
+      {
+        "barcode": "0",
+        "access_code": "A",
+        "time_scanned": null
+      },
+      {
+        "barcode": "1",
+        "access_code": "B",
+        "time_scanned": null
+      }
+    ]
+
   }
 ]
