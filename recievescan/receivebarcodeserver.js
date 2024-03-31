@@ -9,8 +9,6 @@ const entry = require("../server/model/entry")
 // invoke the express function to create an Express application
 const app = express();
 
-
-
 const dotenv = require("dotenv");
 dotenv.config({ path: "../.env" });
 
@@ -59,21 +57,24 @@ app.post("/scanned", (req, res) => {
           }
         }
     })
-    console.log(ticket_id)
-    console.log(validScan)
+    
+    if (ticket_id == "")
+    {
+      res.json({studObj: student, validity: validScan})
+      return
+    }
+    
     entry.updateOne({'tickets._id' : ticket_id}, updateTimestamp).then(result => {
       console.log("update successful", result)
     }).catch(error => {
+      console.log(error)
       console.error('Error updating document:', error);
     })
-
-      
       res.json({studObj: student, validity: validScan})
     })
     .catch(error => {
       console.error('Error searching for student:', error);
     })
-  console.log('Received data: ' + barcode + " at " + curr_time_scanned);
 
 })
 

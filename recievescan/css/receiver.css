@@ -8,6 +8,7 @@
 .row {
   margin-bottom: 20px;
   font-size: 10vh;
+  color: white
 }
 
 #scan-validity {
@@ -15,4 +16,9 @@
   width: 90vw;
   height: 90vh;
   padding: 20px;
+  font-family: nnhsFont;
+}
+@font-face {
+  font-family: nnhsFont;
+  src: url(foundationsans.otf);
 }
