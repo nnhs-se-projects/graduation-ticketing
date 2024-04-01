@@ -38,6 +38,9 @@ app.use("/css", express.static("assets/css"));
 app.use("/img", express.static("assets/img"));
 app.use("/js", express.static("assets/js"));
 
+app.use("/", require("./server/routes/router"));
+
+
 // Handle when the user submits an access code to the main page
 app.post("/studentTicket", async (req, res) => {
 
@@ -78,6 +81,6 @@ app.get("/ticketDisplay/:ticketId", async (req, res) => {
 
 
 // start the server on port 8080
-app.listen(8080, () => {
+app.listen(dotenv.TICKET_PORT, () => {
   console.log("server is listening on http://localhost:8080");
 });

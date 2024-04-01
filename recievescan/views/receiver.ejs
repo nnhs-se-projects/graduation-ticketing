@@ -96,6 +96,7 @@ document.addEventListener("keydown", function(event) {
                 scan_validity.style.backgroundColor = 'green'
                 displayValid.textContent = "VALID SCAN"
                 displayTimeStamp.textContent = "Time Scanned: " + new Date(currentTimestamp).toLocaleString('en-US', timeOptions)
+                
             }
         })
         .catch(error => {
@@ -104,6 +105,7 @@ document.addEventListener("keydown", function(event) {
 
         // Clear the input for the next scan
         document.getElementById("barcodeInput").value = "";
+        document.getElementById("barcodeInput").focus();
     } else {
         // Append the pressed key to the barcode input
         var key = event.key;
