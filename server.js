@@ -38,25 +38,21 @@ app.use("/css", express.static("assets/css"));
 app.use("/img", express.static("assets/img"));
 app.use("/js", express.static("assets/js"));
 
-
-// to keep this file manageable, we will move the routes to a separate file
-//  the exported router object is an example of middleware
-app.use("/", require("./server/routes/router"));
-
-
+// Handle when the user submits an access code to the main page
 app.post("/studentTicket", async (req, res) => {
 
   const code = req.body.accessCode
   const studentData = await entry.find();
   match = false
+  //  Loop through each student in the database
   studentData.forEach(s => {
-
+    // Loop through each student's tickets
     s.tickets.forEach(t => {
       if (t.access_code == code && match != true)
           {
             st = s.first_name + " " + s.last_name
             match = true
-            console.log(st)
+            // If it matches, redirect to the corresponding ticket page
             res.redirect(`/ticketDisplay/${t._id}`)
           }
     })
@@ -68,13 +64,15 @@ app.post("/studentTicket", async (req, res) => {
 
 })
 
+//  Handle each unique ticket's page
 app.get("/ticketDisplay/:ticketId", async (req, res) => {
   const { ticketId } = req.params;
+  // Find the student object based on the ticket's id
   const student = await entry.findOne({ "tickets._id": ticketId });
+  // Find that ticket object based on the ticket's id
   const ticket = student.tickets.find(ticket => ticket._id.toString() === ticketId);
 
-
-  console.log(ticketId);
+  // Pass the ticket object and student object to the client and render the ticket page
   res.render('ticket', {ticket, student});
 });
 

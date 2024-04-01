@@ -15,17 +15,9 @@
         <div class="row" id = "time_scanned"></div>
     </div>
   </div>
-  
-
-  
 </main>
 <!-- /Main Site -->
-<script >
-
-</script>
-
 <script>
-
 
 document.addEventListener("keydown", function(event) {
     // Check if the key pressed is Enter (key code 13)
@@ -35,10 +27,12 @@ document.addEventListener("keydown", function(event) {
         console.log("Barcode scanned:", barcodeData);
         const currentTimestamp = new Date();
 
-        // Format the timestamp
+        // Update timestamp timezone
         currentTimestamp.toLocaleString('en-US', { timeZone: 'America/Chicago' });
+
         const scanData = document.getElementById("datafield");
 
+        // Send post request to the server with what barcode was scanned and at what time
         fetch("/scanned", {
             method: "POST",
             headers: {
@@ -52,22 +46,25 @@ document.addEventListener("keydown", function(event) {
             return response.json();
         })
         .then(data => {
-            document.getElementById("title").hidden = true;
+            // Fetch student object data from the server
             first_name = data.studObj.first_name
             last_name = data.studObj.last_name
             id_num = data.studObj.id
-            //console.log("response:", data);
+
+            // Grab html elements
             const scan_validity = document.getElementById("scan-validity")
             const displayName = document.getElementById("name")
             const displayNum = document.getElementById("id_number")
             const displayValid = document.getElementById("is_valid")
             const displayTimeStamp = document.getElementById("time_scanned")
 
-
+            // update information and style
+            document.getElementById("title").hidden = true;
             scan_validity.style.border = '10px solid black'
             displayName.textContent = first_name + " " + last_name
             displayNum.textContent = id_num
 
+            // Set parameters for timestamp formatting
             const timeOptions = {
                 timeZone: 'America/Chicago',
                 month: '2-digit',
@@ -78,19 +75,22 @@ document.addEventListener("keydown", function(event) {
                 hour12: true
             }
 
+            // Styling for an invalid scan
             if (data.validity == false)
             {
                 scan_validity.style.backgroundColor = 'red'
                 displayValid.textContent = "INVALID SCAN"
                 displayTimeStamp.textContent = "Time Last Scanned: "
+
+                // Logic to find the time of the last valid scan of a invalidly scanned ticket
                 data.studObj.tickets.forEach(ticket => {
                     if (ticket.barcode == barcodeData)
                     {
                         displayTimeStamp.textContent += new Date(ticket.time_scanned).toLocaleString('en-US', timeOptions)
                     }
                 })
-
             }
+            // Styling for a valid scan
             else
             {
                 scan_validity.style.backgroundColor = 'green'
@@ -101,7 +101,6 @@ document.addEventListener("keydown", function(event) {
         .catch(error => {
             console.error('Error:', error);
         })
-
 
         // Clear the input for the next scan
         document.getElementById("barcodeInput").value = "";
