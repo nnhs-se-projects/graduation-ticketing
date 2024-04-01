@@ -1,0 +1,24 @@
+.container {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  height: 100% 
+}
+
+.row {
+  margin-bottom: 20px;
+  font-size: 10vh;
+  color: white
+}
+
+#scan-validity {
+  text-align: center;
+  width: 90vw;
+  height: 90vh;
+  padding: 20px;
+  font-family: nnhsFont;
+}
+@font-face {
+  font-family: nnhsFont;
+  src: url(foundationsans.otf);
+}
