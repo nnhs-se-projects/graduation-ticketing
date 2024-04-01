@@ -96,6 +96,6 @@ app.post("/scanned", (req, res) => {
 })
 
 // start the server on port 8080
-app.listen(dotenv.RECEIVER_PORT, () => {
-  console.log("server is listening on http://localhost:8000");
+app.listen(process.env.RECEIVER_PORT, () => {
+  console.log("server is listening on http://localhost:" + process.env.RECEIVER_PORT);
 });

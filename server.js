@@ -81,6 +81,6 @@ app.get("/ticketDisplay/:ticketId", async (req, res) => {
 
 
 // start the server on port 8080
-app.listen(dotenv.TICKET_PORT, () => {
-  console.log("server is listening on http://localhost:8080");
+app.listen(process.env.TICKET_PORT, () => {
+  console.log("server is listening on http://localhost:" + process.env.TICKET_PORT);
 });
