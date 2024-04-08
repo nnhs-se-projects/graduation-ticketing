@@ -10,8 +10,8 @@
 }
 
 .authForm img {
-  width: 500px;
-  height: 500px;
+  width: 30%;
+  height: 30%;
 }
 
 .indexTopBar {
@@ -80,7 +80,8 @@
   text-align:center;
   font-family: myfirstFont;
   font-size: 3em;
-  color: rgb(255, 70, 0);
+  /* color: rgb(255, 70, 0); */
+  color: rgb(218, 105, 59);
 }
 
 .barcode {
