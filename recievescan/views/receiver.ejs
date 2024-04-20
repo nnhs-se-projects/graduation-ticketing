@@ -75,18 +75,47 @@ document.addEventListener("keydown", function(event) {
                 hour12: true
             }
 
+            console.log(scan_validity.childNodes)
+
+            scan_validity.childNodes.forEach((child) => {
+                    if (child.className == "ticket-row") 
+                    {   
+                        scan_validity.removeChild(child)
+                        console.log(child)
+                    }
+            })
+
             // Styling for an invalid scan
             if (data.validity == false)
             {
                 scan_validity.style.backgroundColor = 'red'
                 displayValid.textContent = "INVALID SCAN"
                 displayTimeStamp.textContent = "Time Last Scanned: "
+                
 
                 // Logic to find the time of the last valid scan of a invalidly scanned ticket
                 data.studObj.tickets.forEach(ticket => {
                     if (ticket.barcode == barcodeData)
                     {
                         displayTimeStamp.textContent += new Date(ticket.time_scanned).toLocaleString('en-US', timeOptions)
+                    }
+                    else
+                    {
+                        var otherTicket = document.createElement("div")
+                        otherTicket.classList.add("ticket-row")
+                        otherTicket.setAttribute("id", "ticket-" + ticket.access_code)
+                        otherTicket.textContent = ticket.access_code
+                        if (ticket.time_scanned == null)
+                        {
+                            otherTicket.textContent += ": VALID TICKET"
+                        }
+                        else
+                        {
+                            otherTicket.textContent += ": INVALID TICKET -  "
+                            otherTicket.textContent += new Date(ticket.time_scanned).toLocaleString('en-US', timeOptions)
+                        }
+                        scan_validity.appendChild(otherTicket)
+
                     }
                 })
             }
@@ -96,7 +125,13 @@ document.addEventListener("keydown", function(event) {
                 scan_validity.style.backgroundColor = 'green'
                 displayValid.textContent = "VALID SCAN"
                 displayTimeStamp.textContent = "Time Scanned: " + new Date(currentTimestamp).toLocaleString('en-US', timeOptions)
-                
+                scan_validity.childNodes.forEach((child) => {
+                    if (child.className == "ticket-row") 
+                    {   
+                        scan_validity.removeChild(child)
+                        console.log(child)
+                    }
+                })
             }
         })
         .catch(error => {

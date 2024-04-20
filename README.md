@@ -23,3 +23,20 @@ cd recievescan
 node receivebarcodeserver.js
 ```
 
+## Parent Instructions
+
+- Navigate to the ticket page, https://gradticketdev.nnhsse.org
+- Enter in your access code and press submit (6 characters of uppercase letters and number)
+- Verify that the name of your student and their id number are correct
+- Scan the barcode at the volunteer's scanner (you cannot scan this ticket again afterwards)
+
+## Volunteer Instructions
+
+- Navigate to the ticket scanning page, https://gradticketadmindev.nnhsse.org/
+- Scan the attendee's ticket, you will see the validity of their scan and their student's information
+- Continue scanning
+# Troubleshooting
+
+- If a ticket doesn't scan, refresh the page
+- To prevent issues, do not press any keyboard inputs (if you do, just refresh the page)
+- In any conflicts with attendees, all invalid scans will display the validity of any other tickets the student has (their access code, and the time it was last scanned)
