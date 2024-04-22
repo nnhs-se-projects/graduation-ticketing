@@ -11,6 +11,12 @@
   color: white
 }
 
+.ticket-row {
+  margin-bottom: 20px;
+  font-size: 5vh;
+  color: white
+}
+
 #scan-validity {
   text-align: center;
   width: 90vw;
