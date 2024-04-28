@@ -35,7 +35,8 @@ node receivebarcodeserver.js
 - Navigate to the ticket scanning page, https://gradticketadmindev.nnhsse.org/
 - Scan the attendee's ticket, you will see the validity of their scan and their student's information
 - Continue scanning
-# Troubleshooting
+
+### Troubleshooting
 
 - If a ticket doesn't scan, refresh the page
 - To prevent issues, do not press any keyboard inputs (if you do, just refresh the page)
