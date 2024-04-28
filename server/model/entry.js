@@ -18,6 +18,10 @@ const ticketSchema = new mongoose.Schema({
   access_code: {
     type: String,
     required: true,
+  },
+  override_log: {
+    type: String,
+    default: "",
   }
 })
 

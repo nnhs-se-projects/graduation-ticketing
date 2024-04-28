@@ -11,10 +11,39 @@
   color: white
 }
 
+#title {
+    font-size: 15vh;
+    font-weight: bold;
+    font-family: nnhsFont;
+    color: #333;
+    text-align: center;
+}
+
 .ticket-row {
   margin-bottom: 20px;
   font-size: 5vh;
   color: white
+}
+
+.override {
+    position: absolute;
+    top: 50px;
+    right: 110px;
+    background-color: darkred; /* Red background color */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Padding around the text */
+    font-size: 50px; /* Font size */
+    border: 5px solid #fff; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+    box-shadow: 0 0 0 3px #000;
+    font-family: nnhsFont;
+
+}
+
+.override:hover {
+    background-color: black; /* Darker red on hover */
 }
 
 #scan-validity {
