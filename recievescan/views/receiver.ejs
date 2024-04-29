@@ -22,6 +22,25 @@
 document.addEventListener("keydown", function(event) {
     // Check if the key pressed is Enter (key code 13)
     if (event.keyCode === 13) {
+
+        let overrideButton;
+        try {
+            overrideButton = document.getElementsByClassName('override');
+        } catch (error) {
+            console.error('Error fetching elements by class name:', error);
+        }
+        console.log(overrideButton)
+        // Check if overrideButton is defined before using it
+        if (overrideButton && overrideButton.length > 0) {
+            Array.from(overrideButton).forEach(button => {
+                button.remove();
+            });
+        } else {
+            console.log('No elements with the class "override" found.');
+        }
+
+
+
         // Barcode termination character detected, handle barcode data
         var barcodeData = document.getElementById("barcodeInput").value;
         console.log("Barcode scanned:", barcodeData);
@@ -153,21 +172,7 @@ document.addEventListener("keydown", function(event) {
             // Styling for a valid scan
             else
             {
-                let overrideButton;
-                try {
-                    overrideButton = document.getElementsByClassName('override');
-                } catch (error) {
-                    console.error('Error fetching elements by class name:', error);
-                }
-                console.log(overrideButton)
-                // Check if overrideButton is defined before using it
-                if (overrideButton && overrideButton.length > 0) {
-                    Array.from(overrideButton).forEach(button => {
-                        button.remove();
-                    });
-                } else {
-                    console.log('No elements with the class "override" found.');
-                }
+                
                 scan_validity.style.backgroundColor = 'green'
                 displayValid.textContent = "VALID SCAN"
                 displayTimeStamp.textContent = "Time Scanned: " + new Date(currentTimestamp).toLocaleString('en-US', timeOptions)

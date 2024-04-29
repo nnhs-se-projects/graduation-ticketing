@@ -29,21 +29,21 @@
     position: absolute;
     top: 50px;
     right: 110px;
-    background-color: darkred; /* Red background color */
-    color: #fff; /* White text color */
-    padding: 10px 20px; /* Padding around the text */
-    font-size: 50px; /* Font size */
-    border: 5px solid #fff; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Cursor style */
-    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+    background-color: darkred;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 50px;
+    border: 5px solid #fff; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
     box-shadow: 0 0 0 3px #000;
     font-family: nnhsFont;
 
 }
 
 .override:hover {
-    background-color: black; /* Darker red on hover */
+    background-color: black; 
 }
 
 #scan-validity {
