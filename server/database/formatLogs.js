@@ -4,26 +4,36 @@ const entry = require("../model/entry");
 const dotenv = require("dotenv");
 dotenv.config({ path: "../../.env" });
 
+const fs = require("fs")
 
 
-// Resets all student's tickets to valid
+const filePath = 'overrideLog.txt'
+
+// Organizes all ticket logs
 
 const revalidateTickets = async () => {
+  let log = "";
   try {
     const con = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB connected : ${con.connection.host}`);
     const students = await entry.find();
     for (const student of students) {
       for (const ticket of student.tickets) {
-        await entry.findOneAndUpdate(
-          { "tickets.barcode": ticket.barcode},
-          { $set: {"tickets.$.time_scanned": null, "tickets.$.override_log": ""}},
-          { new: true}
-        )
+        if (ticket.override_log !== "")
+        {
+          log += student.first_name + " " + student.last_name + ", " + student.id + ", ticket (" + ticket.access_code + ") " + ticket.override_log + "\n"
+        }
       }
     }
-    console.log('Task completed successfully.');
-    process.exit(0);
+
+    
+    fs.writeFile(filePath, log, { flag: 'w' }, (err) => {
+      if (err) {
+        console.error('Error writing to file:', err);
+        return;
+      }
+      console.log('Data has been written to', filePath);
+    })
   } catch (err) {
     console.log(err);
     process.exit(1);
