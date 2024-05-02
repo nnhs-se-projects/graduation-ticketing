@@ -27,7 +27,8 @@ csvtojson(csvOptions).fromFile(csvFilePath).then((obj) => {
         entry.tickets.push({
           "barcode" : code,
           "access_code" : accesscode,
-          "time_scanned" : null
+          "time_scanned" : null,
+          "override_log" : "",
         })
 
       }

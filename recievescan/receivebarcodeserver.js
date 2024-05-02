@@ -29,6 +29,44 @@ app.get("/", async (req, res) => {
   res.render("receiver");
 });
 
+
+app.post("/override", (req, res) => {
+  const overrideString = req.body.log;
+  const barcode = req.body.barcode;
+  console.log(overrideString + " " + barcode)
+  entry.findOne({"tickets.barcode": barcode})
+    .then(student => {
+      if (!student) {
+        return res.status(404).json({ message: 'Student not found' });
+      }
+      
+      let ticket_id = "";
+      let currentLog = "";
+      student.tickets.forEach(ticket => {
+        //  Find which of the student's multiple tickets the barcode corresponds to
+          if (ticket.barcode == barcode)
+          {
+            ticket_id = ticket._id;
+            currentLog = ticket.override_log
+          }
+      })
+
+      const updateLog = {
+        $set : {
+          'tickets.$.override_log' : currentLog + overrideString,
+          'tickets.$.time_scanned' : null
+        }
+      }
+      entry.updateOne({'tickets._id' : ticket_id}, updateLog).then(result => {
+      console.log("update successful", result)
+      }).catch(error => {
+        console.log(error)
+        console.error('Error updating document:', error);
+    })
+  })
+})
+
+
 // Handle the receiving of the scan information
 app.post("/scanned", (req, res) => {
   const barcode = req.body.barcode;   // Grab the barcode scanned
