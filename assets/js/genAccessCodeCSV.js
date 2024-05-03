@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { createObjectCsvWriter } = require('csv-writer');
 
-const jsonFilePath = '../../server/model/students.json'
+const jsonFilePath = '../../server/model/studentsFINAL.json'
 
 const students = fs.readFileSync(jsonFilePath, 'utf-8')
 
