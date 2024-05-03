@@ -4,8 +4,8 @@ const generateAccessCode = require("./accessCodes")
 
 const fs = require("fs")
 
-const csvFilePath = "StudentData.csv"
-const jsonFilePath = "../../server/model/students.json"
+const csvFilePath = "NNHS 2024 Tickets.csv"
+const jsonFilePath = "../../server/model/studentsFINAL.json"
 const csvOptions = {
   headers: ['id', 'last_name', 'first_name', 'num_tickets', 'tickets'], // Replace with your desired field names
 };
