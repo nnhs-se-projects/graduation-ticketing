@@ -51,7 +51,7 @@ app.post("/studentTicket", async (req, res) => {
   studentData.forEach(s => {
     // Loop through each student's tickets
     s.tickets.forEach(t => {
-      if (t.access_code == code && match != true)
+      if (t.access_code.toLowerCase() == code.toLowerCase() && match != true)
           {
             st = s.first_name + " " + s.last_name
             match = true

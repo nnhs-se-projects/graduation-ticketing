@@ -27,7 +27,7 @@
         }
         
         async function submitAccessCode(students) {
-          var input = document.getElementById("Access Code").value
+          var input = document.getElementById("Access Code").value.toLowerCase()
           console.log(input)
           var content = {accessCode : input}
           const response = await fetch("/studentTicket", {
@@ -42,7 +42,10 @@
           students.forEach(s => {
 
             s.tickets.forEach(t => {
-              if (t.access_code == input && match != true)
+              
+              console.log(t.access_code)
+
+              if (t.access_code.toLowerCase() == input && match != true)
               {
                 tid = t._id
                 match = true
