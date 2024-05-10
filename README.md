@@ -37,9 +37,10 @@ Each Student has the following attributes:
 - tickets: an array of the ticket objects a student has
 
 ## Remaining User Stories
-
+We have basically finished all of what Mrs. Kallstrand and Mrs. Baumgartner (our product owners) asked us to do. The only remaining user story is about extending this project to other school events.
 
 ## Known Issues
+Currently, we have no known errors.
 
 
 ## Installation Instructions
