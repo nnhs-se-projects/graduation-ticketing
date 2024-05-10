@@ -43,6 +43,34 @@ Each Student has the following attributes:
 
 
 ## Installation Instructions
+#### NOTE: These installation instructions are only applicable to Naperville North School Computers or Chromebooks. These have not been tested on other computers, operating systems, etc.
+
+- Download Visual Studio Code from https://code.visualstudio.com/
+- Follow the Software Engineering Toolchain Setup https://docs.google.com/document/d/1wvdn-MVotuBM6wehNdPpbbOFMzmKLPxFzErH8-mkP1s/preview#heading=h.ja24rkqe39ln
+- Sign into Github from Visual Studio Code
+- Navigate to the homepage of Visual Studio Code
+- Select "Clone Git Repository..."
+   - Select the Graduation Ticketing Github repository from the dropdown
+- Sidenote: Make sure to run this following code in the terminal to ensure the project works
+```
+npm install
+```
+
+- Create a .env file with the following contents
+```
+MONGO_URI=mongodb+srv://nnhssoftware:MkJrY1s5mlqgHBox@cluster0.i7t6tw2.mongodb.net/?retryWrites=true&w=majority
+SESSION_SECRET=c07f5e8a4bdc145e3d9f8a1b2c6d3a9e7b6f2c5a8d1e4c7a0d3e8c7a4b0d5
+RECEIVER_PORT=8000
+TICKET_PORT=8081
+```
+- In order to run the project, navigate to the left sidebar and click on "Run and Debug"
+   - Make sure the top dropdown is selected to "Node Server"
+     - Click the button "Start Debugging"
+       - This starts the server
+   - Now, make sure the top dropdown is selected to "Node Client"
+     - Click the button "Start Debugging"
+       - If the previous steps were done correctly, you should be redirected to a new page looking exactly like https://gradticketdev.nnhsse.org
+
 
 ## Scanner Set-Up
 To Scan: The barcode scanner must have ENTER as its suffix when scanning to function smoothly. To do this, refer to the Zebra DS9308 barcode scanner manual. On page 90, scan "Scan Suffix 1," then go to page 441 and scan "7," then "0," then "1," then "3." 7013 corresponds to enter, and if done as listed above, enter should be added as a suffix to scans. 
