@@ -1,5 +1,7 @@
 # Graduation Ticketing App
-OVERVIEW: Generate unique barcodes (two per student unless otherwise specified) which will be one-time usage. The barcodes should read red or green based on usage, and the scanner should receive the name of the student and the time that the barcode was scanned. The student should be able to insert their access codes, and then see their name followed by their two tickets.
+OVERVIEW: The Graduation Ticketing App is an application to be used for Naperville North's Graduation Ceremony. However, this project is only used under special circumstances such as rain, storms, or any circumstances which prevent Naperville North from hosting an outdoor graduation. Since an outdoor graduation will not have a limit on the number of guests a student can bring (i.e. there are no "tickets" for each student), the Graduation Ticketing App is rendered useless. However, if the Graduation Ceremony is deemed unfit to be hosted outside, the Graduation Ticketing App will be used because limited seatings means there are limits on the number of guests each student can bring.
+
+Prior to the Graduation Ceremony date, students will receive access codes (two per student unless otherwise specified) to distribute to the guests they are bringing in. Each "outside" guest must input their access codes into the website https://gradticketdev.nnhsse.org to receive their ticket information which will contain the associated student's name and id number. Additionally, they will receive their barcode upon entering the access code. These barcodes are one-time usage. Once the barcodes are scanned at the ceremony, the administrator will see whether it is a valid or invalid scan. Furthermore, the scanner should receive the name of the student and the time that the barcode was scanned. The administrator's screen will also feature an "override" button at the top-right corner. This button is to be used so that the invalid ticket can be "overridden" and turned into a valid ticket to grant entry to the guest.
 
 ## Project Architecture
 There are two main web servers and clients being ran:
@@ -41,7 +43,6 @@ Each Student has the following attributes:
 
 
 ## Installation Instructions
-
 
 ## Scanner Set-Up
 To Scan: The barcode scanner must have ENTER as its suffix when scanning to function smoothly. To do this, refer to the Zebra DS9308 barcode scanner manual. On page 90, scan "Scan Suffix 1," then go to page 441 and scan "7," then "0," then "1," then "3." 7013 corresponds to enter, and if done as listed above, enter should be added as a suffix to scans. 
