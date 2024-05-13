@@ -40,32 +40,29 @@ app.use("/js", express.static("assets/js"));
 
 app.use("/", require("./server/routes/router"));
 
-
 // Handle when the user submits an access code to the main page
-app.post("/studentTicket", async (req, res) => {
-
-  const code = req.body.accessCode
+app.get("/studentTicket", async (req, res) => {
+  const code = req.query.code;
+  console.log("code: " + code);
   const studentData = await entry.find();
-  match = false
+  match = false;
   //  Loop through each student in the database
-  studentData.forEach(s => {
+  studentData.forEach((s) => {
     // Loop through each student's tickets
-    s.tickets.forEach(t => {
-      if (t.access_code.toLowerCase() == code.toLowerCase() && match != true)
-          {
-            st = s.first_name + " " + s.last_name
-            match = true
-            // If it matches, redirect to the corresponding ticket page
-            res.redirect(`/ticketDisplay/${t._id}`)
-          }
-    })
-  })
-  if (!match)
-  {
-    console.error("student with access code '" + code + "' not found")
+    s.tickets.forEach((t) => {
+      if (t.access_code.toLowerCase() == code.toLowerCase() && match != true) {
+        st = s.first_name + " " + s.last_name;
+        match = true;
+        // If it matches, redirect to the corresponding ticket page
+        res.redirect(`/ticketDisplay/${t._id}`);
+      }
+    });
+  });
+  if (!match) {
+    console.error("student with access code '" + code + "' not found");
+    res.status(404).send("student not found");
   }
-
-})
+});
 
 //  Handle each unique ticket's page
 app.get("/ticketDisplay/:ticketId", async (req, res) => {
@@ -73,14 +70,17 @@ app.get("/ticketDisplay/:ticketId", async (req, res) => {
   // Find the student object based on the ticket's id
   const student = await entry.findOne({ "tickets._id": ticketId });
   // Find that ticket object based on the ticket's id
-  const ticket = student.tickets.find(ticket => ticket._id.toString() === ticketId);
+  const ticket = student.tickets.find(
+    (ticket) => ticket._id.toString() === ticketId
+  );
 
   // Pass the ticket object and student object to the client and render the ticket page
-  res.render('ticket', {ticket, student});
+  res.render("ticket", { ticket, student });
 });
-
 
 // start the server on port 8080
 app.listen(process.env.TICKET_PORT, () => {
-  console.log("server is listening on http://localhost:" + process.env.TICKET_PORT);
+  console.log(
+    "server is listening on http://localhost:" + process.env.TICKET_PORT
+  );
 });
