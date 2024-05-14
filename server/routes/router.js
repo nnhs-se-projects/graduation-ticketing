@@ -12,7 +12,6 @@ route.get("/", async (req, res) => {
   // the req parameter references the HTTP request object, which has a number
   //  of properties
   console.log("path requested: " + req.path);
-  const studentData = await entry.find();
 
   // const entries = await Entry.find();
 
@@ -27,25 +26,21 @@ route.get("/", async (req, res) => {
   //   };
   // });
 
-  const sdata = JSON.stringify(studentData)
   // the res parameter references the HTTP response object
-  res.render("index", {sdata});
+  res.render("index");
 });
 
-
 // route.post("/studentTicket", async (req, res) => {
-  
+
 //     const code = req.body
 //     console.log(req)
-  
-  
-  
+
 //   // const entry = new Entry({
 //   //   id: entry._id,
 //   //   first_name: entry._first_name,
 //   //   last_name: entry._last_name,
 //   //   access_code: entry._access_code,
-//   //   num_tickets: entry._num_tickets 
+//   //   num_tickets: entry._num_tickets
 //   // });
 //   // await entry.save();
 
