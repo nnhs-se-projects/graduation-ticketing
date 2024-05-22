@@ -46,6 +46,7 @@ Currently, we have no known errors.
 
 
 ## Installation Instructions
+
 #### NOTE: These installation instructions are only applicable to Naperville North School Computers or Chromebooks. These have not been tested on other computers, operating systems, etc.
 
 - Download Visual Studio Code from https://code.visualstudio.com/
