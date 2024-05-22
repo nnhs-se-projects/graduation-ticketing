@@ -20,7 +20,7 @@ Receiving server/client:
 - Sends information back to the server and updates the database based on the scan (updates time_scanned)
 - Overrides invalid tickets and appends to the ticket's override_log
 
-#####NOTE: https://gradticketdev.nnhsse.org/ and https://gradticketadmindev.nnhsse.org/ pulls from this Github's main every couple of minutes
+#### NOTE: https://gradticketdev.nnhsse.org/ and https://gradticketadmindev.nnhsse.org/ pulls from this Github's main every couple of minutes
 
 ## Data Schema
 There are two main objects: Student and Ticket
