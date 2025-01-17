@@ -8,6 +8,9 @@
   <div id="datafield"></div>
   <div class="container">
     <div id="scan-validity">
+      <div class="row" id="wait_status">
+        <h2>Waiting for scan...</h2>
+      </div>
       <div class="row" id="name"></div>
       <div class="row" id="id_number"></div>
       <div class="row" id="is_valid"></div>
@@ -72,13 +75,14 @@
 
           // Grab html elements
           const scan_validity = document.getElementById("scan-validity");
+          const wait_status = document.getElementById("wait_status");
           const displayName = document.getElementById("name");
           const displayNum = document.getElementById("id_number");
           const displayValid = document.getElementById("is_valid");
           const displayTimeStamp = document.getElementById("time_scanned");
 
           // update information and style
-          document.getElementById("title").hidden = true;
+          wait_status.hidden = true;
           scan_validity.style.border = "10px solid black";
           displayName.textContent = first_name + " " + last_name;
           displayNum.textContent = id_num;
