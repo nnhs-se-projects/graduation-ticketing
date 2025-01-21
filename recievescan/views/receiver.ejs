@@ -5,17 +5,10 @@
 <!-- Main Site -->
 <main>
   <h1 id="title">Ticket Receiver</h1>
-  <div class="import-names">
-    <button class="import-button" onclick="redirectToImportPage()">
-      Import Names
-    </button>
-  </div>
 
-  <script>
-    function redirectToImportPage() {
-      window.location.href = "/import-names"; // Replace this with the route to your import page.
-    }
-  </script>
+  <div class="importNames">
+    <a href="/importNames" role="button" class="secondary"> Import Names </a>
+  </div>
 
   <div id="datafield"></div>
   <div class="container">

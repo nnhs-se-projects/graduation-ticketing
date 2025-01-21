@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Import Names Page</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <h1>Welcome to the Import Names Page</h1>
+    <p>Import names and IDs from a spreadsheet.</p>
+    <form id="importForm" method="POST" action="/import">
+      <label for="spreadsheetLink">Enter Spreadsheet Link:</label><br />
+      <input type="url" id="spreadsheetLink" name="spreadsheetLink" required />
+      <button type="submit">Import Names</button>
+    </form>
+    <a href="/" class="button">Back to Receiver Page</a>
+  </body>
+</html>

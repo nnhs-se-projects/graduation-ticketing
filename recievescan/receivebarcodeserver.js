@@ -5,7 +5,7 @@
 
 // import the express module, which exports the express function
 const express = require("express");
-const entry = require("../server/model/entry")
+const entry = require("../server/model/entry");
 // invoke the express function to create an Express application
 const app = express();
 
@@ -22,118 +22,121 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use("/css", express.static("css"));
 
-
 // Render the main page initially
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);
   res.render("receiver");
 });
 
-
 app.post("/override", (req, res) => {
   const overrideString = req.body.log;
   const barcode = req.body.barcode;
-  console.log(overrideString + " " + barcode)
-  entry.findOne({"tickets.barcode": barcode})
-    .then(student => {
-      if (!student) {
-        return res.status(404).json({ message: 'Student not found' });
+  console.log(overrideString + " " + barcode);
+  entry.findOne({ "tickets.barcode": barcode }).then((student) => {
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    let ticket_id = "";
+    let currentLog = "";
+    student.tickets.forEach((ticket) => {
+      //  Find which of the student's multiple tickets the barcode corresponds to
+      if (ticket.barcode == barcode) {
+        ticket_id = ticket._id;
+        currentLog = ticket.override_log;
       }
-      
-      let ticket_id = "";
-      let currentLog = "";
-      student.tickets.forEach(ticket => {
-        //  Find which of the student's multiple tickets the barcode corresponds to
-          if (ticket.barcode == barcode)
-          {
-            ticket_id = ticket._id;
-            currentLog = ticket.override_log
-          }
+    });
+
+    const updateLog = {
+      $set: {
+        "tickets.$.override_log": currentLog + overrideString,
+        "tickets.$.time_scanned": null,
+      },
+    };
+    entry
+      .updateOne({ "tickets._id": ticket_id }, updateLog)
+      .then((result) => {
+        console.log("update successful", result);
       })
+      .catch((error) => {
+        console.log(error);
+        console.error("Error updating document:", error);
+      });
+  });
+});
 
-      const updateLog = {
-        $set : {
-          'tickets.$.override_log' : currentLog + overrideString,
-          'tickets.$.time_scanned' : null
-        }
-      }
-      entry.updateOne({'tickets._id' : ticket_id}, updateLog).then(result => {
-      console.log("update successful", result)
-      }).catch(error => {
-        console.log(error)
-        console.error('Error updating document:', error);
-    })
-  })
-})
-
+app.get("/importNames", (req, res) => {
+  console.log("rendering page");
+  res.render("importNames"); // Ensure 'importNames.ejs' exists in the views directory
+});
 
 // Handle the receiving of the scan information
 app.post("/scanned", (req, res) => {
-  const barcode = req.body.barcode;   // Grab the barcode scanned
-  const curr_time_scanned = req.body.timestamp;   // Grab the time it was scanned
+  const barcode = req.body.barcode; // Grab the barcode scanned
+  const curr_time_scanned = req.body.timestamp; // Grab the time it was scanned
 
-  studentObj = {}   // initialize object to pass back to the client
+  studentObj = {}; // initialize object to pass back to the client
 
-  entry.findOne({ 'tickets.barcode': barcode})  //  Query for the student with the exact barcode that was scanned
-    .then(student => {
+  entry
+    .findOne({ "tickets.barcode": barcode }) //  Query for the student with the exact barcode that was scanned
+    .then((student) => {
       if (!student) {
-        return res.status(404).json({ message: 'Student not found' });
+        return res.status(404).json({ message: "Student not found" });
       }
-      
+
       //  Keep track of scan validity and which ticket was scanned
-      let ticket_id = "";   
-      let validScan = true
+      let ticket_id = "";
+      let validScan = true;
 
       //  Parameters for updating the timestamp of the ticket in the database
       const updateTimestamp = {
-        $set : {
-          'tickets.$.time_scanned' : curr_time_scanned
-        }
-      }
+        $set: {
+          "tickets.$.time_scanned": curr_time_scanned,
+        },
+      };
 
-      student.tickets.forEach(ticket => {
+      student.tickets.forEach((ticket) => {
         //  Find which of the student's multiple tickets the barcode corresponds to
-        if (ticket.barcode == barcode)
-        {
+        if (ticket.barcode == barcode) {
           // Check if the ticket has been scanned before
-          if (ticket.time_scanned == null)
-          {
+          if (ticket.time_scanned == null) {
             ticket_id = ticket._id;
-          }
-          else
-          {
+          } else {
             // If the time_scanned has a non-null value, it has been scanned before and is invalid
             validScan = false;
           }
         }
-    })
-    
-    //  If the scan was invalid, just pass back the student information and the validity and do not update the database
-    if (ticket_id == "")
-    {
-      res.json({studObj: student, validity: validScan})
-      return
-    }
-    
-    //  If the scan was valid, update the database
-    //  Query by the exact ticket's id.
-    entry.updateOne({'tickets._id' : ticket_id}, updateTimestamp).then(result => {
-      console.log("update successful", result)
-    }).catch(error => {
-      console.log(error)
-      console.error('Error updating document:', error);
-    })
+      });
+
+      //  If the scan was invalid, just pass back the student information and the validity and do not update the database
+      if (ticket_id == "") {
+        res.json({ studObj: student, validity: validScan });
+        return;
+      }
+
+      //  If the scan was valid, update the database
+      //  Query by the exact ticket's id.
+      entry
+        .updateOne({ "tickets._id": ticket_id }, updateTimestamp)
+        .then((result) => {
+          console.log("update successful", result);
+        })
+        .catch((error) => {
+          console.log(error);
+          console.error("Error updating document:", error);
+        });
 
       //  Pass the information about the student and if the scan was valid back to the client.
-      res.json({studObj: student, validity: validScan})
+      res.json({ studObj: student, validity: validScan });
     })
-    .catch(error => {
-      console.error('Error searching for student:', error);
-    })
+    .catch((error) => {
+      console.error("Error searching for student:", error);
+    });
+});
 
-})
-
-// start the server on port 8080
+// start the server on port 8000
 app.listen(process.env.RECEIVER_PORT, () => {
-  console.log("server is listening on http://localhost:" + process.env.RECEIVER_PORT);
+  console.log(
+    "server is listening on http://localhost:" + process.env.RECEIVER_PORT
+  );
 });
