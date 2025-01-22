@@ -56,21 +56,23 @@
 }
 
 #buttons {
-  display: flex-column;
+  display: flex;
+  flex-direction: column;
   width: 10vw;
   height: 50vh;
   padding: 10vh 10vw;
   background-color: #d1b6b6;
   font-family: nnhsFont;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .button {
   background-color: #333;
-  width: 20vw 20vw;
   height: 20vh;
+  width: 20vw;
   color: white;
-  padding: 5vh 5vw;
+  padding: 2vh 2vw;
   font-size: 10vh;
   border: 5px solid #fff;
   border-radius: 5px;
