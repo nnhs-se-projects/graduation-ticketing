@@ -17,6 +17,9 @@
       <div class="row" id="time_scanned"></div>
     </div>
     <div id="buttons">
+      <button class="button" id="override" style="display: none">
+        OVERRIDE
+      </button>
       <button class="button" id="testButton1">Test 1</button>
       <button class="button" id="testButton2">Test 2</button>
     </div>
@@ -28,22 +31,6 @@
     console.log(event.key);
     // Check if the key pressed is Enter (key code 13)
     if (event.keyCode === 13) {
-      let overrideButton;
-      try {
-        overrideButton = document.getElementsByClassName("override");
-      } catch (error) {
-        console.error("Error fetching elements by class name:", error);
-      }
-      console.log(overrideButton);
-      // Check if overrideButton is defined before using it
-      if (overrideButton && overrideButton.length > 0) {
-        Array.from(overrideButton).forEach((button) => {
-          button.remove();
-        });
-      } else {
-        console.log('No elements with the class "override" found.');
-      }
-
       // Barcode termination character detected, handle barcode data
       var barcodeData = document.getElementById("barcodeInput").value;
       console.log("Barcode scanned:", barcodeData);
@@ -79,6 +66,8 @@
 
           // Grab html elements
           const scan_validity = document.getElementById("scan-validity");
+          const buttons = document.getElementById("buttons");
+          const overrideButton = document.getElementById("override");
           const wait_status = document.getElementById("wait_status");
           const displayName = document.getElementById("name");
           const displayNum = document.getElementById("id_number");
@@ -113,6 +102,7 @@
 
           // Styling for an invalid scan
           if (data.validity == false) {
+            overrideButton.style.display = "block";
             scan_validity.style.backgroundColor = "red";
             displayValid.textContent = "INVALID SCAN";
             displayTimeStamp.textContent = "Time Last Scanned: ";
@@ -148,11 +138,6 @@
                 scan_validity.appendChild(otherTicket);
               }
             });
-
-            var overrideButton = document.createElement("button");
-            overrideButton.className = "override";
-            overrideButton.textContent = "OVERRIDE";
-            scan_validity.appendChild(overrideButton);
 
             overrideButton.addEventListener("click", function () {
               console.log(
