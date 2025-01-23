@@ -12,5 +12,5 @@
 
   // Language-Specific
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "cSpell.words": ["gcschmit", "Huskie", "resave"]
+  "cSpell.words": ["gcschmit", "Huskie", "nnhs", "resave"]
 }

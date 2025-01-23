@@ -8,6 +8,7 @@
   <div id="datafield"></div>
   <div class="container">
     <div id="scan-validity">
+        <input type="text" id="barcodeInput" autofocus /></input>
       <div class="row" id="wait_status">
         <h2>Waiting for scan...</h2>
       </div>
@@ -15,18 +16,20 @@
       <div class="row" id="id_number"></div>
       <div class="row" id="is_valid"></div>
       <div class="row" id="time_scanned"></div>
+      <div class="row" id="ticket_row"></div>
     </div>
     <div id="buttons">
-      <button class="button" id="override" style="display: none">
-        OVERRIDE
-      </button>
       <button class="button" id="testButton1">Test 1</button>
       <button class="button" id="testButton2">Test 2</button>
+      <button class="button" id="override">
+        Override
+      </button>
     </div>
   </div>
 </main>
 <!-- /Main Site -->
 <script>
+
   document.addEventListener("keydown", function (event) {
     console.log(event.key);
     // Check if the key pressed is Enter (key code 13)
@@ -73,10 +76,10 @@
           const displayNum = document.getElementById("id_number");
           const displayValid = document.getElementById("is_valid");
           const displayTimeStamp = document.getElementById("time_scanned");
+          const otherTicket = document.getElementById("ticket_row");
 
           // update information and style
           wait_status.hidden = true;
-          scan_validity.style.border = "10px solid black";
           displayName.textContent = first_name + " " + last_name;
           displayNum.textContent = id_num;
 
@@ -94,7 +97,7 @@
           console.log(scan_validity.childNodes);
 
           scan_validity.childNodes.forEach((child) => {
-            if (child.className == "ticket-row") {
+            if (child.id == "ticket_row") {
               scan_validity.removeChild(child);
               console.log(child);
             }
@@ -102,13 +105,14 @@
 
           // Styling for an invalid scan
           if (data.validity == false) {
-            overrideButton.style.display = "block";
+            overrideButton.style.opacity = "100";
+            overrideButton.style.pointerEvents = "auto";
             scan_validity.style.backgroundColor = "red";
             displayValid.textContent = "INVALID SCAN";
             displayTimeStamp.textContent = "Time Last Scanned: ";
 
             scan_validity.childNodes.forEach((child) => {
-              if (child.className == "ticket-row") {
+              if (child.id == "ticket_row") {
                 scan_validity.removeChild(child);
               }
             });
@@ -123,9 +127,6 @@
                 );
                 displayTimeStamp.textContent += previousScanTime;
               } else {
-                var otherTicket = document.createElement("div");
-                otherTicket.classList.add("ticket-row");
-                otherTicket.setAttribute("id", "ticket-" + ticket.access_code);
                 otherTicket.textContent = ticket.access_code;
                 if (ticket.time_scanned == null) {
                   otherTicket.textContent += ": VALID TICKET";
@@ -176,11 +177,13 @@
           else {
             scan_validity.style.backgroundColor = "green";
             displayValid.textContent = "VALID SCAN";
+            overrideButton.style.opacity = "0";
+            overrideButton.style.pointerEvents = "none";
             displayTimeStamp.textContent =
               "Time Scanned: " +
               new Date(currentTimestamp).toLocaleString("en-US", timeOptions);
             scan_validity.childNodes.forEach((child) => {
-              if (child.className == "ticket-row") {
+              if (child.id == "ticket_row") {
                 scan_validity.removeChild(child);
                 console.log(child);
               }
@@ -193,21 +196,8 @@
 
       // Clear the input for the next scan
       document.getElementById("barcodeInput").value = "";
-      document.getElementById("barcodeInput").focus();
-    } else {
-      // Append the pressed key to the barcode input
-      var key = event.key;
-      document.getElementById("barcodeInput").value += key;
     }
   });
-</script>
-
-<!-- Input field to capture barcode data -->
-<input type="text" id="barcodeInput" style="display: none" />
-
-<!-- Focus the input field initially -->
-<script>
-  document.getElementById("barcodeInput").focus();
 </script>
 
 <!-- include footer -->
