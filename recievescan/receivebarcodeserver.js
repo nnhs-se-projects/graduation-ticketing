@@ -45,70 +45,63 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
     if (sheetData.length === 0) {
       throw new Error("The uploaded Excel file is empty.");
     }
+
     // Array to keep track of processing results
     const results = {
       successful: [],
       failed: [],
     };
+
     // Process each row in the Excel file
     for (const row of sheetData) {
       try {
-        const { ID_Num, First_name, Last_Name, num_of_tickets } = row; // Adjust column names as per your Excel sheet
         // Extract fields from the row
         const { ID_Num, First_name, Last_Name, num_of_tickets } = row;
+
         // Validate required fields
         if (!ID_Num || !First_name || !Last_Name || isNaN(num_of_tickets)) {
           throw new Error("Missing or invalid data in row.");
         }
+
         // Generate the tickets
         const tickets = [];
         for (let i = 0; i < num_of_tickets; i++) {
           tickets.push({
-            barcode: `barcode-${ID_Num}-${i + 1}`, // Generate a unique barcode based on the student's ID and ticket number
+            barcode: `${ID_Num}${i + 100000}`, // Generate a unique barcode based on the student's ID and ticket number
             time_scanned: null, // Time scanned is initially null
-            access_code: `code${Math.random()
+            access_code: `${Math.random()
               .toString(36)
               .substring(2, 8)
               .toUpperCase()}`, // Generate a random access code
             override_log: "", // Empty override log initially
           });
         }
+
         // Create a new entry in the database with the tickets
         await entry.create({
           id: ID_Num,
-          firstName: First_name,
-          lastName: Last_Name,
-          tickets: Number(num_of_tickets),
           first_name: First_name,
           last_name: Last_Name,
           num_tickets: Number(num_of_tickets), // Ensure this is a number
           tickets: tickets, // Add the generated tickets here
         });
+
         // Log success
         console.log(`Successfully added: ${First_name} ${Last_Name}`);
         results.successful.push(`${First_name} ${Last_Name}`);
       } catch (err) {
         console.error(`Failed to add row for ID ${row.ID_Num}:`, err);
-        // Log failure for this row
-        console.error(
-          `Failed to create entry for ${First_name} ${Last_Name}:`,
-          err.message
-        );
         results.failed.push({ row, error: err.message });
       }
     }
 
-    // Respond to the client
-    res.send("Excel file imported successfully!");
-    // Respond to the client with summary of results
+    // Respond to the client with a summary of results
     res.json({
       message: "Excel file processed.",
       summary: results,
     });
   } catch (error) {
     console.error("Error processing file:", error);
-    res.status(500).send("Failed to process the file.");
-    console.error("Error processing file:", error.message);
     res.status(500).send(`Failed to process the file: ${error.message}`);
   } finally {
     // Delete the uploaded file after processing
