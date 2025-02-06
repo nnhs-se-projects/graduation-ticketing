@@ -20,6 +20,11 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use("/css", express.static("css"));
 
+const path = require("path");
+
+// Set up EJS as the view engine
+app.set("views", path.join(__dirname, "views"));
+
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads' directory
 
@@ -27,6 +32,11 @@ const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);
   res.render("receiver");
+});
+
+// Route to render the exportNames.ejs file
+app.get("/exportNames", (req, res) => {
+  res.render("exportNames"); // This assumes 'exportNames.ejs' is inside the 'views' folder
 });
 
 // Route to handle file uploads and import names from Excel
@@ -112,6 +122,59 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
     fs.unlink(req.file.path, (err) => {
       if (err) console.error("Error deleting file:", err);
     });
+  }
+});
+
+// Import additional modules
+// Route to export the data as CSV
+app.get("/exportNames", async (req, res) => {
+  try {
+    // Fetch all entries from the database
+    const entries = await entry.find().populate("tickets"); // Assuming 'tickets' is populated with the related tickets
+
+    // Prepare the CSV data
+    const csvData = [];
+
+    // Add headers to the CSV data
+    csvData.push(["First Name", "Last Name", "ID", "Ticket Access Code"]);
+
+    // Loop through the entries and prepare the data for CSV
+    entries.forEach((student) => {
+      student.tickets.forEach((ticket) => {
+        // Add each student's data to the CSV array
+        csvData.push([
+          student.first_name,
+          student.last_name,
+          student.id,
+          ticket.access_code, // Add access code from the ticket
+        ]);
+      });
+    });
+
+    // Create a writable stream for the CSV file
+    const filePath = path.join(__dirname, "../exports", "students_export.csv");
+    const ws = fs.createWriteStream(filePath);
+
+    // Write the CSV data using fast-csv
+    fastcsv.write(csvData, { headers: true }).pipe(ws);
+
+    // Wait until the file is written, then send the file as a download
+    ws.on("finish", () => {
+      res.download(filePath, "students_export.csv", (err) => {
+        if (err) {
+          console.error("Error sending the file:", err);
+          res.status(500).send("Failed to download the file.");
+        } else {
+          // Delete the file after sending it to clean up
+          fs.unlink(filePath, (err) => {
+            if (err) console.error("Error deleting file:", err);
+          });
+        }
+      });
+    });
+  } catch (error) {
+    console.error("Error exporting data:", error);
+    res.status(500).send("Failed to export the data.");
   }
 });
 
