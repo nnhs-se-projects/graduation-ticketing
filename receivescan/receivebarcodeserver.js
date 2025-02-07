@@ -125,56 +125,56 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
   }
 });
 
-// Import additional modules
-// Route to export the data as CSV
-app.get("/exportNames", async (req, res) => {
+// POST route for exporting data based on filters
+app.post("/export", async (req, res) => {
   try {
-    // Fetch all entries from the database
-    const entries = await entry.find().populate("tickets"); // Assuming 'tickets' is populated with the related tickets
+    // Extract filter parameters from the request body
+    const { first_name, last_name, barcode } = req.body;
 
-    // Prepare the CSV data
-    const csvData = [];
+    // Build query object based on filters
+    let query = {};
+    if (first_name) query["first_name"] = first_name;
+    if (last_name) query["last_name"] = last_name;
+    if (barcode) query["tickets.barcode"] = barcode;
 
-    // Add headers to the CSV data
-    csvData.push(["First Name", "Last Name", "ID", "Ticket Access Code"]);
+    // Fetch filtered student data from the database
+    const students = await entry.find(query);
 
-    // Loop through the entries and prepare the data for CSV
-    entries.forEach((student) => {
-      student.tickets.forEach((ticket) => {
-        // Add each student's data to the CSV array
-        csvData.push([
-          student.first_name,
-          student.last_name,
-          student.id,
-          ticket.access_code, // Add access code from the ticket
-        ]);
-      });
-    });
+    // Flatten the tickets and structure the data for export
+    const exportData = students
+      .map((student) => {
+        return student.tickets.map((ticket) => ({
+          ID_Num: student.id,
+          First_Name: student.first_name,
+          Last_Name: student.last_name,
+          Num_Tickets: student.num_tickets,
+          Barcode: ticket.barcode,
+          Access_Code: ticket.access_code,
+          Time_Scanned: ticket.time_scanned || "Not Scanned",
+          Override_Log: ticket.override_log || "None",
+        }));
+      })
+      .flat();
 
-    // Create a writable stream for the CSV file
-    const filePath = path.join(__dirname, "../exports", "students_export.csv");
-    const ws = fs.createWriteStream(filePath);
+    // Create an Excel file
+    const ws = xlsx.utils.json_to_sheet(exportData);
+    const wb = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, "Student Data");
 
-    // Write the CSV data using fast-csv
-    fastcsv.write(csvData, { headers: true }).pipe(ws);
-
-    // Wait until the file is written, then send the file as a download
-    ws.on("finish", () => {
-      res.download(filePath, "students_export.csv", (err) => {
-        if (err) {
-          console.error("Error sending the file:", err);
-          res.status(500).send("Failed to download the file.");
-        } else {
-          // Delete the file after sending it to clean up
-          fs.unlink(filePath, (err) => {
-            if (err) console.error("Error deleting file:", err);
-          });
-        }
-      });
-    });
+    // Send the Excel file as response
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="students_data.xlsx"'
+    );
+    const buffer = xlsx.write(wb, { bookType: "xlsx", type: "buffer" });
+    res.send(buffer);
   } catch (error) {
-    console.error("Error exporting data:", error);
-    res.status(500).send("Failed to export the data.");
+    console.error("Error exporting student data:", error);
+    res.status(500).send("Error exporting data.");
   }
 });
 
