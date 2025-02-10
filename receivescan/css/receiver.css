@@ -58,13 +58,13 @@ html {
 #buttons {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   width: 30vw;
   height: 70vh;
   background-color: #d1b6b6;
-  border-radius: 5vw;
   font-family: nnhsFont;
-  align-items: center;
-  justify-content: space-evenly;
+  border-radius: 5vw;
 }
 
 .button {
