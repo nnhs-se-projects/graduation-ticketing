@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Import Names Page</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <h1>Super Secret Page shhhhhhh</h1>
+
+    <button
+      id="killSwitch"
+      style="
+        background-color: red;
+        color: white;
+        padding: 10px;
+        margin-top: 20px;
+        border: none;
+        cursor: pointer;
+      "
+    >
+      SHUT DOWN WEBSITE
+    </button>
+
+    <script>
+      document
+        .getElementById("killSwitch")
+        .addEventListener("click", function () {
+          if (confirm("Are you sure you want to shut down the server?")) {
+            fetch("/shutdown", { method: "POST" })
+              .then((response) => response.text())
+              .then((data) => {
+                alert(data);
+              })
+              .catch((error) => console.error("Error shutting down:", error));
+          }
+        });
+    </script>
+
+    <!-- Link to go back to the main page -->
+    <a href="/" class="button">Back to Receiver Page</a>
+  </body>
+</html>

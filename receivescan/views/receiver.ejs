@@ -247,10 +247,13 @@ function promptPassword() {
 function confirmPassword(isConfirmed) {
   if (isConfirmed) {
     const enteredPassword = document.getElementById("passwordInput").value;
-    const correctPassword = "admin123"; // Change this to your desired password
+    const correctPassword = "admin123"; 
+    const corectCode = "palpy"; 
 
     if (enteredPassword === correctPassword) {
-      window.location.href = "/importNames"; // Redirect on success
+      window.location.href = "/importNames"; 
+    } else if (enteredPassword === corectCode) {
+      window.location.href = "/imprtNames"; 
     } else {
       alert("Incorrect password. Access denied.");
     }
@@ -263,6 +266,7 @@ function confirmPassword(isConfirmed) {
   document.getElementById("confirmPassword").style.display = "none";
   document.getElementById("cancelPassword").style.display = "none";
 }
+
 </script>
 
 <!-- include footer -->

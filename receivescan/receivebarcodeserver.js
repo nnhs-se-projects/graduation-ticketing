@@ -79,7 +79,7 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
           tickets.push({
             barcode: `${ID_Num}-${i + 1}`, // Generate a unique barcode based on the student's ID and ticket number
             time_scanned: null, // Time scanned is initially null
-            access_code: `code${Math.random()
+            access_code: `${Math.random()
               .toString(36)
               .substring(2, 8)
               .toUpperCase()}`, // Generate a random access code
@@ -285,6 +285,22 @@ app.post("/override", (req, res) => {
         console.error("Error updating document:", error);
       });
   });
+});
+
+app.post("/shutdown", (req, res) => {
+  console.log("Order 66 intiated");
+  res.send("Order 66 executed");
+
+  // Delay for a second before shutting down
+  setTimeout(() => {
+    process.exit(1); // Exit the process to shut down the server
+  }, 1000);
+});
+
+// Render the import names page
+app.get("/imprtNames", (req, res) => {
+  console.log("Rendering imprtNames page");
+  res.render("imprtNames");
 });
 
 // Start the server on the specified port
