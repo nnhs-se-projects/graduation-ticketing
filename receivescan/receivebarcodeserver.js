@@ -287,16 +287,6 @@ app.post("/override", (req, res) => {
   });
 });
 
-app.post("/shutdown", (req, res) => {
-  console.log("Order 66 intiated");
-  res.send("Order 66 executed");
-
-  // Delay for a second before shutting down
-  setTimeout(() => {
-    process.exit(1); // Exit the process to shut down the server
-  }, 1000);
-});
-
 // Render the import names page
 app.get("/imprtNames", (req, res) => {
   console.log("Rendering imprtNames page");
