@@ -45,6 +45,15 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
   }
 
   try {
+    // Fetch all current entries before importing new data
+    const existingEntries = await entry.find({});
+
+    // Save a backup as a JSON file (if there's existing data)
+    if (existingEntries.length > 0) {
+      fs.writeFileSync("backup.json", JSON.stringify(existingEntries, null, 2));
+      console.log("Backup created before import.");
+    }
+
     // Drop the entire database (Removes ALL collections)
     await mongoose.connection.dropDatabase();
     console.log("Database dropped before import.");
@@ -105,8 +114,22 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
     });
   } catch (error) {
     console.error("Error processing file:", error.message);
-    res.status(500).send(`Failed to process the file: ${error.message}`);
+
+    // If an error occurs, attempt to restore from backup
+    if (fs.existsSync("backup.json")) {
+      console.log("Restoring database from backup due to import failure...");
+      const backupData = JSON.parse(fs.readFileSync("backup.json"));
+
+      await entry.insertMany(backupData);
+      console.log("Database successfully restored from backup.");
+      res.status(500).json({
+        message: "Import failed. Database reverted to previous state.",
+      });
+    } else {
+      res.status(500).send(`Failed to process the file: ${error.message}`);
+    }
   } finally {
+    // Delete the uploaded file after processing
     fs.unlink(req.file.path, (err) => {
       if (err) console.error("Error deleting file:", err);
     });
@@ -170,6 +193,30 @@ app.post("/export", async (req, res) => {
 app.get("/importNames", (req, res) => {
   console.log("Rendering importNames page");
   res.render("importNames");
+});
+
+app.post("/revertDatabase", async (req, res) => {
+  try {
+    if (!fs.existsSync("backup.json")) {
+      return res
+        .status(400)
+        .json({ message: "No backup available to revert." });
+    }
+
+    // Read the backup file
+    const backupData = JSON.parse(fs.readFileSync("backup.json"));
+
+    // Drop the database again before restoring
+    await mongoose.connection.dropDatabase();
+
+    // Restore from backup
+    await entry.insertMany(backupData);
+
+    res.json({ message: "Database reverted to previous state." });
+  } catch (error) {
+    console.error("Revert failed:", error);
+    res.status(500).json({ message: "Revert failed." });
+  }
 });
 
 // Handle the receiving of scan information
