@@ -4,31 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Import Names Page</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/importer.css" />
   </head>
   <body>
-    <h1>Welcome to the Import Names Page</h1>
-    <p>Upload an Excel file to import names and IDs.</p>
+    <div class="container">
+      <h1>Welcome to the Import Names Page</h1>
+      <p>Upload an Excel file to import names and IDs.</p>
+      <main>
+        <!-- Form to upload the Excel file -->
+        <form
+          id="importForm"
+          method="POST"
+          action="/import"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="fileInput">Upload an Excel File:</label><br />
+            <input
+              type="file"
+              id="fileInput"
+              name="excelFile"
+              accept=".xlsx, .xls"
+              required
+            />
+          </div>
 
-    <!-- Form to upload the Excel file -->
-    <form
-      id="importForm"
-      method="POST"
-      action="/import"
-      enctype="multipart/form-data"
-    >
-      <label for="fileInput">Upload an Excel File:</label><br />
-      <input
-        type="file"
-        id="fileInput"
-        name="excelFile"
-        accept=".xlsx, .xls"
-        required
-      /><br /><br />
-      <button type="submit">Import Names</button>
-    </form>
+          <div class="form-button">
+            <button type="submit">Import Names</button>
+          </div>
+        </form>
+      </main>
 
-    <!-- Link to go back to the main page -->
-    <a href="/" class="button">Back to Receiver Page</a>
+      <!-- Link to go back to the main page -->
+      <footer>
+        <a href="/" class="button">Back to Receiver Page</a>
+      </footer>
+    </div>
   </body>
 </html>
