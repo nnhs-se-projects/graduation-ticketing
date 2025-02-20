@@ -71,6 +71,7 @@ html {
   background-color: #333;
   height: 15vh;
   width: 20vw;
+  box-sizing: border-box;
   color: white;
   font-size: calc(min(8vh, 4vw));
   border: 5px solid #fff;
@@ -84,9 +85,16 @@ html {
   transition: opacity 1s ease;
 }
 
+#overrideHeader {
+  font-size: calc(min(8vh, 4vw));
+  font-weight: bold;
+  font-family: nnhsFont;
+  color: #333;
+  text-align: center;
+  margin: 5px;
+}
+
 @font-face {
   font-family: nnhsFont;
   src: url(foundationsans.otf);
 }
-
-/* id for testing 294740708204 */
