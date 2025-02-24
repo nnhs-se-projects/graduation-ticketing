@@ -22,7 +22,7 @@ h1 {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: "Minecraft", sans-serif;
   background-color: #f4f7fb;
   color: #333;
   line-height: 1.6;
@@ -63,10 +63,12 @@ p {
 }
 
 .form-button button {
+  margin-top: 20px;
   background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   font-size: 1.1em;
+  font-family: "Minecraft", sans-serif;
   border: none;
   border-radius: 5px;
   cursor: pointer;
