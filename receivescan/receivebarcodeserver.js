@@ -79,9 +79,9 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
         const tickets = [];
         for (let i = 0; i < num_of_tickets; i++) {
           tickets.push({
-            barcode: `${ID_Num}-${i + 1}`,
+            barcode: `${ID_Num}${i + 1000000}`,
             time_scanned: null,
-            access_code: `code${Math.random()
+            access_code: `${Math.random()
               .toString(36)
               .substring(2, 8)
               .toUpperCase()}`,

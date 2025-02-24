@@ -8,7 +8,7 @@
     "tickets": [
       {
         "barcode": "74269-1",
-        "time_scanned": null,
+        "time_scanned": "2025-02-20T16:28:44.182Z",
         "access_code": "code8NNKGX",
         "override_log": "",
         "_id": "67b60a9981048422e9f0decb"
@@ -43,6 +43,102 @@
         "access_code": "codeXHKC06",
         "override_log": "",
         "_id": "67b60a9981048422e9f0ded0"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67b75862ad74ba29f509546c",
+    "id": "74269",
+    "last_name": "Randal",
+    "first_name": "Thomas",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "74269-1",
+        "time_scanned": null,
+        "access_code": "4BQ98H",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f509546d"
+      },
+      {
+        "barcode": "74269-2",
+        "time_scanned": null,
+        "access_code": "VKBKDX",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f509546e"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67b75862ad74ba29f5095470",
+    "id": "74469",
+    "last_name": "Barbir",
+    "first_name": "Milan",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "74469-1",
+        "time_scanned": null,
+        "access_code": "2G2MQ5",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f5095471"
+      },
+      {
+        "barcode": "74469-2",
+        "time_scanned": null,
+        "access_code": "47VREA",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f5095472"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67b75862ad74ba29f5095474",
+    "id": "516513",
+    "last_name": "Callaghan",
+    "first_name": "Matthew",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "516513-1",
+        "time_scanned": null,
+        "access_code": "JWXNNZ",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f5095475"
+      },
+      {
+        "barcode": "516513-2",
+        "time_scanned": null,
+        "access_code": "GY1TPM",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f5095476"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67b75862ad74ba29f5095478",
+    "id": "42895",
+    "last_name": "Neutron",
+    "first_name": "Jimmy",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "42895-1",
+        "time_scanned": null,
+        "access_code": "5YQAG9",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f5095479"
+      },
+      {
+        "barcode": "42895-2",
+        "time_scanned": null,
+        "access_code": "XQ1SYJ",
+        "override_log": "",
+        "_id": "67b75862ad74ba29f509547a"
       }
     ],
     "__v": 0

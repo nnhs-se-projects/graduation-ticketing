@@ -96,10 +96,6 @@
   <body>
     <div class="container">
       <h1>Export Names</h1>
-      <p>
-        Upload an <strong>empty Excel file</strong> to export names, ticket
-        codes, and IDs to.
-      </p>
 
       <form
         id="exportForm"
@@ -107,19 +103,6 @@
         action="/export"
         enctype="multipart/form-data"
       >
-        <div class="form-group">
-          <label for="fileInput" style="font-size: 16px; color: #333"
-            >Choose your Excel File</label
-          ><br />
-          <input
-            type="file"
-            id="fileInput"
-            name="excelFile"
-            accept=".xlsx, .xls"
-            required
-          />
-        </div>
-
         <button type="submit" class="form-button">Export Names</button>
       </form>
 
