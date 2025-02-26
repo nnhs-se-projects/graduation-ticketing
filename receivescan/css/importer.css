@@ -64,7 +64,7 @@ p {
 
 .form-button button {
   margin-top: 20px;
-  background-color: #007bff;
+  background-color: #3c3c3c;
   color: #fff;
   padding: 10px 20px;
   font-size: 1.1em;
@@ -76,7 +76,9 @@ p {
 }
 
 .form-button button:hover {
-  background-color: #0056b3;
+  color: #ffa502;
+  box-shadow: 0 0 15px #d35400;
+  text-shadow: 0 0 15px #d35400;
 }
 
 /* Button Styles */
@@ -87,7 +89,7 @@ p {
   margin-top: 20px;
   padding: 12px;
   font-size: 1.1em;
-  background-color: #fcad00;
+  background-color: #3c3c3c;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -95,7 +97,15 @@ p {
 }
 
 .button:hover {
-  background-color: #218838;
+  color: #ffa502;
+  box-shadow: 0 0 15px #d35400;
+  text-shadow: 0 0 15px #d35400;
+}
+
+.button:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #d35400;
+  filter: blur(3px);
 }
 
 label {
