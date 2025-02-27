@@ -81,6 +81,7 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
           tickets.push({
             barcode: `${ID_Num}${i + 1000000}`,
             time_scanned: null,
+
             access_code: `${Math.random()
               .toString(36)
               .substring(2, 8)
@@ -108,9 +109,11 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
       }
     }
 
+    // Respond to the client with summary of results
     res.json({
-      message: "Excel file processed. Entire database dropped before import.",
-      summary: results,
+      status: "success",
+      message: "Excel file processed.",
+      results: results,
     });
   } catch (error) {
     console.error("Error processing file:", error.message);
