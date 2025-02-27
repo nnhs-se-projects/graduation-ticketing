@@ -20,6 +20,11 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use("/css", express.static("css"));
 
+const path = require("path");
+
+// Set up EJS as the view engine
+app.set("views", path.join(__dirname, "views"));
+
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads' directory
 
@@ -29,68 +34,73 @@ app.get("/", async (req, res) => {
   res.render("receiver");
 });
 
-// Route to handle file uploads and import names from Excel
+// Route to render the exportNames.ejs file
+app.get("/exportNames", (req, res) => {
+  res.render("exportNames"); // This assumes 'exportNames.ejs' is inside the 'views' folder
+});
+
 app.post("/import", upload.single("excelFile"), async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
   }
 
   try {
+    // Fetch all current entries before importing new data
+    const existingEntries = await entry.find({});
+
+    // Save a backup as a JSON file (if there's existing data)
+    if (existingEntries.length > 0) {
+      fs.writeFileSync("backup.json", JSON.stringify(existingEntries, null, 2));
+      console.log("Backup created before import.");
+    }
+
+    // Drop the entire database (Removes ALL collections)
+    await mongoose.connection.dropDatabase();
+    console.log("Database dropped before import.");
+
     // Load the uploaded Excel file
     const workbook = xlsx.readFile(req.file.path);
-    const sheetName = workbook.SheetNames[0]; // Get the first sheet
+    const sheetName = workbook.SheetNames[0];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
-    // Check if the sheetData is empty
     if (sheetData.length === 0) {
       throw new Error("The uploaded Excel file is empty.");
     }
 
-    // Array to keep track of processing results
-    const results = {
-      successful: [],
-      failed: [],
-    };
+    const results = { successful: [], failed: [] };
 
-    // Process each row in the Excel file
     for (const row of sheetData) {
       try {
-        // Extract fields from the row
         const { ID_Num, First_name, Last_Name, num_of_tickets } = row;
-
-        // Validate required fields
         if (!ID_Num || !First_name || !Last_Name || isNaN(num_of_tickets)) {
           throw new Error("Missing or invalid data in row.");
         }
 
-        // Generate the tickets
         const tickets = [];
         for (let i = 0; i < num_of_tickets; i++) {
           tickets.push({
-            barcode: `${ID_Num}${i + 100000}`, // Generate a unique barcode based on the student's ID and ticket number
-            time_scanned: null, // Time scanned is initially null
+            barcode: `${ID_Num}${i + 1000000}`,
+            time_scanned: null,
+
             access_code: `${Math.random()
               .toString(36)
               .substring(2, 8)
-              .toUpperCase()}`, // Generate a random access code
-            override_log: "", // Empty override log initially
+              .toUpperCase()}`,
+            override_log: "",
           });
         }
 
-        // Create a new entry in the database with the tickets
         await entry.create({
           id: ID_Num,
           first_name: First_name,
           last_name: Last_Name,
-          num_tickets: Number(num_of_tickets), // Ensure this is a number
-          tickets: tickets, // Add the generated tickets here
+          num_tickets: Number(num_of_tickets),
+          tickets: tickets,
         });
 
-        // Log success
         console.log(`Successfully added: ${First_name} ${Last_Name}`);
         results.successful.push(`${First_name} ${Last_Name}`);
       } catch (err) {
-        // Log failure for this row
         console.error(
           `Failed to create entry for ${First_name} ${Last_Name}:`,
           err.message
@@ -98,6 +108,7 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
         results.failed.push({ row, error: err.message });
       }
     }
+
     // Respond to the client with summary of results
     res.json({
       status: "success",
@@ -106,7 +117,20 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
     });
   } catch (error) {
     console.error("Error processing file:", error.message);
-    res.status(500).send(`Failed to process the file: ${error.message}`);
+
+    // If an error occurs, attempt to restore from backup
+    if (fs.existsSync("backup.json")) {
+      console.log("Restoring database from backup due to import failure...");
+      const backupData = JSON.parse(fs.readFileSync("backup.json"));
+
+      await entry.insertMany(backupData);
+      console.log("Database successfully restored from backup.");
+      res.status(500).json({
+        message: "Import failed. Database reverted to previous state.",
+      });
+    } else {
+      res.status(500).send(`Failed to process the file: ${error.message}`);
+    }
   } finally {
     // Delete the uploaded file after processing
     fs.unlink(req.file.path, (err) => {
@@ -115,10 +139,87 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
   }
 });
 
+// POST route for exporting data based on filters
+app.post("/export", async (req, res) => {
+  try {
+    // Extract filter parameters from the request body
+    const { first_name, last_name, barcode } = req.body;
+
+    // Build query object based on filters
+    let query = {};
+    if (first_name) query["first_name"] = first_name;
+    if (last_name) query["last_name"] = last_name;
+    if (barcode) query["tickets.barcode"] = barcode;
+
+    // Fetch filtered student data from the database
+    const students = await entry.find(query);
+
+    // Flatten the tickets and structure the data for export
+    const exportData = students
+      .map((student) => {
+        return student.tickets.map((ticket) => ({
+          ID_Num: student.id,
+          First_Name: student.first_name,
+          Last_Name: student.last_name,
+          Num_Tickets: student.num_tickets,
+          Barcode: ticket.barcode,
+          Access_Code: ticket.access_code,
+          Time_Scanned: ticket.time_scanned || "Not Scanned",
+          Override_Log: ticket.override_log || "None",
+        }));
+      })
+      .flat();
+
+    // Create an Excel file
+    const ws = xlsx.utils.json_to_sheet(exportData);
+    const wb = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, "Student Data");
+
+    // Send the Excel file as response
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="students_data.xlsx"'
+    );
+    const buffer = xlsx.write(wb, { bookType: "xlsx", type: "buffer" });
+    res.send(buffer);
+  } catch (error) {
+    console.error("Error exporting student data:", error);
+    res.status(500).send("Error exporting data.");
+  }
+});
+
 // Render the import names page
 app.get("/importNames", (req, res) => {
   console.log("Rendering importNames page");
   res.render("importNames");
+});
+
+app.post("/revertDatabase", async (req, res) => {
+  try {
+    if (!fs.existsSync("backup.json")) {
+      return res
+        .status(400)
+        .json({ message: "No backup available to revert." });
+    }
+
+    // Read the backup file
+    const backupData = JSON.parse(fs.readFileSync("backup.json"));
+
+    // Drop the database again before restoring
+    await mongoose.connection.dropDatabase();
+
+    // Restore from backup
+    await entry.insertMany(backupData);
+
+    res.json({ message: "Database reverted to previous state." });
+  } catch (error) {
+    console.error("Revert failed:", error);
+    res.status(500).json({ message: "Revert failed." });
+  }
 });
 
 // Handle the receiving of scan information
