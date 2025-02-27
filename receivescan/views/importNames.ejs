@@ -4,31 +4,116 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Import Names Page</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/importer.css" />
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/minecraft-4");
+    </style>
   </head>
   <body>
-    <h1>Welcome to the Import Names Page</h1>
-    <p>Upload an Excel file to import names and IDs.</p>
+    <div class="container">
+      <h1>Student Import Page</h1>
+      <p>Upload an Excel file to import names and IDs.</p>
+      <main>
+        <!-- Form to upload the Excel file -->
+        <form
+          id="importForm"
+          method="POST"
+          action="/import"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="fileInput">Upload an Excel File:</label><br />
+            <input
+              type="file"
+              id="fileInput"
+              name="excelFile"
+              accept=".xlsx, .xls"
+              required
+            />
+          </div>
 
-    <!-- Form to upload the Excel file -->
-    <form
-      id="importForm"
-      method="POST"
-      action="/import"
-      enctype="multipart/form-data"
-    >
-      <label for="fileInput">Upload an Excel File:</label><br />
-      <input
-        type="file"
-        id="fileInput"
-        name="excelFile"
-        accept=".xlsx, .xls"
-        required
-      /><br /><br />
-      <button type="submit">Import Names</button>
-    </form>
+          <div class="form-button">
+            <button type="submit">Import Names</button>
+          </div>
+        </form>
+      </main>
 
-    <!-- Link to go back to the main page -->
-    <a href="/" class="button">Back to Receiver Page</a>
+      <!-- Link to go back to the main page -->
+      <footer>
+        <a href="/" class="button" aria-hidden="true">Back to Receiver Page</a>
+      </footer>
+    </div>
+
+    <!-- Modal for Success/Error Message -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <div id="modalHeader" class="modal-header"></div>
+        <p id="modalMessage"></p>
+      </div>
+    </div>
+    <script>
+      // Get modal elements
+      const modal = document.getElementById("myModal");
+      const closeModal = document.getElementById("closeModal");
+      const modalHeader = document.getElementById("modalHeader");
+      const modalMessage = document.getElementById("modalMessage");
+
+      document
+        .getElementById("importForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Get the file from the input field
+          const formData = new FormData();
+          formData.append(
+            "excelFile",
+            document.getElementById("fileInput").files[0]
+          );
+
+          // Send the form data to the server
+          fetch("/import", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                // Show success message
+                modalHeader.textContent = "Success!";
+                modalMessage.textContent = "File imported successfully!";
+                modal.classList.add("modal-success"); // Add success styling
+                modal.classList.remove("modal-error");
+                // You can also customize the message based on data.results if needed
+              } else {
+                modalHeader.textContent = "Error!";
+                modalMessage.textContent =
+                  "There was an issue with the file import.";
+                modal.classList.add("modal-error"); // Add error styling
+                modal.classList.remove("modal-success");
+              }
+              modal.style.display = "block"; // Show the modal
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              modalHeader.textContent = "Error!";
+              modalMessage.textContent = "Error uploading file.";
+              modal.classList.add("modal-error");
+              modal.classList.remove("modal-success");
+              modal.style.display = "block"; // Show the modal
+            });
+        });
+      // Close the modal when clicking the close button
+      closeModal.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // Close the modal if the user clicks outside of it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
   </body>
 </html>

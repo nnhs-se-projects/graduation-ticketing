@@ -98,11 +98,11 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
         results.failed.push({ row, error: err.message });
       }
     }
-
     // Respond to the client with summary of results
     res.json({
+      status: "success",
       message: "Excel file processed.",
-      summary: results,
+      results: results,
     });
   } catch (error) {
     console.error("Error processing file:", error.message);
