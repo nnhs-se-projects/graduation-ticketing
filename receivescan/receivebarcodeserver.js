@@ -39,6 +39,10 @@ app.get("/exportNames", (req, res) => {
   res.render("exportNames"); // This assumes 'exportNames.ejs' is inside the 'views' folder
 });
 
+app.get("/helpPage", (req, res) => {
+  res.render("helpPage"); // This assumes 'helpPage.ejs' is inside the 'views' folder
+});
+
 app.post("/import", upload.single("excelFile"), async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
