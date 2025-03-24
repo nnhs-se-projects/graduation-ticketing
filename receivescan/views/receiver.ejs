@@ -19,7 +19,12 @@
       <div class="row" id="ticket_row"></div>
     </div>
    <div id="buttons">
-  <button class="button" id="import" onclick="window.location.href='/importNames'">Import</button>
+  <button class="button" id="import" onclick="promptPassword()">Import</button>
+  <!-- Password Input for Importing -->
+  <input class="button" id="passwordInput" type="password" style="display:none;" placeholder="Enter password" />
+  <button class="button" id="confirmPassword" style="display:none;" onclick="confirmPassword(true)">Confirm</button>
+  <button class="button" id="cancelPassword" style="display:none;" onclick="confirmPassword(false)">Cancel</button>
+
   <button class="button" id="export" onclick="window.location.href='/exportNames'">Export</button>
   <button class="button" id="override">Override</button>
   <button class="button" id="revertImport">Revert Last Import</button>
@@ -170,7 +175,7 @@
               if (overrideAuth !== null && overrideAuth !== "") {
                 const overrideLog =
                   "Overridden by " +
-                  overrideAuth +
+                 overrideAuth +
                   " at " +
                   currentTimestamp +
                   ", was previously scanned at " +
@@ -218,8 +223,39 @@
       document.getElementById("barcodeInput").value = "";
     }
   });
+
+function promptPassword() {
+  // Hide Import button and show password input
+  document.getElementById("import").style.display = "none";
+  document.getElementById("passwordInput").style.display = "block";
+  document.getElementById("confirmPassword").style.display = "block";
+  document.getElementById("cancelPassword").style.display = "block";
+  document.getElementById("passwordInput").focus();
+}
+
+function confirmPassword(isConfirmed) {
+  if (isConfirmed) {
+    const enteredPassword = document.getElementById("passwordInput").value;
+    const correctPassword = "admin123"; // Change this to your desired password
+
+    if (enteredPassword === correctPassword) {
+      window.location.href = "/importNames"; // Redirect on success
+    } else {
+      alert("Incorrect password. Access denied.");
+    }
+  }
+
+  // Reset UI
+  document.getElementById("passwordInput").value = "";
+  document.getElementById("import").style.display = "block";
+  document.getElementById("passwordInput").style.display = "none";
+  document.getElementById("confirmPassword").style.display = "none";
+  document.getElementById("cancelPassword").style.display = "none";
+}
+
 </script>
 
 <!-- include footer -->
 <%- include('include/_footer') %>
 <!-- /include footer -->
+}
