@@ -19,11 +19,16 @@
       <div class="row" id="ticket_row"></div>
     </div>
    <div id="buttons">
-  <button class="button" id="import" onclick="window.location.href='/importNames'">Import</button>
-  <button class="button" id="export" onclick="window.location.href='/exportNames'">Export</button>
-  <button class="button" id="override">Override</button>
-  <button class="button" id="revertImport">Revert Last Import</button>
-  </div>
+  <button class="toggle-panel" onclick="togglePanel()">☰</button>
+  <button class="button" id="import" onclick="window.location.href='/importNames'"> <span>Import</span>
+  </button>
+  <button class="button" id="export" onclick="window.location.href='/exportNames'">📤</i> <span>Export</span>
+  </button>
+  <button class="button" id="override">⚙️ </i> <span>Override</span>
+  </button>
+  <button class="button" id="revertImport">↩️ </i> <span>Revert Last Import</span>
+  </button>
+</div>
 
 <script>
   document.getElementById("revertImport").addEventListener("click", function () {
@@ -49,6 +54,19 @@
 
 <!-- /Main Site -->
 <script>
+  function togglePanel() {
+    document.getElementById("buttons").classList.toggle("show");
+
+    var panel = document.getElementById('buttons');
+    var button = document.querySelector('.toggle-panel');
+
+    if (panel.classList.contains('show')) {
+    button.style.right = '260px'; // Move the button to the right when the panel opens
+  } else {
+    button.style.right = '10px';  // Reset the button to its original position when the panel closes
+  }
+  }
+
 
   document.addEventListener("keydown", function (event) {
     console.log(event.key);
@@ -218,6 +236,7 @@
       document.getElementById("barcodeInput").value = "";
     }
   });
+
 </script>
 
 <!-- include footer -->

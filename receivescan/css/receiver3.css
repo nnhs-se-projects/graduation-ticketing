@@ -77,8 +77,8 @@ h1 {
 #buttons {
   position: fixed;
   top: 0;
-  right: -250px;
-  width: 250px;
+  right: 0px; /* Make the sidebar partially visible */
+  width: 60px; /* Initial width for partially visible sidebar */
   height: 100vh;
   background: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
@@ -86,17 +86,18 @@ h1 {
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
-  transition: right 0.3s ease-in-out;
+  transition: right 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 #buttons.show {
   right: 0;
+  width: 250px; /* Full width when expanded */
 }
 
 .toggle-panel {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   background: #0056b3;
   color: white;
   border: none;
@@ -122,10 +123,41 @@ h1 {
   transition: background 0.3s;
   margin: 10px;
   width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {
   background: #e06900;
+}
+
+/* Icons for the buttons */
+.button i {
+  margin-right: 10px;
+  font-size: 20px;
+  display: inline-block;
+}
+
+/* Text next to icons when the sidebar is expanded */
+#buttons.show .button i {
+  margin-right: 10px;
+}
+
+/* Initially hide text in buttons */
+#buttons #import span,
+#buttons #export span,
+#buttons #override span,
+#buttons #revertImport span {
+  display: none;
+}
+
+/* Show text when the sidebar is expanded */
+#buttons.show #import span,
+#buttons.show #export span,
+#buttons.show #override span,
+#buttons.show #revertImport span {
+  display: inline-block;
 }
 
 #override {
@@ -144,15 +176,3 @@ h1 {
   font-family: nnhsFont;
   src: url(foundationsans.otf);
 }
-
-/*
-
-<div id="buttons">
-  <button class="toggle-panel" onclick="togglePanel()">☰ Menu</button>
-  <button class="button" id="import" onclick="window.location.href='/importNames'">Import</button>
-  <button class="button" id="export" onclick="window.location.href='/exportNames'">Export</button>
-  <button class="button" id="override">Override</button>
-  <button class="button" id="revertImport">Revert Last Import</button>
-  </div>
-
-*/
