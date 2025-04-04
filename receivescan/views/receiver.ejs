@@ -18,16 +18,41 @@
       <div class="row" id="time_scanned"></div>
       <div class="row" id="ticket_row"></div>
     </div>
-   <div id="buttons">
-  <button class="toggle-panel" onclick="togglePanel()">☰</button>
-  <button class="button" id="import" onclick="window.location.href='/importNames'"> <span>Import</span>
-  </button>
-  <button class="button" id="export" onclick="window.location.href='/exportNames'">📤</i> <span>Export</span>
-  </button>
-  <button class="button" id="override">⚙️ </i> <span>Override</span>
-  </button>
-  <button class="button" id="revertImport">↩️ </i> <span>Revert Last Import</span>
-  </button>
+   <div class="sidebar">
+    <div class="logo_details">
+      <div class="logo_name">MENU</div>
+      <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <button class="button" id="import" onclick="window.location.href='/importNames'">
+          <i class="bx bx-search"></i>
+        <span class="link_name">Import</span>
+        </button>
+        <span class="tooltip">Import</span>
+      </li>
+      <li>
+        <button class="button" id="export" onclick="window.location.href='/exportNames'"> 
+          <i class="bx bx-search"></i>
+        <span class="link_name">Export</span>
+        </button>
+        <span class="tooltip">Export</span>
+      </li>
+      <li>
+        <button class="button" id="revertImport">
+          <i class="bx bx-search"></i> 
+        <span class="link_name">Revert Last Import</span>
+        </button>
+        <span class="tooltip">Revert Last Import</span>
+      </li>
+      <li>
+        <button class="button" id="override">
+          <i class="bx bx-search"></i> 
+        <span class="link_name">Override</span>
+        </button>
+        <span class="tooltip">Override</span>
+      </li>
+    </ul>
 </div>
 
 <script>
@@ -54,6 +79,31 @@
 
 <!-- /Main Site -->
 <script>
+  window.onload = function(){
+    const sidebar = document.querySelector(".sidebar");
+    const closeBtn = document.querySelector("#btn");
+    const searchBtn = document.querySelector(".bx-search")
+
+    closeBtn.addEventListener("click",function(){
+        sidebar.classList.toggle("open")
+        menuBtnChange()
+    })
+
+    searchBtn.addEventListener("click",function(){
+        sidebar.classList.toggle("open")
+        menuBtnChange()
+    })
+
+    function menuBtnChange(){
+        if(sidebar.classList.contains("open")){
+            closeBtn.classList.replace("bx-menu","bx-menu-alt-right")
+        }else{
+            closeBtn.classList.replace("bx-menu-alt-right","bx-menu")
+        }
+    }
+}
+
+
   function togglePanel() {
     document.getElementById("buttons").classList.toggle("show");
 

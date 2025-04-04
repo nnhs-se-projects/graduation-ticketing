@@ -13,7 +13,7 @@ body {
 
 main {
   height: 50%;
-  width: 90%;
+  width: 80%;
   max-width: 1000px;
   padding: 20px;
   background: white;
@@ -37,6 +37,7 @@ h1 {
   margin-top: 20px;
   transition: background-color 0.3s ease-in-out;
   width: 100%;
+  flex-direction: column;
 }
 
 #barcodeInput {
@@ -176,3 +177,22 @@ h1 {
   font-family: nnhsFont;
   src: url(foundationsans.otf);
 }
+
+/*
+
+<div id="buttons">
+  <button class="toggle-panel" onclick="togglePanel()">☰</button>
+  <button class="button" id="import" onclick="window.location.href='/importNames'">j</i>
+     <span>Import</span>
+  </button>
+  <button class="button" id="export" onclick="window.location.href='/exportNames'">📤</i> 
+    <span>Export</span>
+  </button>
+  <button class="button" id="revertImport">↩️ </i> <span>Revert Last Import</span>
+  </button>
+  <button class="button" id="override">⚙️ </i> 
+    <span>Override</span>
+  </button>
+</div>
+
+*/
