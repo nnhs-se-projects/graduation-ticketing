@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap");
 
-/* Reset some default browser styles */
 * {
   margin: 0;
   padding: 0;
@@ -29,52 +28,70 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 1rem;
-  color: #0051ba; /* Navy blue for the header */
+  color: #0051ba; /* Navy blue */
 }
 
 /* Adding school logo */
 .logo {
   display: block;
-  margin: 0 auto 20px; /* Center logo */
+  margin: 0 auto 20px; /* Center logo with margin below */
   max-width: 150px; /* Limit size of the logo */
 }
 
-/* Button styling */
-.btn {
-  background: #2f4ad0;
-  box-shadow: 0 8px 6px -6px #555;
-  transition: all 0.4s ease;
-  &:hover {
-    letter-spacing: 2px;
-    box-shadow: $no;
-  }
+/* Paragraph styling */
+p {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.form-button {
+/* Form group styling */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Label styling */
+label {
+  font-weight: bold;
+}
+
+/* Input styling */
+input[type="file"] {
   display: block;
-  width: 100%; /* Full width button */
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Button styling */
+.form-button {
+  text-align: center;
+}
+
+button {
   background: #0051ba; /* Navy blue */
   color: white;
   border: none;
   padding: 0.7rem 1.5rem;
   border-radius: 5px;
+  font-family: "Noto Sans", sans-serif;
   cursor: pointer;
   font-size: 1rem;
-  font-family: "Noto Sans", sans-serif;
   transition: background 0.3s, transform 0.3s;
-  text-align: center; /* Center the text */
-  margin-bottom: 1rem; /* Add space between buttons */
-  transition: all 0.4s ease;
-  &:hover {
-    letter-spacing: 2px;
-    box-shadow: $no;
-  }
 }
 
-/* Back button styling */
-.back-button {
-  display: inline-block;
+button:hover {
+  background: #003d8a; /* Darker blue */
+  transform: translateY(-2px);
+}
+
+/* Footer link styling */
+footer {
   text-align: center;
+  margin-top: 2rem;
+}
+
+footer a.button {
   background: #6c757d; /* Gray */
   color: white;
   padding: 0.5rem 1.5rem;
@@ -83,14 +100,8 @@ h1 {
   transition: background 0.3s;
 }
 
-.back-button:hover {
-  background: #5a6268; /* Darker gray on hover */
-}
-
-/* Footer styling */
-footer {
-  text-align: center;
-  margin-top: 2rem;
+footer a.button:hover {
+  background: #5a6268; /* Darker gray */
 }
 
 /* Modal styling */
@@ -137,6 +148,15 @@ footer {
   cursor: pointer;
 }
 
+/* Success and error message styles */
+.modal-success {
+  border-left: 5px solid #28a745; /* Green */
+}
+
+.modal-error {
+  border-left: 5px solid #dc3545; /* Red */
+}
+
 /* Responsive styles */
 @media (max-width: 600px) {
   .container {
@@ -144,8 +164,7 @@ footer {
     padding: 15px;
   }
 
-  .form-button,
-  .back-button {
+  button {
     width: 100%;
   }
 }
