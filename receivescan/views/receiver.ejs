@@ -20,34 +20,35 @@
     </div>
    <div class="sidebar">
     <div class="logo_details">
-      <div class="logo_name">MENU</div>
+      <i class="bx bxl-steam icon"></i>
+      <div class="logo_name">Admin Menu</div>
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
       <li>
         <button class="button" id="import" onclick="window.location.href='/importNames'">
-          <i class="bx bx-search"></i>
+          <i class="bx bx-import"></i>
         <span class="link_name">Import</span>
         </button>
         <span class="tooltip">Import</span>
       </li>
       <li>
         <button class="button" id="export" onclick="window.location.href='/exportNames'"> 
-          <i class="bx bx-search"></i>
+          <i class="bx bx-export"></i>
         <span class="link_name">Export</span>
         </button>
         <span class="tooltip">Export</span>
       </li>
       <li>
         <button class="button" id="revertImport">
-          <i class="bx bx-search"></i> 
+          <i class="bx bx-undo"></i> 
         <span class="link_name">Revert Last Import</span>
         </button>
         <span class="tooltip">Revert Last Import</span>
       </li>
       <li>
         <button class="button" id="override">
-          <i class="bx bx-search"></i> 
+          <i class="bx bx-key"></i> 
         <span class="link_name">Override</span>
         </button>
         <span class="tooltip">Override</span>
@@ -82,7 +83,6 @@
   window.onload = function(){
     const sidebar = document.querySelector(".sidebar");
     const closeBtn = document.querySelector("#btn");
-    const searchBtn = document.querySelector(".bx-search")
 
     closeBtn.addEventListener("click",function(){
         sidebar.classList.toggle("open")
@@ -102,21 +102,6 @@
         }
     }
 }
-
-
-  function togglePanel() {
-    document.getElementById("buttons").classList.toggle("show");
-
-    var panel = document.getElementById('buttons');
-    var button = document.querySelector('.toggle-panel');
-
-    if (panel.classList.contains('show')) {
-    button.style.right = '260px'; // Move the button to the right when the panel opens
-  } else {
-    button.style.right = '10px';  // Reset the button to its original position when the panel closes
-  }
-  }
-
 
   document.addEventListener("keydown", function (event) {
     console.log(event.key);

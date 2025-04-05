@@ -178,6 +178,7 @@ h1 {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   padding: 6px 14px;
   font-size: 15px;
+  color: var(--color-default);
   font-weight: 400;
   border-radius: 5px;
   white-space: nowrap;
@@ -219,18 +220,9 @@ h1 {
   padding: 0 20px 0 50px;
 }
 
-.sidebar .bx-search {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  background-color: var(--color-second);
-  color: var(--color-white);
-}
-
 .sidebar li button {
   display: flex;
+  border: none;
   height: 100%;
   width: 100%;
   align-items: center;
@@ -259,7 +251,7 @@ h1 {
   color: var(--color-default);
 }
 
-.sidebar li a .link_name {
+.sidebar li button .link_name {
   color: var(--color-white);
   font-size: 15px;
   font-weight: 400;
@@ -289,7 +281,7 @@ h1 {
 }
 
 #override {
-  background: #0056b3;
+  background: var(--color-default);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-in-out;
