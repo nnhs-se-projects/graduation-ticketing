@@ -43,6 +43,16 @@ app.get("/helpPage", (req, res) => {
   res.render("helpPage"); // This assumes 'helpPage.ejs' is inside the 'views' folder
 });
 
+app.get("/dummyTicket1", (req, res) => {
+  const testId = req.query.test;
+  res.render("dummyTicket1", { testId });
+});
+
+app.get("/dummyTicket2", (req, res) => {
+  const testId = req.query.test;
+  res.render("dummyTicket2", { testId });
+});
+
 app.post("/import", upload.single("excelFile"), async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");

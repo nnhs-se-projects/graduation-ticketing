@@ -65,10 +65,11 @@
         codes to a spreadsheet.
       </p>
 
-      <h2>Reverting the Last Import</h2>
+      <h2>Reverting the Last Import (Admin Only)</h2>
       <p>
         The <strong>Revert Last Import</strong> button acts as an
-        <span class="important">undo function</span> for the most recent import.
+        <span class="important">undo function</span> for the most recent import
+        and is also password protected.
       </p>
       <p>Use this feature if an import was done incorrectly.</p>
 
@@ -80,6 +81,45 @@
         The override function allows you to bypass ticket validation, but
         <span class="important">you must sign off</span> for authorization.
       </p>
+      <h2>Admin Test Tickets</h2>
+      <p>Use the following test tickets to verify scanner functionality:</p>
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 10px;
+        "
+      >
+        <a href="/dummyTicket1" target="_blank">
+          <button
+            style="
+              padding: 10px 20px;
+              background-color: #0073e6;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            "
+          >
+            Test Ticket 1
+          </button>
+        </a>
+        <a href="/dummyTicket2" target="_blank">
+          <button
+            style="
+              padding: 10px 20px;
+              background-color: #0073e6;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            "
+          >
+            Test Ticket 2
+          </button>
+        </a>
+      </div>
     </div>
   </body>
 </html>
