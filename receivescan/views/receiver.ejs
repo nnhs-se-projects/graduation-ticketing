@@ -21,14 +21,14 @@
    <div id="buttons">
   <button class="button" id="import" onclick="promptPassword('import')">Import</button>
   <button class="button" id="export" onclick="promptPassword('export')">Export</button>
-  
-  <!-- Password Input for Importing and Exporting -->
+  <button class="button" id="revertImport" onclick="promptPassword('revert')">Revert Last Import</button>
+
+  <!-- Password Input for Importing, Exporting, and Reverting -->
   <input class="button" id="passwordInput" type="password" style="display:none;" placeholder="Enter password" />
   <button class="button" id="confirmPassword" style="display:none;" onclick="confirmPassword()">Confirm</button>
   <button class="button" id="cancelPassword" style="display:none;" onclick="cancelPassword()">Cancel</button>
 
   <button class="button" id="override">Override</button>
-  <button class="button" id="revertImport">Revert Last Import</button>
   </div>
 
 <script>
@@ -38,6 +38,7 @@
     actionType = action;
     document.getElementById("import").style.display = "none";
     document.getElementById("export").style.display = "none";
+    document.getElementById("revertImport").style.display = "none";
     document.getElementById("passwordInput").style.display = "block";
     document.getElementById("confirmPassword").style.display = "block";
     document.getElementById("cancelPassword").style.display = "block";
@@ -46,13 +47,31 @@
 
   function confirmPassword() {
     const enteredPassword = document.getElementById("passwordInput").value;
-    const correctPassword = "admin123"; // Change this to your desired password
+    const correctPassword = "admin123"; // Change to your actual password
 
     if (enteredPassword === correctPassword) {
-      if (actionType === "import") {
-        window.location.href = "/importNames";
-      } else if (actionType === "export") {
-        window.location.href = "/exportNames";
+      switch (actionType) {
+        case "import":
+          window.location.href = "/importNames";
+          break;
+        case "export":
+          window.location.href = "/exportNames";
+          break;
+        case "revert":
+          if (confirm("Are you sure you want to revert the last import?")) {
+            fetch("/revertDatabase", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                alert(data.message);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }
+          break;
       }
     } else {
       alert("Incorrect password. Access denied.");
@@ -65,6 +84,7 @@
     document.getElementById("passwordInput").value = "";
     document.getElementById("import").style.display = "block";
     document.getElementById("export").style.display = "block";
+    document.getElementById("revertImport").style.display = "block";
     document.getElementById("passwordInput").style.display = "none";
     document.getElementById("confirmPassword").style.display = "none";
     document.getElementById("cancelPassword").style.display = "none";
