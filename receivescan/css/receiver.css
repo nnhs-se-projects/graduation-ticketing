@@ -16,12 +16,12 @@ html {
 }
 
 #title {
-  font-size: 10vh;
+  font-size: 12vh;
   font-weight: bold;
   font-family: nnhsFont;
   color: #333;
   text-align: center;
-  margin: 5vh;
+  margin: 0vh;
 }
 
 #scan-validity {
@@ -29,7 +29,7 @@ html {
   text-align: center;
   align-content: center;
   width: 60vw;
-  height: 70vh;
+  height: 80vh;
   background-color: #000000;
   font-family: nnhsFont;
   transition: background-color 1s ease;
@@ -61,7 +61,7 @@ html {
   align-items: center;
   justify-content: space-evenly;
   width: 30vw;
-  height: 70vh;
+  height: 80vh;
   background-color: #d1b6b6;
   font-family: nnhsFont;
   border-radius: 5vw;
@@ -69,14 +69,20 @@ html {
 
 .button {
   background-color: #333;
-  height: 15vh;
-  width: 20vw;
+  height: 13vh;
+  width: 25vw;
   box-sizing: border-box;
   color: white;
   font-size: calc(min(8vh, 4vw));
   border: 5px solid #fff;
   border-radius: 5px;
   font-family: nnhsFont;
+  text-align: center;
+}
+
+#passwordResult {
+  padding: 0;
+  margin: 0;
 }
 
 #override {
