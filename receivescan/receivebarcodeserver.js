@@ -58,6 +58,47 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
+  // Helper function to add two dummy tickets with fixed access codes
+  const insertDummyTickets = async () => {
+    const dummyEntries = [
+      {
+        id: "DUMMY1",
+        first_name: "Dummy",
+        last_name: "TicketOne",
+        num_tickets: 1,
+        tickets: [
+          {
+            barcode: "DUMMY1000001",
+            time_scanned: null,
+            access_code: "51ZSRL",
+            override_log: "",
+          },
+        ],
+      },
+      {
+        id: "DUMMY2",
+        first_name: "Dummy",
+        last_name: "TicketTwo",
+        num_tickets: 1,
+        tickets: [
+          {
+            barcode: "DUMMY2000001",
+            time_scanned: null,
+            access_code: "AX9B9C",
+            override_log: "",
+          },
+        ],
+      },
+    ];
+
+    try {
+      await entry.insertMany(dummyEntries);
+      console.log("✅ Dummy tickets inserted.");
+    } catch (err) {
+      console.error("❌ Error inserting dummy tickets:", err);
+    }
+  };
+
   try {
     // Fetch all current entries before importing new data
     const existingEntries = await entry.find({});
@@ -71,6 +112,9 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
     // Drop the entire database (Removes ALL collections)
     await mongoose.connection.dropDatabase();
     console.log("Database dropped before import.");
+
+    // ✅ Insert two permanent dummy tickets
+    await insertDummyTickets();
 
     // Load the uploaded Excel file
     const workbook = xlsx.readFile(req.file.path);
@@ -95,7 +139,6 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
           tickets.push({
             barcode: `${ID_Num}${i + 1000000}`,
             time_scanned: null,
-
             access_code: `${Math.random()
               .toString(36)
               .substring(2, 8)
@@ -116,7 +159,7 @@ app.post("/import", upload.single("excelFile"), async (req, res) => {
         results.successful.push(`${First_name} ${Last_Name}`);
       } catch (err) {
         console.error(
-          `Failed to create entry for ${First_name} ${Last_Name}:`,
+          `Failed to create entry for ${row.First_name} ${row.Last_Name}:`,
           err.message
         );
         results.failed.push({ row, error: err.message });
