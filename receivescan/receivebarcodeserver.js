@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 app.use("/css", express.static("css"));
 
 // load assets
-app.use("/img", express.static("assets/img"));
+app.use("/img", express.static("../assets/img"));
 
 const path = require("path");
 

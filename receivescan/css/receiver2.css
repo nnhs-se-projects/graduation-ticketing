@@ -32,6 +32,12 @@ h1 {
   font-size: 28px;
 }
 
+.logo {
+  display: block;
+  margin: 0 auto 20px; /* Center logo */
+  max-width: 150px; /* Limit size of the logo */
+}
+
 #scan-validity {
   background: #ffffff;
   padding: 20px;
