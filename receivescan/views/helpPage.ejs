@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help - Graduation Ticket Scanner</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #ffffff, #66ccff);
+        color: #333;
+        text-align: center;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #222;
+      }
+      h2 {
+        color: #0073e6;
+      }
+      p {
+        text-align: left;
+      }
+      .important {
+        font-weight: bold;
+        color: #d9534f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Help Guide: Graduation Ticket Scanner</h1>
+
+      <h2>Scanning Tickets</h2>
+      <p>
+        Click on the <strong>"Waiting for scan..."</strong> terminal to activate
+        the scanner.
+      </p>
+      <p>
+        The scanner
+        <span class="important">must be outlined in blue</span> before you can
+        scan a ticket. If it's not outlined in blue, click the terminal to
+        activate it.
+      </p>
+
+      <h2>Importing Data (Admin Only)</h2>
+      <p>The <strong>Import</strong> button is password-protected.</p>
+      <p>
+        Only administrators with the correct password can import new student and
+        ticket data.
+      </p>
+
+      <h2>Exporting Data (Admin Only)</h2>
+      <p>The <strong>Export</strong> button is also password-protected.</p>
+      <p>
+        This function exports all student names and their corresponding ticket
+        codes to a spreadsheet.
+      </p>
+
+      <h2>Reverting the Last Import (Admin Only)</h2>
+      <p>
+        The <strong>Revert Last Import</strong> button acts as an
+        <span class="important">undo function</span> for the most recent import
+        and is also password protected.
+      </p>
+      <p>Use this feature if an import was done incorrectly.</p>
+
+      <h2>Handling Invalid Tickets</h2>
+      <p>
+        If a ticket is invalid, an <strong>Override</strong> button will appear.
+      </p>
+      <p>
+        The override function allows you to bypass ticket validation, but
+        <span class="important">you must sign off</span> for authorization.
+      </p>
+      <h2>Admin Test Tickets</h2>
+      <p>Use the following test tickets to verify scanner functionality:</p>
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 10px;
+        "
+      >
+        <a href="/dummyTicket1" target="_blank">
+          <button
+            style="
+              padding: 10px 20px;
+              background-color: #0073e6;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            "
+          >
+            Test Ticket 1
+          </button>
+        </a>
+        <a href="/dummyTicket2" target="_blank">
+          <button
+            style="
+              padding: 10px 20px;
+              background-color: #0073e6;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            "
+          >
+            Test Ticket 2
+          </button>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
