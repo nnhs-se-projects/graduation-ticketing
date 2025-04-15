@@ -5,7 +5,7 @@
     "last_name": "Callaghan",
     "first_name": "Matthew",
     "num_tickets": "2",
-    "tickets": [
+    "tickets": [  
       {
         "barcode": "5165131000000",
         "time_scanned": "2025-03-24T14:58:21.445Z",
