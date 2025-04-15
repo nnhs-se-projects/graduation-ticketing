@@ -191,38 +191,6 @@ document.addEventListener("keydown", function (event) {
               }
             });
 
-            overrideButton.addEventListener("click", function () {
-              console.log(
-                "Overridden " + first_name + last_name + "'s ticket to valid"
-              );
-              var overrideAuth = window.prompt(
-                "Are you sure you want to override this invalid scan? Sign off to override: "
-              );
-              if (overrideAuth !== null && overrideAuth !== "") {
-                const overrideLog =
-                  "Overridden by " +
-                  overrideAuth +
-                  " at " +
-                  currentTimestamp +
-                  ", was previously scanned at " +
-                  previousScanTime +
-                  "; ";
-                alert(overrideLog);
-                fetch("/override", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    log: overrideLog,
-                    barcode: barcodeData,
-                  }),
-                });
-                alert("Override Successful, please scan again.");
-              } else {
-                alert("Override cancelled.");
-              }
-            });
           }
           // Styling for a valid scan
           else {
@@ -249,6 +217,65 @@ document.addEventListener("keydown", function (event) {
       document.getElementById("barcodeInput").value = "";
     }
   });
+
+function override() {
+  document.getElementById("import").style.display = "none";
+  document.getElementById("override").style.display = "none";
+  document.getElementById("overrideHeader").style.display = "block";
+  document.getElementById("overrideInput").style.display = "block";
+  document.getElementById("confirm").style.display = "block";
+  document.getElementById("cancel").style.display = "block";
+  document.getElementById("overrideInput").focus();
+}
+
+function overrideConfirm(isConfirmed) {
+  if (isConfirmed) {
+    const time = currentTimestamp.toLocaleString("en-US", timeOptions);
+    const name = document.getElementById("overrideInput").textContent;
+    const overrideLog =
+      "Overridden by " +
+      name +
+      " at " +
+      time +
+      ", was previously scanned at " +
+      previousScanTime +
+      "; ";
+
+    fetch("/override", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        barcode: barcodeData,
+        log: overrideLog,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+      
+  }
+
+  // Reset the display
+  document.getElementById("overrideInput").value = "";
+  document.getElementById("import").style.display = "block";
+  document.getElementById("override").style.display = "block";
+  document.getElementById("overrideHeader").style.display = "none";
+  document.getElementById("overrideInput").style.display = "none";
+  document.getElementById("confirm").style.display = "none";
+  document.getElementById("cancel").style.display = "none";
+}
+
 </script>
 
 <!-- include footer -->
