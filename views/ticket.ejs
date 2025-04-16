@@ -27,20 +27,20 @@
       </script>
     </div>
 
-    <!-- Display All Access Codes, Validity, and Scan Time -->
+    <!-- Display All Tickets with Validity and Scan Time -->
     <div class="access-codes" style="text-align: center; margin-top: 20px">
-      <h3>Access Codes:</h3>
-      <% student.tickets.forEach(function(ticketItem) { %>
+      <h3>Tickets:</h3>
+      <% student.tickets.forEach(function(ticketItem, index) { %>
       <p style="font-size: 18px; font-weight: bold">
-        <%- ticketItem.access_code %> - <% if (!ticketItem.time_scanned) { %>
+        Ticket <%= index + 1 %> - <% if (!ticketItem.time_scanned) { %>
         <span style="color: green">✅ Valid</span>
         <% } else { %>
         <span style="color: red">❌ Already Scanned</span>
         <br />
-        <small
-          >Last Scanned: <%- new Date(ticketItem.time_scanned).toLocaleString()
-          %></small
-        >
+        <small>
+          Last Scanned: <%= new Date(ticketItem.time_scanned).toLocaleString()
+          %>
+        </small>
         <% } %>
       </p>
       <% }); %>
