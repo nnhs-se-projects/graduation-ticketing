@@ -21,7 +21,7 @@
    <div id="buttons">
    <button class="button" id="import" onclick="promptPassword('importNames')">Import</button>
   <button class="button" id="export" onclick="promptPassword('exportNames')">Export</button>
-  <button class="button" id="revertImport" onclick="promptPassword('revertDatabase')">Revert Import</button>
+  <button class="button" id="revertImport">Revert Import</button>
   
 
   <!-- Password Input for Importing, Exporting, and Reverting -->
@@ -37,6 +37,7 @@
 
 <script>
   let actionType = "";
+  const correctPassword = "admin123"; // PASSWORD
 
   function promptPassword(action) {
     actionType = action;
@@ -52,11 +53,9 @@
 
   function confirmPassword() {
     const enteredPassword = document.getElementById("passwordInput").value;
-    const correctPassword = "admin123"; // Change to your actual password
 
-    // Directs user to page specified (revert doesn't have page so it just does the thing)
+    // Directs user to page specified
     if (enteredPassword === correctPassword) {
-
       window.location.href = `/${actionType}`;
     }
 
@@ -67,6 +66,23 @@
 
     
   }
+
+  // Edge case for revert, password does not work but will be fixed with session feature
+  document.getElementById("revertImport").addEventListener("click", function () {
+      if (!confirm("Are you sure you want to revert the last import?")) return;
+
+      fetch("/revertDatabase", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
 
   function cancelPassword() {
     document.getElementById("passwordInput").value = "";
