@@ -19,6 +19,7 @@ const app = express();
 app.use(express.json());
 app.set("view engine", "ejs");
 app.use("/css", express.static("css"));
+app.use("/assets", express.static("../assets"));
 
 const path = require("path");
 
