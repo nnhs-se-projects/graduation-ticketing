@@ -295,11 +295,6 @@ h1 {
   transition: opacity 0.3s ease-in-out;
 }
 
-#override.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 @font-face {
   font-family: nnhsFont;
   src: url(foundationsans.otf);

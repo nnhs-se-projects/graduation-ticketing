@@ -1,3 +1,21 @@
+window.onload = function () {
+  const sidebar = document.querySelector(".sidebar");
+  const closeBtn = document.querySelector("#btn");
+
+  closeBtn.addEventListener("click", function () {
+    sidebar.classList.toggle("open");
+    menuBtnChange();
+  });
+
+  function menuBtnChange() {
+    if (sidebar.classList.contains("open")) {
+      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+    } else {
+      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+    }
+  }
+};
+
 document.getElementById("revertImport").addEventListener("click", function () {
   if (!confirm("Are you sure you want to revert the last import?")) return;
 
@@ -28,6 +46,16 @@ const timeOptions = {
 // Initializes variables
 var barcodeData = null;
 var previousScanTime = null;
+// Grab html elements
+const scan_validity = document.getElementById("scan-validity");
+const buttons = document.getElementById("buttons");
+const overrideButton = document.getElementById("override");
+const wait_status = document.getElementById("wait_status");
+const displayName = document.getElementById("name");
+const displayNum = document.getElementById("id_number");
+const displayValid = document.getElementById("is_valid");
+const displayTimeStamp = document.getElementById("time_scanned");
+const otherTicket = document.getElementById("ticket_row");
 
 document.addEventListener("keydown", function (event) {
   console.log(event.key);
@@ -65,17 +93,6 @@ document.addEventListener("keydown", function (event) {
         first_name = data.studObj.first_name;
         last_name = data.studObj.last_name;
         id_num = data.studObj.id;
-
-        // Grab html elements
-        const scan_validity = document.getElementById("scan-validity");
-        const buttons = document.getElementById("buttons");
-        const overrideButton = document.getElementById("override");
-        const wait_status = document.getElementById("wait_status");
-        const displayName = document.getElementById("name");
-        const displayNum = document.getElementById("id_number");
-        const displayValid = document.getElementById("is_valid");
-        const displayTimeStamp = document.getElementById("time_scanned");
-        const otherTicket = document.getElementById("ticket_row");
 
         // update information and style
         wait_status.hidden = true;
@@ -165,11 +182,34 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-function override() {
-  document.getElementById("import").style.display = "none";
-  document.getElementById("export").style.display = "none";
-  document.getElementById("revertImport").style.display = "none";
-  document.getElementById("helpPage").style.display = "none";
-  document.getElementById("override").style.display = "none";
-  document.getElementById("overrideInput").focus();
-}
+//override
+overrideButton.addEventListener("click", function () {
+  console.log("Overridden " + first_name + last_name + "'s ticket to valid");
+  var overrideAuth = window.prompt(
+    "Are you sure you want to override this invalid scan? Sign off to override: "
+  );
+  if (overrideAuth !== null && overrideAuth !== "") {
+    const overrideLog =
+      "Overridden by " +
+      overrideAuth +
+      " at " +
+      currentTimestamp +
+      ", was previously scanned at " +
+      previousScanTime +
+      "; ";
+    alert(overrideLog);
+    fetch("/override", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        log: overrideLog,
+        barcode: barcodeData,
+      }),
+    });
+    alert("Override Successful, please scan again.");
+  } else {
+    alert("Override cancelled.");
+  }
+});
