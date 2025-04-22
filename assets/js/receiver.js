@@ -1,32 +1,3 @@
-let actionType = "";
-const correctPassword = "admin123"; // PASSWORD
-
-function promptPassword(action) {
-  actionType = action;
-  document.getElementById("import").style.display = "none";
-  document.getElementById("export").style.display = "none";
-  document.getElementById("revertImport").style.display = "none";
-  document.getElementById("helpPage").style.display = "none";
-  document.getElementById("passwordInput").style.display = "block";
-  document.getElementById("passwordInput").placeholder = "Enter password";
-  document.getElementById("confirmPassword").style.display = "block";
-  document.getElementById("cancelPassword").style.display = "block";
-  document.getElementById("passwordInput").focus();
-}
-
-function confirmPassword() {
-  const enteredPassword = document.getElementById("passwordInput").value;
-
-  // Directs user to page specified
-  if (enteredPassword === correctPassword) {
-    window.location.href = `/${actionType}`;
-  } else {
-    document.getElementById("passwordInput").placeholder = "Incorrect password";
-    document.getElementById("passwordInput").value = "";
-  }
-}
-
-// Edge case for revert, password does not work but will be fixed with session feature
 document.getElementById("revertImport").addEventListener("click", function () {
   if (!confirm("Are you sure you want to revert the last import?")) return;
 
@@ -42,22 +13,6 @@ document.getElementById("revertImport").addEventListener("click", function () {
       console.error("Error:", error);
     });
 });
-
-function cancelPassword() {
-  document.getElementById("passwordInput").value = "";
-  document.getElementById("import").style.display = "block";
-  document.getElementById("export").style.display = "block";
-  document.getElementById("revertImport").style.display = "block";
-  document.getElementById("helpPage").style.display = "block";
-  document.getElementById("passwordInput").style.display = "none";
-  document.getElementById("confirmPassword").style.display = "none";
-  document.getElementById("cancelPassword").style.display = "none";
-}
-
-// Hides elements initially
-document.getElementById("overrideInput").style.display = "none";
-document.getElementById("confirm").style.display = "none";
-document.getElementById("cancel").style.display = "none";
 
 // Set parameters for timestamp formatting
 const timeOptions = {
@@ -216,58 +171,5 @@ function override() {
   document.getElementById("revertImport").style.display = "none";
   document.getElementById("helpPage").style.display = "none";
   document.getElementById("override").style.display = "none";
-  document.getElementById("overrideInput").style.display = "block";
-  document.getElementById("confirm").style.display = "block";
-  document.getElementById("cancel").style.display = "block";
   document.getElementById("overrideInput").focus();
-}
-
-function overrideConfirm(isConfirmed) {
-  if (isConfirmed) {
-    const currentTimestamp = new Date();
-    const time = currentTimestamp.toLocaleString("en-US", timeOptions);
-    const name = document.getElementById("overrideInput").textContent;
-    const overrideLog =
-      "Overridden by " +
-      name +
-      " at " +
-      time +
-      ", was previously scanned at " +
-      previousScanTime +
-      "; ";
-
-    fetch("/override", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        barcode: barcodeData,
-        log: overrideLog,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-
-  // Reset the display
-  document.getElementById("overrideInput").value = "";
-  document.getElementById("import").style.display = "block";
-  document.getElementById("export").style.display = "block";
-  document.getElementById("revertImport").style.display = "block";
-  document.getElementById("helpPage").style.display = "block";
-  document.getElementById("override").style.display = "block";
-  document.getElementById("overrideInput").style.display = "none";
-  document.getElementById("confirm").style.display = "none";
-  document.getElementById("cancel").style.display = "none";
 }

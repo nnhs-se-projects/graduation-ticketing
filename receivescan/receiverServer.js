@@ -20,6 +20,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use("/css", express.static("css"));
 app.use("/assets", express.static("../assets"));
+app.use("/img", express.static("../assets/img"));
 
 const path = require("path");
 
