@@ -46,6 +46,7 @@ const timeOptions = {
 // Initializes variables
 var barcodeData = null;
 var previousScanTime = null;
+const currentTimeStamp = "";
 // Grab html elements
 const scan_validity = document.getElementById("scan-validity");
 const buttons = document.getElementById("buttons");
@@ -64,7 +65,7 @@ document.addEventListener("keydown", function (event) {
     // Barcode termination character detected, handle barcode data
     barcodeData = document.getElementById("barcodeInput").value;
     console.log("Barcode scanned:", barcodeData);
-    const currentTimestamp = new Date();
+    currentTimestamp = new Date();
 
     // Update timestamp timezone
     currentTimestamp.toLocaleString("en-US", { timeZone: "America/Chicago" });
