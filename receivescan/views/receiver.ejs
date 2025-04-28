@@ -2,9 +2,13 @@
 <%- include('include/_header') %>
 <!-- /include header -->
 
-<!-- Main Site -->
 <main>
   <h1 id="title">Scan Tickets</h1>
+  <img
+        src="/img/Mascot.jpg"
+        alt="Naperville North High School Logos"
+        class="logo"
+      />
   <div id="datafield"></div>
   <div class="container">
     <div id="scan-validity">
@@ -18,23 +22,52 @@
       <div class="row" id="time_scanned"></div>
       <div class="row" id="ticket_row"></div>
     </div>
-   <div id="buttons">
-   <button class="button" id="import" onclick="promptPassword('importNames')">Import</button>
-  <button class="button" id="export" onclick="promptPassword('exportNames')">Export</button>
-  <button class="button" id="revertImport">Revert Import</button>
-  <button class="button" id="help" onclick="window.location.href='/helpPage'">Help</button>
-  
-
-  <!-- Password Input for Importing, Exporting, and Reverting -->
-  <input class="button" id="passwordInput" type="password" style="display:none;" placeholder="Enter password" />
-  <button class="button" id="confirmPassword" style="display:none;" onclick="confirmPassword()">Confirm</button>
-  <button class="button" id="cancelPassword" style="display:none;" onclick="cancelPassword()">Cancel</button>
-
-  <button class="button" id="override" onclick="override()">Override</button>
-  <input class="button" id="overrideInput" type="text" autofocus /></input>
-  <button class="button" id="confirm" onclick="overrideConfirm(true)">Confirm</button>
-  <button class="button" id="cancel" onclick="overrideConfirm(false)">Cancel</button>
+   <div class="sidebar">
+    <div class="logo_details">
+      <i class="bx bxl-steam icon"></i>
+      <div class="logo_name">Admin Menu</div>
+      <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <button class="button" id="import" onclick="window.location.href='/importNames'">
+          <i class="bx bx-import"></i>
+        <span class="link_name">Import</span>
+        </button>
+        <span class="tooltip">Import</span>
+      </li>
+      <li>
+        <button class="button" id="export" onclick="window.location.href='/exportNames'"> 
+          <i class="bx bx-export"></i>
+        <span class="link_name">Export</span>
+        </button>
+        <span class="tooltip">Export</span>
+      </li>
+      <li>
+        <button class="button" id="revertImport">
+          <i class="bx bx-undo"></i> 
+        <span class="link_name">Revert Last Import</span>
+        </button>
+        <span class="tooltip">Revert Last Import</span>
+      </li>
+      <li>
+        <button class="button" id="help" onclick="window.location.href='/helpPage'">
+          <i class="bx bx-question-mark"></i> 
+        <span class="link_name">Help</span>
+        </button>
+        <span class="tooltip">Help</span>
+      </li>
+      <li>
+        <button class="button" id="override">
+          <i class="bx bx-key"></i> 
+        <span class="link_name">Override</span>
+        </button>
+        <span class="tooltip">Override</span>
+      </li>
+    </ul>
+    </div>
   </div>
+</main>
 
 <script src="/assets/js/receiver.js"></script>
 
