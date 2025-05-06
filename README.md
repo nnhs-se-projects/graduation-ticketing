@@ -2,7 +2,13 @@
 
 OVERVIEW: The Graduation Ticketing App is an application to be used for Naperville North's Graduation Ceremony. However, this project is only used under special circumstances such as rain, storms, or any circumstances which prevent Naperville North from hosting an outdoor graduation. Since an outdoor graduation will not have a limit on the number of guests a student can bring (i.e. there are no "tickets" for each student), the Graduation Ticketing App is rendered useless. However, if the Graduation Ceremony is deemed unfit to be hosted outside, the Graduation Ticketing App will be used because limited seatings means there are limits on the number of guests each student can bring.
 
-Prior to the Graduation Ceremony date, students will receive access codes (two per student unless otherwise specified) to distribute to the guests they are bringing in. Each "outside" guest must input their access codes into the website https://gradticketdev.nnhsse.org to receive their ticket information which will contain the associated student's name and id number. Additionally, they will receive their barcode upon entering the access code. These barcodes are one-time usage. Once the barcodes are scanned at the ceremony, the administrator will see whether it is a valid or invalid scan. Furthermore, the scanner should receive the name of the student and the time that the barcode was scanned. The administrator's screen will also feature an "override" button at the top-right corner. This button is to be used so that the invalid ticket can be "overridden" and turned into a valid ticket to grant entry to the guest.
+Prior to the Graduation Ceremony date, students will receive access codes (two per student unless otherwise specified) to distribute to the guests they are bringing in. Each "outside" guest must input their access codes into the website https://gradticketdev.nnhsse.org to receive their ticket information which will contain the associated student's name and id number. Additionally, they will receive their barcode upon entering the access code. These barcodes are one-time usage. Once the barcodes are scanned at the ceremony, the administrator will see whether it is a valid or invalid scan.
+
+The person scanning the tickets will have more options. If the ticket is invalid, they can choose to override it and make it valid. They will also have access to a log of all tickets, valid and invalid, and all invalid tickets will include the time last scanned. This lets the scanner quickly resolve issues with parents when an error occurs.
+
+The admin user will have access to the entire site. They will be able to import a spreadsheet of names to update the database prior to graduation day, and they can also download the list of names as a spreadsheet. In case a mistake is made when importing, there will be an option to revert the last import. For testing purposes, inside the help page are two "dummy" tickets which don't belong to a student.
+
+Anyone can access the help page, which should have most of the information in this document.
 
 ## Project Architecture
 
@@ -35,7 +41,7 @@ Each Ticket has the following attributes:
 - barcode: a 12 digit random code
 - access_code: 6 random characters of letters and numbers
 - time_scanned: default null, is updated to the current timestamp when scanned
-- override_log: default empty string, a set log will be appended to the string when a ticket is overriden
+- override_log: default empty string, a set log will be appended to the string when a ticket is overridden
 
 Each Student has the following attributes:
 
@@ -78,41 +84,21 @@ RECEIVER_PORT=8000
 TICKET_PORT=8081
 ```
 
-- In order to run the project, navigate to the left sidebar and click on "Run and Debug"
+This is alternative method which the previous team used:
+
+<!-- - In order to run the project, navigate to the left sidebar and click on "Run and Debug"
   - Make sure the top dropdown is selected to "Node Server"
     - Click the button "Start Debugging"
       - This starts the server
   - Now, make sure the top dropdown is selected to "Node Client"
     - Click the button "Start Debugging"
-      - If the previous steps were done correctly, you should be redirected to a new page looking exactly like https://gradticketdev.nnhsse.org
+      - If the previous steps were done correctly, you should be redirected to a new page looking exactly like https://gradticketdev.nnhsse.org -->
+
+However, we prefer to use the terminal for simplicity. Just open the terminal with Ctrl + ` and run "node server.js" to start up the ticket server. For the scanner server type "cd receivescan" to enter the receiver folder and then "node receivebarcodeserver.js". To access either page, go into your browser and type "localhost:8080" for tickets and "localhost:8081" for the scanner.
 
 ## Scanner Set-Up
 
 To Scan: The barcode scanner must have ENTER as its suffix when scanning to function smoothly. To do this, refer to the Zebra DS9308 barcode scanner manual. On page 90, scan "Scan Suffix 1," then go to page 441 and scan "7," then "0," then "1," then "3." 7013 corresponds to enter, and if done as listed above, enter should be added as a suffix to scans.
-
-# Running parent view and scanner receiving view:
-
-## Parent View
-
-- In main directory terminal, run
-
-```
-node server.js
-```
-
-## Receiver view
-
-- In main directory terminal, navigate to receivescan directory
-
-```
-cd receivescan
-```
-
-- Run server from receivebarcodeserver.js
-
-```
-node receivebarcodeserver.js
-```
 
 ## Parent Instructions
 
@@ -125,10 +111,6 @@ node receivebarcodeserver.js
 
 - Navigate to the ticket scanning page, https://gradticketadmindev.nnhsse.org/
 - Scan the attendee's ticket, you will see the validity of their scan and their student's information
+- To override, click the button on the sidebar and provide a name, then scan ticket again
+<!--TODO: explain ticket log-->
 - Continue scanning
-
-### Troubleshooting
-
-- If a ticket doesn't scan, refresh the page
-- To prevent issues, do not press any keyboard inputs (if you do, just refresh the page)
-- In any conflicts with attendees, all invalid scans will display the validity of any other tickets the student has (their access code, and the time it was last scanned)
