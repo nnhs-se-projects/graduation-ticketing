@@ -1,31 +1,40 @@
 [
   {
-    "_id": "67c5ce53c06502fae94527c3",
-    "id": "516513",
-    "last_name": "Callaghan",
-    "first_name": "Matthew",
-    "num_tickets": "2",
-    "tickets": [  
+    "_id": "67ffd2b412d447635917c5fb",
+    "id": "DUMMY1",
+    "last_name": "TicketOne",
+    "first_name": "Dummy",
+    "num_tickets": "1",
+    "tickets": [
       {
-        "barcode": "5165131000000",
-        "time_scanned": "2025-03-24T14:58:21.445Z",
-        "access_code": "IIBWUV",
-        "override_log": "Overridden by kjjk at Mon Mar 24 2025 09:58:04 GMT-0500 (Central Daylight Time), was previously scanned at 03/24/2025, 09:57 AM; ",
-        "_id": "67c5ce53c06502fae94527c4"
-      },
-      {
-        "barcode": "5165131000001",
-        "time_scanned": null,
-        "access_code": "3V7FQY",
-        "override_log": "",
-        "_id": "67c5ce53c06502fae94527c5"
+        "barcode": "DUMMY1000001",
+        "time_scanned": "2025-04-16T23:15:23.651Z",
+        "access_code": "51ZSRL",
+        "override_log": "Overridden by  at 04/16/2025, 11:08 AM, was previously scanned at null; Overridden by  at 04/16/2025, 11:23 AM, was previously scanned at null; Overridden by  at 04/16/2025, 06:15 PM, was previously scanned at null; ",
+        "_id": "67ffd2b412d447635917c5fc"
       }
     ],
     "__v": 0
   },
   {
-    "_id": "67c5ce53c06502fae94527bb",
-    "_id": "67c5ce53c06502fae94527bb",
+    "_id": "67ffd2b412d447635917c5fd",
+    "id": "DUMMY2",
+    "last_name": "TicketTwo",
+    "first_name": "Dummy",
+    "num_tickets": "1",
+    "tickets": [
+      {
+        "barcode": "DUMMY2000001",
+        "time_scanned": null,
+        "access_code": "AX9B9C",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c5fe"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c600",
     "id": "74269",
     "last_name": "Randal",
     "first_name": "Thomas",
@@ -33,32 +42,23 @@
     "tickets": [
       {
         "barcode": "742691000000",
-        "time_scanned": "2025-04-07T14:52:12.599Z",
-        "access_code": "XKTRY6",
-        "override_log": "Overridden by test at Mon Apr 07 2025 09:52:01 GMT-0500 (Central Daylight Time), was previously scanned at 04/07/2025, 09:47 AM; ",
-        "_id": "67c5ce53c06502fae94527bc"
-        "time_scanned": "2025-04-07T14:52:12.599Z",
-        "access_code": "XKTRY6",
-        "override_log": "Overridden by test at Mon Apr 07 2025 09:52:01 GMT-0500 (Central Daylight Time), was previously scanned at 04/07/2025, 09:47 AM; ",
-        "_id": "67c5ce53c06502fae94527bc"
+        "time_scanned": null,
+        "access_code": "7VGDB0",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c601"
       },
       {
         "barcode": "742691000001",
-        "time_scanned": "2025-04-05T19:19:45.788Z",
-        "access_code": "WB7ZS4",
-        "override_log": "Overridden by  at 03/11/2025, 10:28 AM, was previously scanned at 03/11/2025, 10:25 AM; Overridden by yessir at Mon Mar 17 2025 10:26:06 GMT-0500 (Central Daylight Time), was previously scanned at 03/11/2025, 10:28 AM; Overridden by 5 big booms at Wed Mar 19 2025 10:55:30 GMT-0500 (Central Daylight Time), was previously scanned at 03/17/2025, 10:26 AM; Overridden by test at Mon Mar 24 2025 09:55:49 GMT-0500 (Central Daylight Time), was previously scanned at 03/19/2025, 10:55 AM; Overridden by testing at Thu Apr 03 2025 13:23:01 GMT-0500 (Central Daylight Time), was previously scanned at 03/24/2025, 09:56 AM; Overridden by nfvbfhbn at Thu Apr 03 2025 14:54:19 GMT-0500 (Central Daylight Time), was previously scanned at 04/03/2025, 01:23 PM; Overridden by jihugh at Thu Apr 03 2025 16:02:58 GMT-0500 (Central Daylight Time), was previously scanned at 04/03/2025, 02:54 PM; Overridden by minehfh at Sat Apr 05 2025 14:04:06 GMT-0500 (Central Daylight Time), was previously scanned at 04/03/2025, 04:03 PM; Overridden by fdsfsdf at Sat Apr 05 2025 14:19:40 GMT-0500 (Central Daylight Time), was previously scanned at 04/05/2025, 02:04 PM; ",
-        "_id": "67c5ce53c06502fae94527bd"
-        "time_scanned": "2025-04-05T19:19:45.788Z",
-        "access_code": "WB7ZS4",
-        "override_log": "Overridden by  at 03/11/2025, 10:28 AM, was previously scanned at 03/11/2025, 10:25 AM; Overridden by yessir at Mon Mar 17 2025 10:26:06 GMT-0500 (Central Daylight Time), was previously scanned at 03/11/2025, 10:28 AM; Overridden by 5 big booms at Wed Mar 19 2025 10:55:30 GMT-0500 (Central Daylight Time), was previously scanned at 03/17/2025, 10:26 AM; Overridden by test at Mon Mar 24 2025 09:55:49 GMT-0500 (Central Daylight Time), was previously scanned at 03/19/2025, 10:55 AM; Overridden by testing at Thu Apr 03 2025 13:23:01 GMT-0500 (Central Daylight Time), was previously scanned at 03/24/2025, 09:56 AM; Overridden by nfvbfhbn at Thu Apr 03 2025 14:54:19 GMT-0500 (Central Daylight Time), was previously scanned at 04/03/2025, 01:23 PM; Overridden by jihugh at Thu Apr 03 2025 16:02:58 GMT-0500 (Central Daylight Time), was previously scanned at 04/03/2025, 02:54 PM; Overridden by minehfh at Sat Apr 05 2025 14:04:06 GMT-0500 (Central Daylight Time), was previously scanned at 04/03/2025, 04:03 PM; Overridden by fdsfsdf at Sat Apr 05 2025 14:19:40 GMT-0500 (Central Daylight Time), was previously scanned at 04/05/2025, 02:04 PM; ",
-        "_id": "67c5ce53c06502fae94527bd"
+        "time_scanned": null,
+        "access_code": "2HTYJR",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c602"
       }
     ],
     "__v": 0
   },
   {
-    "_id": "67c5ce53c06502fae94527bf",
-    "_id": "67c5ce53c06502fae94527bf",
+    "_id": "67ffd2b412d447635917c604",
     "id": "74469",
     "last_name": "Barbir",
     "first_name": "Milan",
@@ -67,26 +67,22 @@
       {
         "barcode": "744691000000",
         "time_scanned": null,
-        "access_code": "4DPWRB",
-        "access_code": "4DPWRB",
+        "access_code": "C0GYN8",
         "override_log": "",
-        "_id": "67c5ce53c06502fae94527c0"
-        "_id": "67c5ce53c06502fae94527c0"
+        "_id": "67ffd2b412d447635917c605"
       },
       {
         "barcode": "744691000001",
         "time_scanned": null,
-        "access_code": "SPJSET",
-        "access_code": "SPJSET",
+        "access_code": "TF830K",
         "override_log": "",
-        "_id": "67c5ce53c06502fae94527c1"
-        "_id": "67c5ce53c06502fae94527c1"
+        "_id": "67ffd2b412d447635917c606"
       }
     ],
     "__v": 0
   },
   {
-    "_id": "67c5ce53c06502fae94527c3",
+    "_id": "67ffd2b412d447635917c608",
     "id": "516513",
     "last_name": "Callaghan",
     "first_name": "Matthew",
@@ -94,17 +90,305 @@
     "tickets": [
       {
         "barcode": "5165131000000",
-        "time_scanned": "2025-03-24T14:58:21.445Z",
-        "access_code": "IIBWUV",
-        "override_log": "Overridden by kjjk at Mon Mar 24 2025 09:58:04 GMT-0500 (Central Daylight Time), was previously scanned at 03/24/2025, 09:57 AM; ",
-        "_id": "67c5ce53c06502fae94527c4"
+        "time_scanned": null,
+        "access_code": "YWDBYW",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c609"
       },
       {
         "barcode": "5165131000001",
         "time_scanned": null,
-        "access_code": "3V7FQY",
+        "access_code": "06IYYZ",
         "override_log": "",
-        "_id": "67c5ce53c06502fae94527c5"
+        "_id": "67ffd2b412d447635917c60a"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c60c",
+    "id": "42895",
+    "last_name": "Neutron",
+    "first_name": "Jimmy",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "428951000000",
+        "time_scanned": null,
+        "access_code": "HD5RBD",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c60d"
+      },
+      {
+        "barcode": "428951000001",
+        "time_scanned": null,
+        "access_code": "24L6UC",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c60e"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c610",
+    "id": "18429",
+    "last_name": "Johnson",
+    "first_name": "Olivia",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "184291000000",
+        "time_scanned": null,
+        "access_code": "XHOKAT",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c611"
+      },
+      {
+        "barcode": "184291000001",
+        "time_scanned": null,
+        "access_code": "EWAZU8",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c612"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c614",
+    "id": "90217",
+    "last_name": "Baker",
+    "first_name": "Harper",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "902171000000",
+        "time_scanned": null,
+        "access_code": "RNXTG1",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c615"
+      },
+      {
+        "barcode": "902171000001",
+        "time_scanned": null,
+        "access_code": "54JZ9Y",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c616"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c618",
+    "id": "54386",
+    "last_name": "Martinez",
+    "first_name": "Liam",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "543861000000",
+        "time_scanned": null,
+        "access_code": "40B1J8",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c619"
+      },
+      {
+        "barcode": "543861000001",
+        "time_scanned": null,
+        "access_code": "0305U3",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c61a"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c61c",
+    "id": "76134",
+    "last_name": "Lee",
+    "first_name": "Lucas",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "761341000000",
+        "time_scanned": null,
+        "access_code": "6BTPNN",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c61d"
+      },
+      {
+        "barcode": "761341000001",
+        "time_scanned": null,
+        "access_code": "VO70TC",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c61e"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c620",
+    "id": "23091",
+    "last_name": "Kim",
+    "first_name": "Ava",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "230911000000",
+        "time_scanned": null,
+        "access_code": "TDQ0BP",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c621"
+      },
+      {
+        "barcode": "230911000001",
+        "time_scanned": null,
+        "access_code": "UUI9FY",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c622"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c624",
+    "id": "61947",
+    "last_name": "Garcia",
+    "first_name": "Mia",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "619471000000",
+        "time_scanned": null,
+        "access_code": "KB9QU9",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c625"
+      },
+      {
+        "barcode": "619471000001",
+        "time_scanned": null,
+        "access_code": "4Q9DK2",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c626"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c628",
+    "id": "80512",
+    "last_name": "Patel",
+    "first_name": "Noah",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "805121000000",
+        "time_scanned": null,
+        "access_code": "EMT9ML",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c629"
+      },
+      {
+        "barcode": "805121000001",
+        "time_scanned": null,
+        "access_code": "AXRFRY",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c62a"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c62c",
+    "id": "47239",
+    "last_name": "Anderson",
+    "first_name": "Elijah",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "472391000000",
+        "time_scanned": null,
+        "access_code": "6IMVZD",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c62d"
+      },
+      {
+        "barcode": "472391000001",
+        "time_scanned": null,
+        "access_code": "7TMSXQ",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c62e"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c630",
+    "id": "39725",
+    "last_name": "Thompson",
+    "first_name": "Sophia",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "397251000000",
+        "time_scanned": null,
+        "access_code": "8VJ63L",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c631"
+      },
+      {
+        "barcode": "397251000001",
+        "time_scanned": null,
+        "access_code": "80BHHC",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c632"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c634",
+    "id": "15860",
+    "last_name": "Nguyen",
+    "first_name": "Isabella",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "158601000000",
+        "time_scanned": null,
+        "access_code": "7S821R",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c635"
+      },
+      {
+        "barcode": "158601000001",
+        "time_scanned": null,
+        "access_code": "24YTAZ",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c636"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "67ffd2b412d447635917c638",
+    "id": "68490",
+    "last_name": "Rivera",
+    "first_name": "Mason",
+    "num_tickets": "2",
+    "tickets": [
+      {
+        "barcode": "684901000000",
+        "time_scanned": null,
+        "access_code": "P1PPRP",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c639"
+      },
+      {
+        "barcode": "684901000001",
+        "time_scanned": null,
+        "access_code": "9QHL42",
+        "override_log": "",
+        "_id": "67ffd2b412d447635917c63a"
       }
     ],
     "__v": 0
