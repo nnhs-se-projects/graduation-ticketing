@@ -29,6 +29,37 @@ app.set("views", path.join(__dirname, "views"));
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads' directory
 
+app.get("/loginPage", (req, res) => {
+  res.render("loginPage");
+});
+
+// Initialize login variables
+let userLoggedIn = false;
+let adminLoggedIn = false;
+
+// Handle login requests
+app.post("/login", (req, res) => {
+  const { type } = req.body;
+  if (type === "user") {
+    userLoggedIn = true;
+    res.redirect("/");
+  } else if (type === "admin") {
+    adminLoggedIn = true;
+    res.redirect("/");
+  } else {
+    res.status(400).send("Invalid login type");
+  }
+  console.log(userLoggedIn + " " + adminLoggedIn);
+});
+
+// Any page will redirect to login page unless user is logged in
+app.use((req, res, next) => {
+  if (!userLoggedIn && !adminLoggedIn) {
+    return res.redirect("/loginPage");
+  }
+  next();
+});
+
 // Render the main page initially
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);
@@ -37,11 +68,11 @@ app.get("/", async (req, res) => {
 
 // Route to render the exportNames.ejs file
 app.get("/exportNames", (req, res) => {
-  res.render("exportNames"); // This assumes 'exportNames.ejs' is inside the 'views' folder
+  res.render("exportNames");
 });
 
 app.get("/helpPage", (req, res) => {
-  res.render("helpPage"); // This assumes 'helpPage.ejs' is inside the 'views' folder
+  res.render("helpPage");
 });
 
 app.get("/dummyTicket1", (req, res) => {
