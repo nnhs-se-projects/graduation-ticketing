@@ -29,32 +29,40 @@ app.set("views", path.join(__dirname, "views"));
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads' directory
 
+// Configure sessions
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
+  })
+);
+
 app.get("/loginPage", (req, res) => {
   res.render("loginPage");
 });
 
-// Initialize login variables
-let userLoggedIn = false;
-let adminLoggedIn = false;
-
 // Handle login requests
 app.post("/login", (req, res) => {
-  const { type } = req.body;
-  if (type === "user") {
-    userLoggedIn = true;
-    res.redirect("/");
-  } else if (type === "admin") {
-    adminLoggedIn = true;
-    res.redirect("/");
+  const { password } = req.body;
+  if (password === process.env.USERPASSWORD) {
+    req.session.user = "user";
+    res.sendStatus(200);
+  } else if (password === process.env.ADMINPASSWORD) {
+    req.session.admin = "admin";
+    res.sendStatus(200);
   } else {
-    res.status(400).send("Invalid login type");
+    res.sendStatus(401);
   }
-  console.log(userLoggedIn + " " + adminLoggedIn);
 });
 
 // Any page will redirect to login page unless user is logged in
 app.use((req, res, next) => {
-  if (!userLoggedIn && !adminLoggedIn) {
+  console.log("Session:", req.session.user);
+  if (!req.session.user) {
     return res.redirect("/loginPage");
   }
   next();
