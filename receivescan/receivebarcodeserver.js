@@ -30,53 +30,36 @@ app.set("views", path.join(__dirname, "views"));
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads' directory
 
-// Configure sessions
-const session = require("express-session");
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false },
-  })
-);
-
 app.get("/loginPage", (req, res) => {
   res.render("loginPage");
 });
 
+// Initialize login variables
+let userLoggedIn = false;
+let adminLoggedIn = false;
+
 // Handle login requests
 app.post("/login", (req, res) => {
-  const { password } = req.body;
-  console.log("Password received:", password); // DEBUG
-
-  if (password === process.env.USERPASSWORD) {
-    req.session.user = "user";
-    console.log("Session after setting user:", req.session); // DEBUG
-    res.sendStatus(200);
-  } else if (password === process.env.ADMINPASSWORD) {
-    req.session.user = "admin";
-    console.log("Session after setting admin:", req.session); // DEBUG
-    res.sendStatus(200);
+  const { type } = req.body;
+  if (type === "user") {
+    userLoggedIn = true;
+    res.redirect("/");
+  } else if (type === "admin") {
+    adminLoggedIn = true;
+    res.redirect("/");
   } else {
-    res.sendStatus(401);
+    res.status(400).send("Invalid login type");
   }
+  console.log(userLoggedIn + " " + adminLoggedIn);
 });
 
 // Any page will redirect to login page unless user is logged in
 app.use((req, res, next) => {
-  console.log("Session:", req.session.user); // DEBUG
-  if (!req.session.user) {
+  if (!userLoggedIn && !adminLoggedIn) {
     return res.redirect("/loginPage");
   }
   next();
 });
-
-function isAdmin(req) {
-  if (req.session.user != "admin") return false;
-  else return true;
-}
 
 // Render the main page initially
 app.get("/", async (req, res) => {
@@ -86,9 +69,6 @@ app.get("/", async (req, res) => {
 
 // Route to render the exportNames.ejs file
 app.get("/exportNames", (req, res) => {
-  if (!isAdmin(req)) {
-    return res.status(403).send("Admin access only.");
-  }
   res.render("exportNames");
 });
 
@@ -107,7 +87,7 @@ app.get("/dummyTicket2", (req, res) => {
 });
 
 app.post("/`import`", upload.single("excelFile"), async (req, res) => {
-  if (!isAdmin(req)) {
+  if (!isAdmin()) {
     return res.status(403).send("Admin access only.");
   }
   if (!req.file) {
@@ -307,7 +287,7 @@ app.post("/export", async (req, res) => {
 
 // Render the import names page
 app.get("/importNames", (req, res) => {
-  if (!isAdmin(req)) {
+  if (!isAdmin()) {
     return res.status(403).send("Admin access only.");
   }
   console.log("Rendering importNames page");
@@ -315,8 +295,8 @@ app.get("/importNames", (req, res) => {
 });
 
 app.post("/revertDatabase", async (req, res) => {
-  if (!isAdmin(req)) {
-    return res.status(400).json({ message: "Admin access only." });
+  if (!isAdmin()) {
+    return res.status(403).send("Admin access only.");
   }
   try {
     if (!fs.existsSync("backup.json")) {
