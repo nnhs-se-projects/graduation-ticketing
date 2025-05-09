@@ -106,11 +106,19 @@ To Scan: The barcode scanner must have ENTER as its suffix when scanning to func
 - Enter in your access code and press submit (6 characters of uppercase letters and number)
 - Verify that the name of your student and their id number are correct
 - Scan the barcode at the volunteer's scanner (you cannot scan this ticket again afterwards)
+- If an override is required, call an admin or volunteer over to grant access
 
 ## Volunteer Instructions
 
 - Navigate to the ticket scanning page, https://gradticketadmindev.nnhsse.org/
+- Log in to get access to the page
 - Scan the attendee's ticket, you will see the validity of their scan and their student's information
 - To override, click the button on the sidebar and provide a name, then scan ticket again
 <!--TODO: explain ticket log-->
 - Continue scanning
+
+## Admin Instructions
+
+- Admins have password-protected features
+- Import, export, and revert last import
+- Log in to get access to these features and everything else
