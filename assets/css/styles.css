@@ -22,7 +22,7 @@
   align-items: center;
 }
 .darkmode {
-  background:#000;
+  background: #000;
   position: absolute;
   top: 7px;
   right: 10px;
@@ -35,23 +35,23 @@
 }
 
 .dark-mode-access-code-submit-field {
-  background-color: #3CBC8D;
+  background-color: #3cbc8d;
   color: white;
 }
 
 .buton {
-  background: #53A2FF;
+  background: #53a2ff;
   border: 2px solid transparent;
   color: #eee;
   padding: 9px 15px;
-  max-width:30em;
+  max-width: 30em;
 }
 
 .buton:hover {
   border: 2px solid #000;
   background: #2e74bb;
   color: #eee;
-} 
+}
 .indexTopBar img {
   flex-shrink: 0;
   width: 100px;
@@ -77,7 +77,7 @@
 }
 
 .bottom-name {
-  text-align:center;
+  text-align: center;
   font-family: myfirstFont;
   font-size: 3em;
   /* color: rgb(255, 70, 0); */
@@ -85,7 +85,7 @@
 }
 
 .barcode {
-  float:center;
+  float: center;
 }
 .center {
   display: block;
@@ -99,4 +99,10 @@
 
 .entryContent {
   flex-grow: 1;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px; /* Center logo */
+  max-width: 450px; /* Limit size of the logo */
 }
