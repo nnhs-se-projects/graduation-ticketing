@@ -37,7 +37,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true },
+    cookie: { secure: false },
   })
 );
 
@@ -48,11 +48,15 @@ app.get("/loginPage", (req, res) => {
 // Handle login requests
 app.post("/login", (req, res) => {
   const { password } = req.body;
+  console.log("Password received:", password); // DEBUG
+
   if (password === process.env.USERPASSWORD) {
     req.session.user = "user";
+    console.log("Session after setting user:", req.session); // DEBUG
     res.sendStatus(200);
   } else if (password === process.env.ADMINPASSWORD) {
-    req.session.admin = "admin";
+    req.session.user = "admin";
+    console.log("Session after setting admin:", req.session); // DEBUG
     res.sendStatus(200);
   } else {
     res.sendStatus(401);
@@ -61,7 +65,7 @@ app.post("/login", (req, res) => {
 
 // Any page will redirect to login page unless user is logged in
 app.use((req, res, next) => {
-  console.log("Session:", req.session.user);
+  console.log("Session:", req.session.user); // DEBUG
   if (!req.session.user) {
     return res.redirect("/loginPage");
   }
