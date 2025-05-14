@@ -10,6 +10,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ password: password }),
   }).then((response) => {
     if (response.ok) {
