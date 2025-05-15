@@ -72,6 +72,11 @@ app.use((req, res, next) => {
   next();
 });
 
+function isAdmin() {
+  if (req.session.user != "admin") return false;
+  else return true;
+}
+
 // Render the main page initially
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);
@@ -80,6 +85,9 @@ app.get("/", async (req, res) => {
 
 // Route to render the exportNames.ejs file
 app.get("/exportNames", (req, res) => {
+  if (!isAdmin()) {
+    return res.status(403).send("Admin access only.");
+  }
   res.render("exportNames");
 });
 
@@ -97,7 +105,10 @@ app.get("/dummyTicket2", (req, res) => {
   res.render("dummyTicket2", { testId });
 });
 
-app.post("/import", upload.single("excelFile"), async (req, res) => {
+app.post("/`import`", upload.single("excelFile"), async (req, res) => {
+  if (!isAdmin()) {
+    return res.status(403).send("Admin access only.");
+  }
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
   }
@@ -295,11 +306,17 @@ app.post("/export", async (req, res) => {
 
 // Render the import names page
 app.get("/importNames", (req, res) => {
+  if (!isAdmin()) {
+    return res.status(403).send("Admin access only.");
+  }
   console.log("Rendering importNames page");
   res.render("importNames");
 });
 
 app.post("/revertDatabase", async (req, res) => {
+  if (!isAdmin()) {
+    return res.status(403).send("Admin access only.");
+  }
   try {
     if (!fs.existsSync("backup.json")) {
       return res
