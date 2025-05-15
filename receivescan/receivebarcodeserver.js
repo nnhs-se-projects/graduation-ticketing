@@ -73,6 +73,11 @@ app.use((req, res, next) => {
   next();
 });
 
+function isAdmin() {
+  if (req.session.user != "admin") return false;
+  else return true;
+}
+
 // Render the main page initially
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);
@@ -81,6 +86,9 @@ app.get("/", async (req, res) => {
 
 // Route to render the exportNames.ejs file
 app.get("/exportNames", (req, res) => {
+  if (!isAdmin()) {
+    return res.status(403).send("Admin access only.");
+  }
   res.render("exportNames");
 });
 
