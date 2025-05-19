@@ -23,8 +23,8 @@ document.getElementById("revertImport").addEventListener("click", function () {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then(async (response) => {
+      const data = await response.json();
       alert(data.message);
     })
     .catch((error) => {

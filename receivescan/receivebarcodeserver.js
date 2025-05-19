@@ -30,6 +30,54 @@ app.set("views", path.join(__dirname, "views"));
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" }); // Store uploaded files in 'uploads' directory
 
+// Configure sessions
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+  })
+);
+
+app.get("/loginPage", (req, res) => {
+  res.render("loginPage");
+});
+
+// Handle login requests
+app.post("/login", (req, res) => {
+  const { password } = req.body;
+  console.log("Password received:", password); // DEBUG
+
+  if (password === process.env.USERPASSWORD) {
+    req.session.user = "user";
+    console.log("Session after setting user:", req.session); // DEBUG
+    res.sendStatus(200);
+  } else if (password === process.env.ADMINPASSWORD) {
+    req.session.user = "admin";
+    console.log("Session after setting admin:", req.session); // DEBUG
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+// Any page will redirect to login page unless user is logged in
+app.use((req, res, next) => {
+  console.log("Session:", req.session.user); // DEBUG
+  if (!req.session.user) {
+    return res.redirect("/loginPage");
+  }
+  next();
+});
+
+function isAdmin(req) {
+  if (req.session.user != "admin") return false;
+  else return true;
+}
+
 // Render the main page initially
 app.get("/", async (req, res) => {
   console.log("path requested: " + req.path);
@@ -38,11 +86,14 @@ app.get("/", async (req, res) => {
 
 // Route to render the exportNames.ejs file
 app.get("/exportNames", (req, res) => {
-  res.render("exportNames"); // This assumes 'exportNames.ejs' is inside the 'views' folder
+  if (!isAdmin(req)) {
+    return res.status(403).send("Admin access only.");
+  }
+  res.render("exportNames");
 });
 
 app.get("/helpPage", (req, res) => {
-  res.render("helpPage"); // This assumes 'helpPage.ejs' is inside the 'views' folder
+  res.render("helpPage");
 });
 
 app.get("/dummyTicket1", (req, res) => {
@@ -55,7 +106,10 @@ app.get("/dummyTicket2", (req, res) => {
   res.render("dummyTicket2", { testId });
 });
 
-app.post("/import", upload.single("excelFile"), async (req, res) => {
+app.post("/`import`", upload.single("excelFile"), async (req, res) => {
+  if (!isAdmin(req)) {
+    return res.status(403).send("Admin access only.");
+  }
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
   }
@@ -253,11 +307,17 @@ app.post("/export", async (req, res) => {
 
 // Render the import names page
 app.get("/importNames", (req, res) => {
+  if (!isAdmin(req)) {
+    return res.status(403).send("Admin access only.");
+  }
   console.log("Rendering importNames page");
   res.render("importNames");
 });
 
 app.post("/revertDatabase", async (req, res) => {
+  if (!isAdmin(req)) {
+    return res.status(400).json({ message: "Admin access only." });
+  }
   try {
     if (!fs.existsSync("backup.json")) {
       return res
