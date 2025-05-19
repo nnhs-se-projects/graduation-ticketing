@@ -73,7 +73,7 @@ app.use((req, res, next) => {
   next();
 });
 
-function isAdmin() {
+function isAdmin(req) {
   if (req.session.user != "admin") return false;
   else return true;
 }
@@ -86,7 +86,7 @@ app.get("/", async (req, res) => {
 
 // Route to render the exportNames.ejs file
 app.get("/exportNames", (req, res) => {
-  if (!isAdmin()) {
+  if (!isAdmin(req)) {
     return res.status(403).send("Admin access only.");
   }
   res.render("exportNames");
@@ -107,7 +107,7 @@ app.get("/dummyTicket2", (req, res) => {
 });
 
 app.post("/`import`", upload.single("excelFile"), async (req, res) => {
-  if (!isAdmin()) {
+  if (!isAdmin(req)) {
     return res.status(403).send("Admin access only.");
   }
   if (!req.file) {
@@ -307,7 +307,7 @@ app.post("/export", async (req, res) => {
 
 // Render the import names page
 app.get("/importNames", (req, res) => {
-  if (!isAdmin()) {
+  if (!isAdmin(req)) {
     return res.status(403).send("Admin access only.");
   }
   console.log("Rendering importNames page");
@@ -315,8 +315,8 @@ app.get("/importNames", (req, res) => {
 });
 
 app.post("/revertDatabase", async (req, res) => {
-  if (!isAdmin()) {
-    return res.status(403).send("Admin access only.");
+  if (!isAdmin(req)) {
+    return res.status(400).json({ message: "Admin access only." });
   }
   try {
     if (!fs.existsSync("backup.json")) {
