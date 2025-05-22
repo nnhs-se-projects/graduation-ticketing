@@ -76,7 +76,11 @@ MONGO_URI=mongodb+srv://nnhssoftware:MkJrY1s5mlqgHBox@cluster0.i7t6tw2.mongodb.n
 SESSION_SECRET=c07f5e8a4bdc145e3d9f8a1b2c6d3a9e7b6f2c5a8d1e4c7a0d3e8c7a4b0d5
 RECEIVER_PORT=8000
 TICKET_PORT=8081
+USERPASSWORD=placeholder
+ADMINPASSWORD=temporary
 ```
+
+(the passwords can be changed)
 
 - In order to run the project, navigate to the left sidebar and click on "Run and Debug"
   - Make sure the top dropdown is selected to "Node Server"
@@ -91,6 +95,15 @@ TICKET_PORT=8081
 To Scan: The barcode scanner must have ENTER as its suffix when scanning to function smoothly. To do this, refer to the Zebra DS9308 barcode scanner manual. On page 90, scan "Scan Suffix 1," then go to page 441 and scan "7," then "0," then "1," then "3." 7013 corresponds to enter, and if done as listed above, enter should be added as a suffix to scans.
 
 # Running parent view and scanner receiving view:
+
+## Logging in
+
+The first time you access the scanner website gradticketadmindev.nnhsse.org, you will be redirected to the login page. There's no username, only a password for simplicity. There are two correct passwords: one for scanners, one for admins. Ideally, the people scanning will all know the scanner password but not the admin password.
+
+If someone signs in with the scanner password, they will be restricted from the import, export, and revert import features. If they sign in with the admin password they can access everything.
+After logging in on one device, it will stay logged in until the server resets, even if you close the page.
+
+If for some reason you log in on a device as a scanner but then you want to switch to admin (or the other way around), you can go to gradticketadmindev.nnhsse.org/loginPage to log in again.
 
 ## Parent View
 
