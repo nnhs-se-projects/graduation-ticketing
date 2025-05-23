@@ -105,6 +105,18 @@ After logging in on one device, it will stay logged in until the server resets, 
 
 If for some reason you log in on a device as a scanner but then you want to switch to admin (or the other way around), you can go to gradticketadmindev.nnhsse.org/loginPage to log in again.
 
+## Import Names
+
+To import names, click the import button then click the choose file button. From here, upload the excel spreadsheet. The file should be .xlsx. The data should now be in the database.
+
+## Export Names
+
+To export names, click the export button. From here, click the export button to download the excel spreadsheet.
+
+## Revert Last Import
+
+To revert the last import, click the revert button.
+
 ## Parent View
 
 - In main directory terminal, run
