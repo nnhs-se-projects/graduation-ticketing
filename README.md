@@ -69,15 +69,15 @@ Currently, we have no known errors.
 npm install
 ```
 
-- Create a .env file with the following contents
+- Create a .env file with the following contents filled in
 
 ```
-MONGO_URI=mongodb+srv://nnhssoftware:MkJrY1s5mlqgHBox@cluster0.i7t6tw2.mongodb.net/?retryWrites=true&w=majority
-SESSION_SECRET=c07f5e8a4bdc145e3d9f8a1b2c6d3a9e7b6f2c5a8d1e4c7a0d3e8c7a4b0d5
-RECEIVER_PORT=8000
-TICKET_PORT=8081
-USERPASSWORD=placeholder
-ADMINPASSWORD=temporary
+MONGO_URI=
+SESSION_SECRET=
+RECEIVER_PORT=
+TICKET_PORT=
+USERPASSWORD=
+ADMINPASSWORD=
 ```
 
 (the passwords can be changed)
