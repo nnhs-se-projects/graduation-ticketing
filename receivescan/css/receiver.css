@@ -47,6 +47,16 @@ h1 {
   transition: background-color 0.3s ease-in-out;
   width: 100%;
   flex-direction: column;
+  color: #1e1e1e;
+}
+
+#scan-validity h2,
+#scan-validity .row {
+  color: #1e1e1e;
+}
+
+#wait_status h2 {
+  font-size: 16px;
 }
 
 #barcodeInput {
