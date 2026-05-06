@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Help - Graduation Ticket Scanner</title>
+    <link rel="stylesheet" href="/css/receiver.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
-        background: linear-gradient(to bottom, #ffffff, #66ccff);
+        background-color: #ffffff;
         color: #333;
         text-align: center;
         padding: 20px;
@@ -15,6 +20,7 @@
       .container {
         max-width: 800px;
         margin: auto;
+        margin-left: 108px;
         background: white;
         padding: 20px;
         border-radius: 10px;
@@ -42,18 +48,19 @@
     </style>
   </head>
   <body>
+    <%- include('include/_sidebar') %>
     <div class="container">
       <h1>Help Guide: Graduation Ticket Scanner</h1>
 
       <h2>Scanning Tickets</h2>
       <p>
-        Click on the <strong>"Waiting for scan..."</strong> terminal to activate
-        the scanner.
+        Click on the <strong>"Waiting for scan..."</strong> entry field to
+        activate the scanner.
       </p>
       <p>
         The scanner
-        <span class="important">must be outlined in blue</span> before you can
-        scan a ticket. If it's not outlined in blue, click the terminal to
+        <span class="important">must be outlined in orange</span> before you can
+        scan a ticket. If it's not outlined in orange, click the terminal to
         activate it.
       </p>
 

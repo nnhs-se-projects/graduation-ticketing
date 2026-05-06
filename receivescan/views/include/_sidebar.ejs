@@ -1,0 +1,73 @@
+<div class="sidebar">
+  <div class="logo_details">
+    <i class="bx bxl-steam icon"></i>
+    <div class="logo_name">Admin Menu</div>
+    <i class="bx bx-menu" id="btn"></i>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <button class="button" id="home" onclick="window.location.href = '/'">
+        <i class="bx bx-home"></i>
+        <span class="link_name">Home</span>
+      </button>
+      <span class="tooltip">Home</span>
+    </li>
+    <li>
+      <button
+        class="button"
+        id="import"
+        onclick="window.location.href = '/importNames'"
+      >
+        <i class="bx bx-import"></i>
+        <span class="link_name">Import</span>
+      </button>
+      <span class="tooltip">Import</span>
+    </li>
+    <li>
+      <button
+        class="button"
+        id="export"
+        onclick="window.location.href = '/exportNames'"
+      >
+        <i class="bx bx-export"></i>
+        <span class="link_name">Export</span>
+      </button>
+      <span class="tooltip">Export</span>
+    </li>
+    <li>
+      <button class="button" id="revertImport">
+        <i class="bx bx-undo"></i>
+        <span class="link_name">Revert Last Import</span>
+      </button>
+      <span class="tooltip">Revert Last Import</span>
+    </li>
+    <li>
+      <button
+        class="button"
+        id="help"
+        onclick="window.location.href = '/helpPage'"
+      >
+        <i class="bx bx-question-mark"></i>
+        <span class="link_name">Help</span>
+      </button>
+      <span class="tooltip">Help</span>
+    </li>
+    <li>
+      <button class="button" id="override">
+        <i class="bx bx-key"></i>
+        <span class="link_name">Override</span>
+      </button>
+      <span class="tooltip">Override</span>
+    </li>
+  </ul>
+</div>
+<script>
+  const btn = document.getElementById("btn");
+  const sidebar = document.querySelector(".sidebar");
+
+  if (btn && sidebar) {
+    btn.addEventListener("click", function () {
+      sidebar.classList.toggle("open");
+    });
+  }
+</script>
