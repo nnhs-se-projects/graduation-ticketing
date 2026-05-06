@@ -39,7 +39,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false },
-  })
+  }),
 );
 
 app.get("/loginPage", (req, res) => {
@@ -106,7 +106,7 @@ app.get("/dummyTicket2", (req, res) => {
   res.render("dummyTicket2", { testId });
 });
 
-app.post("/`import`", upload.single("excelFile"), async (req, res) => {
+app.post("/import", upload.single("excelFile"), async (req, res) => {
   if (!isAdmin(req)) {
     return res.status(403).send("Admin access only.");
   }
@@ -216,7 +216,7 @@ app.post("/`import`", upload.single("excelFile"), async (req, res) => {
       } catch (err) {
         console.error(
           `Failed to create entry for ${row.First_name} ${row.Last_Name}:`,
-          err.message
+          err.message,
         );
         results.failed.push({ row, error: err.message });
       }
@@ -291,11 +291,11 @@ app.post("/export", async (req, res) => {
     // Send the Excel file as response
     res.setHeader(
       "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     );
     res.setHeader(
       "Content-Disposition",
-      'attachment; filename="students_data.xlsx"'
+      'attachment; filename="students_data.xlsx"',
     );
     const buffer = xlsx.write(wb, { bookType: "xlsx", type: "buffer" });
     res.send(buffer);
@@ -447,6 +447,6 @@ app.post("/override", (req, res) => {
 // Start the server on the specified port
 app.listen(process.env.RECEIVER_PORT, () => {
   console.log(
-    "Server is listening on http://localhost:" + process.env.RECEIVER_PORT
+    "Server is listening on http://localhost:" + process.env.RECEIVER_PORT,
   );
 });

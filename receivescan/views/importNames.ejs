@@ -30,7 +30,7 @@
               type="file"
               id="fileInput"
               name="excelFile"
-              accept=".xlsx, .xls"
+              accept=".xlsx, .xls, .csv"
               required
             />
           </div>
@@ -73,7 +73,7 @@
           const formData = new FormData();
           formData.append(
             "excelFile",
-            document.getElementById("fileInput").files[0]
+            document.getElementById("fileInput").files[0],
           );
 
           // Send the form data to the server
