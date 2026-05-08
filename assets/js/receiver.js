@@ -122,7 +122,7 @@ document.addEventListener("keydown", function (event) {
 
         // Styling for an invalid scan
         if (data.validity == false) {
-          overrideButton.style.opacity = "100";
+          overrideButton.style.opacity = "1";
           overrideButton.style.pointerEvents = "auto";
           scan_validity.style.backgroundColor = "red";
           displayValid.textContent = "INVALID SCAN";
@@ -140,7 +140,7 @@ document.addEventListener("keydown", function (event) {
             if (ticket.barcode == barcodeData) {
               previousScanTime = new Date(ticket.time_scanned).toLocaleString(
                 "en-US",
-                timeOptions
+                timeOptions,
               );
               displayTimeStamp.textContent += previousScanTime;
             } else {
@@ -150,7 +150,7 @@ document.addEventListener("keydown", function (event) {
               } else {
                 otherTicket.textContent += ": INVALID TICKET -  ";
                 otherTicket.textContent += new Date(
-                  ticket.time_scanned
+                  ticket.time_scanned,
                 ).toLocaleString("en-US", timeOptions);
               }
               scan_validity.appendChild(otherTicket);
@@ -187,7 +187,7 @@ document.addEventListener("keydown", function (event) {
 overrideButton.addEventListener("click", function () {
   console.log("Overridden " + first_name + last_name + "'s ticket to valid");
   var overrideAuth = window.prompt(
-    "Are you sure you want to override this invalid scan? Sign off to override: "
+    "Are you sure you want to override this invalid scan? Sign off to override: ",
   );
   if (overrideAuth !== null && overrideAuth !== "") {
     const overrideLog =
